@@ -1,0 +1,26 @@
+body {
+    background-color: #F2F2F7;
+}
+
+.container {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: column;
+    row-gap: 15px;
+    margin-top: 2%;
+}
+
+.boxContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box {
+    width: 70vw;
+    height: 50vh;
+    background-color: white;
+    border-radius: 30px;
+}
