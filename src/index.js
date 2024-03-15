@@ -7,5 +7,5 @@ import Desktop from './Desktop-screen';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Desktop />,
-    <Translation />
+    // <Translation />
 );
