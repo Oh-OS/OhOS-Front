@@ -1,5 +1,6 @@
-import './Desktop-screen.css';
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import './Desktop-screen.css';
 
 function Desktop() {
     const style = {
@@ -70,6 +71,12 @@ function Desktop() {
     const handleIconHover = (icon) => { setHoveredIcon(icon); };
     const handleIconLeave = () => { setHoveredIcon(null); };
 
+    const navigate = useNavigate();
+    const IconClick = (path) => {
+      navigate(path);
+    };
+
+    // onClick={() => IconClick('/photobooth')} => 아이콘 클릭 시 다른 파일로 넘어가게 하는 코드
 
     return (
         <div style={topStyle}>
