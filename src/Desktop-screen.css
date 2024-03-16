@@ -2,11 +2,9 @@ body {
     position: relative;
     top: 0;
     margin: 0;
-    display: flex;
-    justify-content: center;
 }
 
-#background {
+/* #background {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -26,18 +24,18 @@ body {
     left: 0;
     background-color: #9E9E9E;
     border-radius: 20px;
-}
+} */
 
-#icons {
+/* #icons {
     position: absolute;
     display: flex;
     flex-direction: row;
     bottom: 14.3%;
     left: 0.7%;
-}
+} */
 
-#icons img {
+/* #icons img {
     width: 65px;
     position: absolute;
     z-index: 100;
-}
+} */
