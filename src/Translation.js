@@ -2,12 +2,20 @@ import './Translation.css';
 
 function Translation() {
     return (
-      <span className="container">
-        <div className="textDiv"><h1>번역</h1></div>
-        <span className="boxContainer">
-            <div className="box"></div>
-        </span>
-      </span>
+      <div id='main'>
+        <p id='title'>번역</p>
+        <div id='translation-container'>
+          <div id='input-box'>
+          </div>
+          <div id='line'>
+            <div id='change'>
+              <img src={process.env.PUBLIC_URL + '../images/change.png'} />
+            </div>
+          </div>
+          <div id='result-box'>
+          </div>
+        </div>
+      </div>
     );
 }
 
