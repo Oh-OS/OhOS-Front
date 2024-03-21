@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Translation from './Translation';
-import Desktop from './Desktop-screen';
 import ContactPage from './pages/ContactPage';
+import DesktopPage from './pages/Desktop-screen';
 
 ReactDOM.render(
-    <BrowserRouter>
+    <Router>
         <Routes>
-            <Route path="/" element={<Desktop />} />
+            <Route path="/" element={<DesktopPage />} />
             <Route path="/translation" element={<Translation />} />
             <Route path="/contact" element={<ContactPage />} />
         </Routes>
-    </BrowserRouter>,
+    </Router>,
     document.getElementById('root')
 );

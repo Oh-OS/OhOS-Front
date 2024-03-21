@@ -1,0 +1,27 @@
+
+.iconContainerStyle {
+    display: flex;
+    position: relative;
+    column-gap: 20px;
+    width: auto;
+    height: auto;
+    background-color: #9E9E9E;
+    border-radius: 20px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconsStyle {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+.iconsImgStyle {
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    z-index: 100;
+}
