@@ -75,12 +75,10 @@
 .info-title{
     width: 100px;
     font-weight: 500;
-    font-size: 20px;
     color: var(--gray-800);
     flex-shrink: 0;
 }
 
 .info-detail{
     font-weight: 500;
-    font-size: 20px;
 }

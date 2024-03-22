@@ -14,12 +14,13 @@
     height: 36px;
     border-radius: 6px;
     border: none;
-    font-size: 12px;
+    font-size: 16px;
     outline: none;
 }
 
 .contact-filter::placeholder{
     color: var(--gray-300);
+    font-size: 12px;
 }
 
 .contact-list{
@@ -36,7 +37,6 @@
 }
 
 .contact-title{
-    font-size: 20px;
     color: var(--gray-800);
     padding-bottom: 8px;
     border-bottom: 1px solid var(--gray-800);
@@ -49,7 +49,6 @@
 }
 
 .contact-name{
-    font-size: 20px;
     padding: 6px 8px;
     border-radius: 6px;
 }
