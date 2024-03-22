@@ -1,0 +1,26 @@
+.filtered-contact-list{
+    width: calc(100% - 21px * 2);
+}
+
+.filter-title{
+    font-size: 20px;
+    color: var(--gray-800);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-800);
+    margin-bottom: 16px;
+}
+
+.contact-list{
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+.contact{
+    padding: 6px 8px;
+    font-size: 20px;
+}
+
+.contact-notification{
+    font-size: 20px;
+}
