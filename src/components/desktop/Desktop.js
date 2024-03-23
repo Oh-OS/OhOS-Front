@@ -1,4 +1,4 @@
-import styles from '../../styles/desktop/Desktop-screen.module.css';
+import styles from '../../styles/desktop/DesktopPage.module.css';
 import Dock from './Dock';
 
 function Desktop() {
