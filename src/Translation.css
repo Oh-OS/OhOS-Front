@@ -1,4 +1,4 @@
-* {
+/* * {
     margin: 0;
     padding: 0;
 }
@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     background-color: #F2F2F7;
-}
+} */
 
 #main {
     width: 3216px;
