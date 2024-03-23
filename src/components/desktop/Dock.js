@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import styles from '../../styles/dock/Dock.module.css';
+import styles from '../../styles/desktop/Dock.module.css';
 
 function Dock() {
 
