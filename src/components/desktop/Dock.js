@@ -17,7 +17,7 @@ function Dock() {
             <div> <img src={process.env.PUBLIC_URL + '/images/BubbleIcon.png'} alt="bubble" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
             <div onClick={() => IconClick('/weather')}> <img src={process.env.PUBLIC_URL + '/images/WeatherIcon.png'} alt="weather" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
             <div> <img src={process.env.PUBLIC_URL + '/images/SiriIcon.png'} alt="siri" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
-            <div> <img src={process.env.PUBLIC_URL + '/images/VscodeIcon.png'} alt="vscode" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
+            <div onClick={() => window.open('https://github.dev/github/dev')}> <img src={process.env.PUBLIC_URL + '/images/VscodeIcon.png'} alt="vscode" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
             <div onClick={() => IconClick('/translation')}> <img src={process.env.PUBLIC_URL + '/images/TranslateIcon.png'} alt="translate" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
             <div onClick={() => IconClick('/contact')}> <img src={process.env.PUBLIC_URL + '/images/ContactIcon.png'} alt="contact" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
             <div> <img src={process.env.PUBLIC_URL + '/images/SafariIcon.png'} alt="safari" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
