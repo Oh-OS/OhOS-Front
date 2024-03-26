@@ -1,7 +1,7 @@
 import React from 'react';
 import Weather from '../components/weather/weather';
 
-function weatherPage() {
+function WeatherPage() {
     return (
         <div>
             <Weather />
@@ -9,4 +9,4 @@ function weatherPage() {
     )
 }
 
-export default weatherPage;
+export default WeatherPage;
