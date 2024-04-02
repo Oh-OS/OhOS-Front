@@ -1,0 +1,16 @@
+.user-info{
+    width: 100%;
+    display: flex;
+    column-gap: 16px;
+}
+
+.info-title{
+    width: 100px;
+    font-weight: 500;
+    color: var(--gray-800);
+    flex-shrink: 0;
+}
+
+.info-detail{
+    font-weight: 500;
+}
