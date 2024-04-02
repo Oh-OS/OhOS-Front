@@ -3,28 +3,22 @@ import '../../styles/common/Style.css';
 import styles from '../../styles/contact/FilteredContactList.module.css'
 import { ContactContext } from './ContactProvider';
 
+import CurrectContact from './CurrectContact';
+
 const userNameList = ['김하은', '양가윤', '이서영', '이해원', '조서현', '최보람', '황혜경'];
 
 function FilteredContactList({ inputValue }) {
     const [ filteredContacts, setFilteredContacts ] = useState([]);
-    const { selectedName, setSelectedName } = useContext(ContactContext);
+    const { selectedName } = useContext(ContactContext);
 
     useEffect(() => {
         let filteredContactList = userNameList.map((contact, index) => {
             if(contact.includes(inputValue)){
-                return <div className={getContactClassName(index)} onClick={() => selectContact(index)} key={index}>{contact}</div>
+                return <CurrectContact name={contact}/>
             }
         });
         setFilteredContacts(filteredContactList);
     }, [inputValue, selectedName])
-
-    const getContactClassName = nameId => {
-        return selectedName === nameId ? `${styles['contact-name']} ${styles['select-contact']}` : `${styles['contact-name']}`;
-    }
-
-    const selectContact = nameId => {
-        setSelectedName(nameId);
-    }
 
     return(
         <div className={styles['filtered-contact-list']}>
