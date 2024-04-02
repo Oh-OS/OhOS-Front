@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Translation from './Translation';
+import TranslationPage from './pages/TranslationPage';
 import ContactPage from './pages/ContactPage';
 import DesktopPage from './pages/DesktopPage';
 import WeatherPage from './pages/weatherPage';
@@ -13,7 +13,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<DesktopPage />} />
                 <Route path="/launchpad" element={<Launchpad />} />
-                <Route path="/translation" element={<Translation />} />
+                <Route path="/translation" element={<TranslationPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/weather" element={<WeatherPage />} />
             </Routes>
