@@ -1,16 +1,18 @@
-.filtered-contact-list{
-    width: calc(100% - 21px * 2);
-}
 
-.filter-title{
-    color: var(--gray-800);
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--gray-800);
-    margin-bottom: 16px;
-}
-
-.contact-list{
+.contact-box{
     display: flex;
     flex-direction: column;
     row-gap: 16px;
+}
+
+.contact-title{
+    color: var(--gray-800);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-800);
+}
+
+.currect-contacts{
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
 }

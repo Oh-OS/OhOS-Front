@@ -41,24 +41,6 @@
     column-gap: 32px;
 }
 
-.contact-btn{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 10px;
-    margin-bottom: 69px;
-}
-
-.contact-icon{
-    width: 48px;
-    height: 48px;
-}
-
-.btn-name{
-    font-size: 12px;
-    color: var(--gray-800);
-}
-
 .user-info-container{
     width: 30vw;
     display: flex;
@@ -66,19 +48,3 @@
     row-gap: 16px;
 }
 
-.user-info{
-    width: 100%;
-    display: flex;
-    column-gap: 16px;
-}
-
-.info-title{
-    width: 100px;
-    font-weight: 500;
-    color: var(--gray-800);
-    flex-shrink: 0;
-}
-
-.info-detail{
-    font-weight: 500;
-}
