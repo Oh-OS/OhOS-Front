@@ -47,6 +47,18 @@ input {
     word-break: break-all;
 }
 
+select,
+option {
+    border: none;
+    outline: none;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.result select {
+    color: #30B0C7;
+}
+
 .result-text {
     color: #30B0C7;
 }
