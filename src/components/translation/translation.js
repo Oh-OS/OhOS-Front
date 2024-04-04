@@ -50,6 +50,7 @@ function Translation() {
                         placeholder='텍스트 입력'
                         value={resultText}
                         onChange={(e) => setResultText(e.target.value)}
+                        readOnly
                     />
                 </div>
             </div>
