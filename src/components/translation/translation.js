@@ -14,14 +14,6 @@ function Translation() {
         'c': '输入文字'
     }
 
-    const handleInputChange = (e) => {
-        setInputText(e.target.value);
-    };
-
-    const handleResultChange = (e) => {
-        setResultText(e.target.value);
-    };
-
     const handleButtonClick = () => {
         setResultText(inputText);
         setInputText(resultText);
