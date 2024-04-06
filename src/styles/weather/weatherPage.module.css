@@ -89,6 +89,7 @@
     color: white;
     padding-left: 1.5%;
     font-weight: 200;
+    font-size: 0.8rem;
 }
 
 .searchStyle:focus {
@@ -97,7 +98,6 @@
 
 .searchStyle::placeholder {
     color: white;
-    font-size: 0.8rem;
 }
 
 /* 날씨 정보 Div */
