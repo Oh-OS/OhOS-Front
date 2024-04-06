@@ -1,0 +1,32 @@
+.title-bar{
+    width: calc(100vw - 20px);
+    height: calc(16px * 2 + 17px);
+    margin-left: 20px;
+    position: absolute;
+    top: 0;
+    display: flex;
+    column-gap: 11px;
+    align-items: center;
+}
+
+.title-bar > div{
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.close{
+    background-color: #ED6A5E;
+    border: 1px solid #CE5347;
+}
+
+.minimize{
+    background-color: #F6BE4F;
+    border: 1px solid #D6A243;
+}
+
+.full-screen{
+    background-color: #62C554;
+    border: 1px solid #58A942;
+}
