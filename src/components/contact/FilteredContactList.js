@@ -16,7 +16,7 @@ function FilteredContactList({ inputValue }) {
             if(contact.includes(inputValue)){
                 return <CurrectContact name={contact}/>
             }
-        });
+        }).filter(element => element);;
         setFilteredContacts(filteredContactList);
     }, [inputValue, selectedName])
 
