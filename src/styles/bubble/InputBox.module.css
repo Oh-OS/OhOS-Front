@@ -1,0 +1,15 @@
+.input-box{
+    width: calc(100% - 20px);
+    padding-left: 20px;
+    height: 36px;
+    margin-top: 60px;
+    background-color: var(--gray-600);
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.input-box::placeholder{
+    font-size: 12px;
+    color: var(--gray-800);
+}
