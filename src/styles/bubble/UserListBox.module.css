@@ -3,6 +3,4 @@
     min-height: calc(100vh - 100px);
     padding: 0 20px 100px 20px;
     background-color: var(--gray-400);
-    display: grid;
-    row-gap: 30px;
 }
