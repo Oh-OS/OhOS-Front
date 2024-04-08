@@ -1,0 +1,23 @@
+.user-box{
+    width: calc(100% - 12px - 18px);
+    height: calc(82px - 17px - 14px);
+    padding: 17px 12px 14px 18px;
+    display: flex;
+    column-gap: 10px;
+    border-radius: 8px;
+}
+
+.select-user-box{
+    background-color: var(--blue);
+}
+
+.select-user-box * {
+    color: white;
+}
+
+.line{
+    width: 80%;
+    margin-left: 20%;
+    height: 1px;
+    background-color: var(--gray-600);
+}
