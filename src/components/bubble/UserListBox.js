@@ -12,7 +12,7 @@ function UserBox() {
     return(
         <div className={style['box']}>
             <InputBox value={searhValue} setValue={setSearchValue}/>
-            {searhValue ? <FilteredUserList/> : <DefaultUserList/>}
+            {searhValue ? <FilteredUserList searhValue={searhValue}/> : <DefaultUserList/>}
         </div>
     )
 }
