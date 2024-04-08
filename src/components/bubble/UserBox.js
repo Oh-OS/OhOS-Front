@@ -8,7 +8,6 @@ import userInfoList from'./UserInfoList';
 
 function UserBox({ name }) {
     const { getBubbleClassName, setSelectedName, getUserline } = useContext(BubbleContext);
-    console.log(getBubbleClassName);
     return(
         <>
             <div className={getBubbleClassName(name)} onClick={() => setSelectedName(name)}>
