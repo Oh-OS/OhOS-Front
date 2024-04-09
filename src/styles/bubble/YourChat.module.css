@@ -1,0 +1,10 @@
+.your-chat{
+    width: max-content;
+    max-width: 60%;
+    position: relative;
+    background-color: var(--gray-300);
+    border-radius: 40px;
+    padding: 8px 15px;
+    font-size: 18px;
+    word-break:break-all;
+}

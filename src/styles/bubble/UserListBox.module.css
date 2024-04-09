@@ -1,6 +1,16 @@
 .box{
-    width: calc(25vw - 2%);
+    width: calc(25vw - 20px * 2);
     min-height: calc(100vh - 100px);
     padding: 0 20px 100px 20px;
     background-color: var(--gray-400);
+    overflow-y: scroll;
+    flex-shrink: 0;
+}
+
+.box {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.box::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
