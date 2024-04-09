@@ -1,0 +1,17 @@
+.chat-box{
+    display: flex;
+    justify-content: end;
+}
+
+.my-chat{
+    width: max-content;
+    max-width: 60%;
+    position: relative;
+    background-color: var(--blue);
+    border-radius: 40px;
+    padding: 8px 15px;
+    color: white;
+    font-size: 18px;
+    font-weight: 300;
+    word-break:break-all;
+}

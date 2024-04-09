@@ -1,4 +1,3 @@
-
 import React, { createContext, useState } from 'react';
 import styles from '../../styles/bubble/BubbleProvider.module.css'
 export const BubbleContext = createContext();

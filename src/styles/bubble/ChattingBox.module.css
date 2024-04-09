@@ -1,0 +1,15 @@
+.chatting-box{
+    margin-bottom: 40px;
+}
+
+.date-box{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: var(--gray-800);
+}
+
+.chatting{
+    display: grid;
+    row-gap: 10px;
+}
