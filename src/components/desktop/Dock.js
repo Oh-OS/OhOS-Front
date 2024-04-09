@@ -11,16 +11,16 @@ function Dock() {
 
     return (
         <div className={styles['iconContainerStyle']}>
-            <div> <img src={process.env.PUBLIC_URL + '/images/PhotoboothIcon.png'} alt="photobooth" className={styles['iconsImgStyle', 'iconsStyle']}/> </div>
-            <div onClick={() => IconClick('/launchpad')}> <img src={process.env.PUBLIC_URL + '/images/LaunchpadIcon.png'} alt="Launchpad" className={styles['iconsImgStyle', 'iconsStyle']}/> </div>
-            <div> <img src={process.env.PUBLIC_URL + '/images/MapIcon.png'} alt="map" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
-            <div> <img src={process.env.PUBLIC_URL + '/images/BubbleIcon.png'} alt="bubble" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
-            <div onClick={() => IconClick('/weather')}> <img src={process.env.PUBLIC_URL + '/images/WeatherIcon.png'} alt="weather" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
-            <div> <img src={process.env.PUBLIC_URL + '/images/SiriIcon.png'} alt="siri" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
-            <div onClick={() => {window.open('https://github.dev/github/dev')}}> <img src={process.env.PUBLIC_URL + '/images/VscodeIcon.png'} alt="vscode" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
-            <div onClick={() => IconClick('/translation')}> <img src={process.env.PUBLIC_URL + '/images/TranslateIcon.png'} alt="translate" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
-            <div onClick={() => IconClick('/contact')}> <img src={process.env.PUBLIC_URL + '/images/ContactIcon.png'} alt="contact" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
-            <div onClick={() => {window.location.href ='https://www.google.co.kr'}}><img src={process.env.PUBLIC_URL + '/images/SafariIcon.png'} alt="safari" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
+            <div> <img src={process.env.PUBLIC_URL + '/images/Desktop/PhotoboothIcon.png'} alt="photobooth" className={styles['iconsImgStyle', 'iconsStyle']}/> </div>
+            <div onClick={() => IconClick('/launchpad')}> <img src={process.env.PUBLIC_URL + '/images/Desktop/LaunchpadIcon.png'} alt="Launchpad" className={styles['iconsImgStyle', 'iconsStyle']}/> </div>
+            <div> <img src={process.env.PUBLIC_URL + '/images/Desktop/MapIcon.png'} alt="map" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
+            <div> <img src={process.env.PUBLIC_URL + '/images/Desktop/BubbleIcon.png'} alt="bubble" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
+            <div onClick={() => IconClick('/weather')}> <img src={process.env.PUBLIC_URL + '/images/Desktop/WeatherIcon.png'} alt="weather" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
+            <div> <img src={process.env.PUBLIC_URL + '/images/Desktop/SiriIcon.png'} alt="siri" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
+            <div onClick={() => {window.open('https://github.dev/github/dev')}}> <img src={process.env.PUBLIC_URL + '/images/Desktop/VscodeIcon.png'} alt="vscode" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
+            <div onClick={() => IconClick('/translation')}> <img src={process.env.PUBLIC_URL + '/images/Desktop/TranslateIcon.png'} alt="translate" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
+            <div onClick={() => IconClick('/contact')}> <img src={process.env.PUBLIC_URL + '/images/Desktop/ContactIcon.png'} alt="contact" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
+            <div onClick={() => {window.location.href ='https://www.google.co.kr'}}><img src={process.env.PUBLIC_URL + '/images/Desktop/SafariIcon.png'} alt="safari" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
         </div>
     );
 }
