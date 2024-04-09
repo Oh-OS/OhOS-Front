@@ -5,7 +5,7 @@ function Desktop() {
         <>
             <div className={styles['topStyle']}>
                 <div className={styles['backgroundStyle']}>
-                    <img src={process.env.PUBLIC_URL + '/images/background.png'}/>
+                    <img src={process.env.PUBLIC_URL + '/images/Desktop/background.png'}/>
                 </div>
             </div>
         </>

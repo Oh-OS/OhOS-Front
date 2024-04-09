@@ -1,0 +1,27 @@
+/* 검색창 스타일 */
+.searchDiv {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.searchStyle {
+    border: 0;
+    width: 20vw;
+    padding: 1.2%;
+    border-radius: 15px;
+    background-color: #337ACA;
+    color: white;
+    padding-left: 1.5%;
+    font-weight: 200;
+    font-size: 0.8rem;
+}
+
+.searchStyle:focus {
+    outline: none;
+}
+
+.searchStyle::placeholder {
+    color: white;
+}

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TranslationPage from './pages/TranslationPage';
 import ContactPage from './pages/ContactPage';
 import DesktopPage from './pages/DesktopPage';
-import WeatherPage from './pages/weatherPage';
+import WeatherPage from './pages/WeatherPage';
 import Launchpad from './pages/LaunchpadPage';
 import BubblePage from './pages/BubblePage';
 
