@@ -1,0 +1,6 @@
+.title{
+    color: var(--gray-800);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-800);
+    margin-bottom: 16px;
+}
