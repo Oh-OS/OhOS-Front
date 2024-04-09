@@ -45,7 +45,7 @@ const userInfoList = [
         phoneNumber: '010-9690-4784',
         email: 'w2216@e-mirim.hs.kr',
         address: '서울특별시 강서구',
-        memo: '안녕하세요. 여러분 저는 오은영체제 프론트엔드 개발을 맡은 최보람입니다. 재밌게 관람하시고 조심히 가세요~^^'
+        memo: '안녕하십니까! 저는 오은영체제 프론트엔드 개발자 최보람입니다. 재밌게 관람하시고 조심히 가세요~^^'
     },
     {
         profileImg: '/images/Contact/ProfileImg/hyekyung-profile-img.png',
