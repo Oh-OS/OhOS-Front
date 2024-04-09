@@ -1,0 +1,41 @@
+/* 정보 전체 div 스타일 */
+.topContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    color: white;
+}
+
+/* 나의 위치 */
+.topContainer > p:nth-child(1) {
+    font-size: 2.2rem;
+    font-weight: 300;
+}
+
+/* 위치 */
+.topContainer >p:nth-child(2) {
+    font-size: 0.9rem;
+}
+
+/* 현재 온도 */
+.topContainer >p:nth-child(3) {
+    font-size: 4.5rem;
+    font-weight: 100;
+}
+
+/* 날씨 상태(맑음, 흐림) */
+.topContainer > p:nth-child(4) {
+    font-size: 1.2rem;
+}
+
+/* 온도 div 스타일 */
+.temperatureDiv {
+    display: flex;
+    column-gap: 5px;
+}
+
+/* 최고 온도, 최저 온도 */
+.temperatureDiv p {
+    font-size: 1.2rem;
+}

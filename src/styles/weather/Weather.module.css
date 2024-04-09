@@ -1,0 +1,34 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(to bottom, #0557B0, #ADCEF1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.allDiv {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 검색창, 날씨 Div */
+.bottomContainer {
+    justify-content: center;
+    width: 55vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    margin-top: 3%;
+}
