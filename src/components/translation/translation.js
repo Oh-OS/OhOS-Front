@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/common/Style.css'
 import translationStyle from '../../styles/translation/translationPage.module.css'
+
 
 function Translation() {
     const [inputText, setInputText] = useState('');
@@ -32,6 +33,23 @@ function Translation() {
             setResultPlaceholder(placeholder);
         }
     };
+    // 객체 형태 안에 바꿀 텍스트랑 어떤 값으로 바꿀 건지 보내야 함
+    const translateText = (text) => {
+        console.log(text);
+        const authKey = "c329d234-0b70-43e7-a803-e91eba9a9b61:fx"
+        fetch("/deepl/v2/translate", 
+          {
+            method: "POST",
+            headers: {
+                "Authorization": "DeepL-Auth-Key " + authKey,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "text": text, "target_lang": "fr"})
+        //    setTranslated(data.translations[0].text)
+        }).then(res => res.json()).then(data => console.log("data:"+data))
+        console.log({ "text": text, "target_lang": "FR"});
+     
+    }
 
     return(
         <div className={translationStyle['container']}>
@@ -47,7 +65,10 @@ function Translation() {
                         className={translationStyle['input-text']}
                         placeholder={inputPlaceholder}
                         value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
+                        onChange={(e) =>{
+                            setInputText(e.target.value)
+                            translateText(e.target.value)  
+                        }}
                     />
                 </div>
 
@@ -72,7 +93,7 @@ function Translation() {
                         className={translationStyle['result-text']}
                         placeholder={resultPlaceholder}
                         value={resultText}
-                        onChange={(e) => setResultText(e.target.value)}
+                        onChange={(e) =>setResultText(e.target.value)}
                         readOnly
                     />
                 </div>
