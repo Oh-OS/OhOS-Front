@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import '../../styles/common/Style.css'
-import translationStyle from '../../styles/translation/translationPage.module.css'
-
+import debounce from 'lodash.debounce';
+import translationStyle from '../../styles/translation/translationPage.module.css';
 
 function Translation() {
     const [inputTarget, setInputTarget] = useState('KO');
@@ -16,6 +15,13 @@ function Translation() {
         'JA': 'テキスト入力',
         'ZH': '输入文字'
     }
+
+    useEffect(() => {
+        const debouncedTranslateText = debounce(translateText, 300);
+        return () => {
+            debouncedTranslateText.cancel();
+        };
+    }, []);
 
     const handleButtonClick = () => {
         setResultText(inputText);
@@ -43,10 +49,8 @@ function Translation() {
             setResultTarget(selectedLanguage)
         }
     };
-    // 객체 형태 안에 바꿀 텍스트랑 어떤 값으로 바꿀 건지 보내야 함
-    const translateText = function(text){
-        // debugger;
-        // console.log(text)
+
+    const translateText = function(text) {
         const authKey = "c329d234-0b70-43e7-a803-e91eba9a9b61:fx"
         fetch("/deepl/v2/translate", 
           {
@@ -58,7 +62,6 @@ function Translation() {
             body: JSON.stringify ({ "text": [text], "target_lang": "JA" })
         }).then(res => res.json())
         .then(data => {
-            // debugger;
             setResultText(data.translations[0].text)
             console.log(data)
         })
@@ -78,9 +81,9 @@ function Translation() {
                         className={translationStyle['input-text']}
                         placeholder={inputPlaceholder}
                         value={inputText}
-                        onChange={(e) =>{
-                            setInputText(e.target.value)
-                            translateText(e.target.value)  
+                        onChange={(e) => {
+                            setInputText(e.target.value);
+                            translateText(e.target.value);
                         }}
                     />
                 </div>
