@@ -4,20 +4,28 @@ import translationStyle from '../../styles/translation/translationPage.module.cs
 
 
 function Translation() {
+    const [inputTarget, setInputTarget] = useState('KO');
+    const [resultTarget, setResultTarget] = useState('EN');
     const [inputText, setInputText] = useState('');
     const [resultText, setResultText] = useState('');
-    const [inputPlaceholder, setInputPlaceholder] = useState('Enter text');
-    const [resultPlaceholder, setResultPlaceholder] = useState('텍스트 입력');
+    const [inputPlaceholder, setInputPlaceholder] = useState('텍스트 입력');
+    const [resultPlaceholder, setResultPlaceholder] = useState('Enter text');
     const placeholders = {
-        'e': 'Enter text',
-        'k': '텍스트 입력',
-        'j': 'テキスト入力',
-        'c': '输入文字'
+        'EN': 'Enter text',
+        'KO': '텍스트 입력',
+        'JA': 'テキスト入力',
+        'ZH': '输入文字'
     }
 
     const handleButtonClick = () => {
         setResultText(inputText);
         setInputText(resultText);
+
+        setInputTarget(resultTarget);
+        setResultTarget(inputTarget);
+
+        setInputPlaceholder(resultPlaceholder);
+        setResultPlaceholder(inputPlaceholder);
     }
 
     const handleLanguageChange = (e, type) => {
@@ -27,10 +35,12 @@ function Translation() {
             setInputText('');
             setResultText('');
             setInputPlaceholder(placeholder);
+            setInputTarget(selectedLanguage);
         } else if (type === 'result') {
             setInputText('');
             setResultText('');
             setResultPlaceholder(placeholder);
+            setResultTarget(selectedLanguage)
         }
     };
     // 객체 형태 안에 바꿀 텍스트랑 어떤 값으로 바꿀 건지 보내야 함
@@ -45,14 +55,13 @@ function Translation() {
                 "Authorization": "DeepL-Auth-Key " + authKey,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify ({ "text": [text] , "target_lang": "JA"})
+            body: JSON.stringify ({ "text": [text], "target_lang": "JA" })
         }).then(res => res.json())
         .then(data => {
             // debugger;
             setResultText(data.translations[0].text)
+            console.log(data)
         })
-      
-     
     }
 
     return(
@@ -61,9 +70,9 @@ function Translation() {
 
             <div className={translationStyle['box']}>
                 <div className={translationStyle['input']}>
-                    <select onChange={(e) => handleLanguageChange(e, 'input')}>
-                        <option value='e'>영어 (미국)</option>
-                        <option value='k'>한국어</option>
+                    <select value={inputTarget} onChange={(e) => handleLanguageChange(e, 'input')}>
+                        <option value='EN'>영어 (미국)</option>
+                        <option value='KO' selected>한국어</option>
                     </select>
                     <input
                         className={translationStyle['input-text']}
@@ -76,7 +85,7 @@ function Translation() {
                     />
                 </div>
 
-                {/* <div className={translationStyle['change']}>
+                <div className={translationStyle['change']}>
                     <div className={translationStyle['change-img']}>
                         <img
                             src={process.env.PUBLIC_URL + '/images/change.png'}
@@ -84,14 +93,14 @@ function Translation() {
                             onClick={handleButtonClick}
                         />
                     </div>
-                </div> */}
+                </div>
 
                 <div className={translationStyle['result']}>
-                    <select onChange={(e) => handleLanguageChange(e, 'result')}>
-                        <option value='e'>영어 (미국)</option>
-                        <option value='k' selected>한국어</option>
-                        <option value='j'>일본어</option>
-                        <option value='c'>중국어</option>
+                    <select value={resultTarget} onChange={(e) => handleLanguageChange(e, 'result')}>
+                        <option value='EN' selected>영어 (미국)</option>
+                        <option value='KO'>한국어</option>
+                        <option value='JA'>일본어</option>
+                        <option value='ZH'>중국어</option>
                     </select>
                     <input
                         className={translationStyle['result-text']}
