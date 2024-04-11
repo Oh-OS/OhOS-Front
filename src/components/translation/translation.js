@@ -34,8 +34,9 @@ function Translation() {
         }
     };
     // 객체 형태 안에 바꿀 텍스트랑 어떤 값으로 바꿀 건지 보내야 함
-    const translateText = (text) => {
-        console.log(text);
+    const translateText = function(text){
+        // debugger;
+        // console.log(text)
         const authKey = "c329d234-0b70-43e7-a803-e91eba9a9b61:fx"
         fetch("/deepl/v2/translate", 
           {
@@ -44,10 +45,13 @@ function Translation() {
                 "Authorization": "DeepL-Auth-Key " + authKey,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ "text": text, "target_lang": "fr"})
-        //    setTranslated(data.translations[0].text)
-        }).then(res => res.json()).then(data => console.log("data:"+data))
-        console.log({ "text": text, "target_lang": "FR"});
+            body: JSON.stringify ({ "text": [text] , "target_lang": "JA"})
+        }).then(res => res.json())
+        .then(data => {
+            // debugger;
+            setResultText(data.translations[0].text)
+        })
+      
      
     }
 
@@ -72,7 +76,7 @@ function Translation() {
                     />
                 </div>
 
-                <div className={translationStyle['change']}>
+                {/* <div className={translationStyle['change']}>
                     <div className={translationStyle['change-img']}>
                         <img
                             src={process.env.PUBLIC_URL + '/images/change.png'}
@@ -80,7 +84,7 @@ function Translation() {
                             onClick={handleButtonClick}
                         />
                     </div>
-                </div>
+                </div> */}
 
                 <div className={translationStyle['result']}>
                     <select onChange={(e) => handleLanguageChange(e, 'result')}>
