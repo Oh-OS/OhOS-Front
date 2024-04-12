@@ -25,8 +25,14 @@
 }
 
 .presentWeatherDiv {
+    width: 100%;
     display: flex;
     column-gap: 40px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.presentWeatherDiv::-webkit-scrollbar {
+    display: none;
 }
 
 .presentWeather {
@@ -39,7 +45,15 @@
     font-size: 0.9rem;
 }
 
-.weatherImg {
+.bigImg {
+    width: 70px;
+    height: 50px;
+}
+.middleImg {
+    width: 60px;
+    height: 50px;
+}
+.defaultImg {
     width: 50px;
     height: 50px;
 }
