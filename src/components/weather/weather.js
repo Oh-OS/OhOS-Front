@@ -24,8 +24,7 @@ function Weather() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                /* 인증키 */
-                const apiKey = '%2BHpuafpNht5HIpbUy7R%2FfCjdveZX11oKAxvH06oidm2W%2FxlI%2B63gi1bPV14wjckgHIsbGqR50ZytYpxj%2Bf6UCQ%3D%3D';
+                const apiKey = ''; /* 인증키 */
                 const hourlyWeatherData = [];
     
                 for (let i = 0; i < baseTime.length; i++) {

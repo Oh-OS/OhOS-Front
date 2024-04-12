@@ -51,7 +51,7 @@ function Translation() {
     };
 
     const translateText = function(text) {
-        const authKey = "c329d234-0b70-43e7-a803-e91eba9a9b61:fx"
+        const authKey = ""; /* 인증키 */
         fetch("/deepl/v2/translate", 
           {
             method: "POST",
