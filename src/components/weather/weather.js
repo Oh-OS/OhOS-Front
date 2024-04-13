@@ -24,7 +24,7 @@ function Weather() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiKey = ''; /* 인증키 */
+                const apiKey = '%2BHpuafpNht5HIpbUy7R%2FfCjdveZX11oKAxvH06oidm2W%2FxlI%2B63gi1bPV14wjckgHIsbGqR50ZytYpxj%2Bf6UCQ%3D%3D'; /* 인증키 */
                 const hourlyWeatherData = [];
     
                 for (let i = 0; i < baseTime.length; i++) {
@@ -37,26 +37,26 @@ function Weather() {
                     console.log(forecasts);
     
                     // 데이터 처리
-                    const hourlyWeatherDataItem = () => {
-                        const item0 = forecasts.response.body.items.item[0];
+                    const item0 = forecasts?.response?.body?.items?.item[0];
+                    const item5 = forecasts?.response?.body?.items?.item[5];
+
+                    if (item0 && item5) {
                         const time = item0.fcstTime.substring(0, 2);
                         const temperature = item0.fcstValue;
                         const location = { x: item0.nx, y: item0.ny };
-
-                        const item5 = forecasts.response.body.items.item[5];
                         const state = item5.fcstValue;
-    
-                        return {
+        
+                        const hourlyWeatherDataItem = {
                             time: time,
                             temperature: temperature,
                             location: location,
                             state: state
                         };
+        
+                        hourlyWeatherData.push(hourlyWeatherDataItem);
                     }
-                    hourlyWeatherData.push(hourlyWeatherDataItem());
                 }
                 setHourlyWeather(hourlyWeatherData);
-    
                 setLoading(false); // 데이터 가져오기 완료
             } catch (error) {
                 console.error('Error fetching data: ', error);
