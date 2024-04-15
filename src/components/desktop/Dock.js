@@ -11,7 +11,7 @@ function Dock() {
 
     return (
         <div className={styles['iconContainerStyle']}>
-            <div> <img src='/images/Desktop/PhotoboothIcon.png' alt="photobooth" className={styles['iconsImgStyle', 'iconsStyle']}/> </div>
+            <div onClick={() => IconClick('/photoBooth')}> <img src='/images/Desktop/PhotoboothIcon.png' alt="photobooth" className={styles['iconsImgStyle', 'iconsStyle']}/> </div>
             <div onClick={() => IconClick('/launchpad')}> <img src='/images/Desktop/LaunchpadIcon.png' alt="Launchpad" className={styles['iconsImgStyle', 'iconsStyle']}/> </div>
             <div> <img src='/images/Desktop/MapIcon.png' alt="map" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
             <div onClick={() => IconClick('/bubble')}> <img src='/images/Desktop/BubbleIcon.png' alt="bubble" className={styles['iconsImgStyle', 'iconsStyle']} /> </div>
