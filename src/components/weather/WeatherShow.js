@@ -2,6 +2,7 @@ import '../../styles/common/Style.css';
 import styles from '../../styles/weather/WeatherShow.module.css';
 
 function WeatherShow({ hourlyWeather }) {
+    // console.log(hourlyWeather)
     const weatherImage = (state) => {
         let url = '';
         let className = '';
@@ -19,10 +20,24 @@ function WeatherShow({ hourlyWeather }) {
         return { url, className };
     }
 
+    // const getCurrentHour = () => {
+    //     const now = new Date();
+    //     const currentHour = now.getHours();
+    //     return currentHour;
+    // };
+
     const getCurrentHour = () => {
         const now = new Date();
         const currentHour = now.getHours();
-        return currentHour;
+        const closestHour = Math.floor(currentHour / 3) * 3 + 3;
+    
+        if (closestHour < 3) {
+            return '03';
+        } else if (closestHour >= 21) {
+            return '21';
+        } else {
+            return closestHour.toString().padStart(2, '0');
+        }
     };
 
     return (
@@ -34,7 +49,7 @@ function WeatherShow({ hourlyWeather }) {
                         {hourlyWeather.map((hour, index) => {
                             const { url, className } = weatherImage(hour.state);
                             const currentHour = getCurrentHour();
-                            const time = currentHour === parseInt(hour.time) ? '지금' : `${hour.time}시`;
+                            const time = parseInt(currentHour) === parseInt(hour.time) ? '지금' : `${hour.time}시`;
                             return (
                                 <div key={index} className={styles.presentWeather}>
                                     <p>{time}</p>
