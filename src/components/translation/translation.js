@@ -63,7 +63,7 @@ function Translation() {
             // console.log(data);
         }).catch(error => {
             // 오류 처리: 네트워크 오류 또는 JSON 형식 오류
-            // console.error('There was a problem with the fetch operation:', error);
+            console.error('There was a problem with the fetch operation:', error);
         });
     };    
     return(
@@ -73,7 +73,7 @@ function Translation() {
                 <div className={translationStyle['input']}>
                     <select value={inputTarget} onChange={(e) => handleLanguageChange(e, 'input')}>
                         <option value='EN'>영어 (미국)</option>
-                        <option value='KO' selected>한국어</option>
+                        <option value='KO'>한국어</option>
                     </select>
                     <input
                         className={translationStyle['input-text']}
@@ -96,7 +96,7 @@ function Translation() {
                 </div>
                 <div className={translationStyle['result']}>
                     <select value={resultTarget} onChange={(e) => handleLanguageChange(e, 'result')}>
-                        <option value='EN' selected>영어 (미국)</option>
+                        <option value='EN'>영어 (미국)</option>
                         <option value='KO'>한국어</option>
                         <option value='JA'>일본어</option>
                         <option value='ZH'>중국어</option>
