@@ -42,7 +42,7 @@ function Translation() {
     };
     // 객체 형태 안에 바꿀 텍스트랑 어떤 값으로 바꿀 건지 보내야 함
     const translateText = function(text){
-        const authKey = "c329d234-0b70-43e7-a803-e91eba9a9b61:fx";
+        const authKey = "a216958b-b2f9-4262-8953-b06796f2cf23:fx";
         fetch("/deepl/v2/translate", {
             method: "POST",
             headers: {
