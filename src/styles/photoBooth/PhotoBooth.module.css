@@ -1,0 +1,16 @@
+.background{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+.cam-area{
+    position: relative;
+    height: calc(100vh - 49px - 75px);
+    width: 92vw;
+    margin: 49px 0 0 4vw;
+    background-color: pink;
+    overflow: hidden;
+    object-fit: cover;
+}

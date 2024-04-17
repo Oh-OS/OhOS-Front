@@ -1,0 +1,15 @@
+
+
+.video{
+    display: none;
+    width: 640px;
+    height: 360px;
+}
+
+.canvas{
+    /* 전시작에 맞춰 값 수정할 것 */
+    /* width: 1382px;
+    height: 1036px; */
+    width: 800px;
+    height: 600px;
+}
