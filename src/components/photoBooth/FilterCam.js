@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import '../../styles/common/Style.css'
 import style from '../../styles/photoBooth/FilterCam.module.css'
-import Webcam from 'react-webcam';
+// import Webcam from 'react-webcam';
 function FilterCam({ main }) {
     const videoRef = useRef(null);
     const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
