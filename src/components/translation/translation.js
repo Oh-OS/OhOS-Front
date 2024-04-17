@@ -6,7 +6,7 @@ import { DebounceInput } from 'react-debounce-input';
 
 function translateText(text, source_lang, target_lang){
     console.log(source_lang, target_lang)
-   const authKey = "a216958b-b2f9-4262-8953-b06796f2cf23:fx";
+   const authKey = "api key";
    return new Promise((resolve, reject) => {
    fetch("/deepl/v2/translate", {
         method: "POST",
