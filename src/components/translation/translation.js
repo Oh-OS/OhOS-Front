@@ -117,7 +117,7 @@ function Translation(props) {
                         <option value='EN'>영어 (미국)</option>
                         <option value='KO'>한국어</option>
                         <option value='JA'>일본어</option>
-                        <option value='ZH'>중국어</option>
+                        <option value='ZH'>중국어</option> 
                     </select>
                     <input
                         className={translationStyle['result-text']}
