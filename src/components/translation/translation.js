@@ -46,6 +46,10 @@ function Translation(props) {
     }
 
     const handleButtonClick = () => {
+        if(resultTarget === 'JA' || resultTarget === 'ZH') {
+            return;
+        }
+        
         setResultText(inputText);
         setInputText(resultText);
         setInputTarget(resultTarget);
