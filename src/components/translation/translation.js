@@ -1,8 +1,26 @@
 import { useEffect, useState } from 'react';
 import '../../styles/common/Style.css'
 import translationStyle from '../../styles/translation/translationPage.module.css'
-import { DebounceInput } from 'react-debounce-input';
 
+const DebounceTextarea = ({ onChange, value, debounceTimeout, ...rest }) => {
+    const [innerValue, setInnerValue] = useState(value);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            onChange({ target: {value: innerValue} });
+        }, debounceTimeout);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [innerValue, onChange, debounceTimeout]);
+
+    const handleChange = (e) => {
+        setInnerValue(e.target.value);
+    };
+
+    return <textarea {...rest} value={innerValue} onChange={handleChange} />
+}
 
 function translateText(text, source_lang, target_lang){
     console.log(source_lang, target_lang)
@@ -97,7 +115,7 @@ function Translation(props) {
                         <option value='EN'>영어 (미국)</option>
                         <option value='KO'>한국어</option>
                     </select>
-                    <DebounceInput
+                    <DebounceTextarea
                         className={translationStyle['input-text']}
                         placeholder={inputPlaceholder}
                         value={inputText}
@@ -123,7 +141,7 @@ function Translation(props) {
                         <option value='JA'>일본어</option>
                         <option value='ZH'>중국어</option> 
                     </select>
-                    <input
+                    <textarea
                         className={translationStyle['result-text']}
                         placeholder={resultPlaceholder}
                         value={resultText}
