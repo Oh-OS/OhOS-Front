@@ -66,8 +66,8 @@ function WeatherInfo({ hourlyWeather }) {
                 <p>{currentTemperature}°</p>
                 <p>{currentWeather}</p>
                 <div className={WeatherInfoStyle['temperatureDiv']}>
-                    <p>최고:</p><p>15°</p>
-                    <p>최저:</p><p>1°</p>
+                    <p>최고:</p><p>18°</p>
+                    <p>최저:</p><p>10°</p>
                 </div>
             </div>
         </>
