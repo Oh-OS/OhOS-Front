@@ -90,32 +90,22 @@ function Translation(props) {
             setResultTarget(selectedLanguage)
         }
     };
-    // 객체 형태 안에 바꿀 텍스트랑 어떤 값으로 바꿀 건지 보내야 함
-    const translateText = function(text){
-        const authKey = "c329d234-0b70-43e7-a803-e91eba9a9b61:fx";
-        fetch("/deepl/v2/translate", {
-            method: "POST",
-            headers: {
-                "Authorization": "DeepL-Auth-Key " + authKey,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ "text": [text], "target_lang": "JA" })
-        }).then(res => {
-            // 오류 처리: HTTP 상태 코드 확인
-            if (!res.ok) {
-                throw new Error("Network response was not ok");
-            }
-            // JSON 파싱 및 반환
-            return res.json();
-        }).then(data => {
-            // 번역 결과를 처리하는 코드
-            setResultText(data.translations[0].text);
-            // console.log(data);
-        }).catch(error => {
-            // 오류 처리: 네트워크 오류 또는 JSON 형식 오류
-            console.error('There was a problem with the fetch operation:', error);
-        });
-    };    
+    
+   
+    
+ useEffect(() => {
+        if(inputText.length >= 1){
+            translateText(inputText, inputTarget, resultTarget)
+            .then(text => {
+                setResultText(text); 
+            })
+            .catch(error => {
+                console.error("Translation error:", error);
+            });
+        }
+    }, [inputText])
+
+    
     return(
         <div className={translationStyle['container']}>
             <p className={translationStyle['title']}>번역</p>
