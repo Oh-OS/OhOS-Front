@@ -22,7 +22,6 @@ function App() {
                 <Route path="/bubble" element={<BubblePage/>} />
                 <Route path="/photoBooth" element={<PhotoboothPage/>} />
                 <Route path="/map" element={<MapPage/>} />
-
             </Routes>
         </Router>
     )
