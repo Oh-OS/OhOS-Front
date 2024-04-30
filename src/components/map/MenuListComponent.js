@@ -8,9 +8,8 @@ function MenuListComponent(props){
     return(
         <div className={style['menu-list-div']}>
             <div style={{color: "#A1A1A1", marginBottom:"7%", fontSize: 14}}>{props.listTitle}</div>
-        
-        <MenuItemComponent imgUrl={props.imgUrl} listTitle={props.listTitle}/>
-        <MenuItemComponent imgUrl={props.imgUrl} listTitle={props.listTitle}/>
+            <MenuItemComponent imgUrl={props.imgUrl} listTitle={props.listTitle}/>
+            <MenuItemComponent imgUrl={props.imgUrl} listTitle={props.listTitle}/>
         </div>
     )
 } 

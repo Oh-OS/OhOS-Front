@@ -5,7 +5,7 @@ import { useState } from 'react';
 /*검색 결과 컴포넌트*/
 function SearchResultComponent(props){
     const [bookmark , setBookMark] = useState(false);
-    const BookMarking = ()=> setBookMark(!bookmark)
+    const BookMarking = ()=> setBookMark(!bookmark);
     return(
         <div id='searchDiv' className={style['search-div']} style={{display: props.isOpen ? "block" : "none"}} >
             <ul>
