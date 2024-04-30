@@ -1,5 +1,5 @@
 import React from 'react';
-import Map from '../components/map/map'
+import Map from '../components/map/Map';
 import TitleBar from '../components/common/TitleBar';
 function MapPage (){
     return (
