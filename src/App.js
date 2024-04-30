@@ -8,6 +8,7 @@ import WeatherPage from './pages/WeatherPage';
 import Launchpad from './pages/LaunchpadPage';
 import BubblePage from './pages/BubblePage';
 import PhotoboothPage from './pages/PhotobootPage';
+import MapPage from './pages/MapPage';
 
 function App() {
     return (
@@ -20,6 +21,8 @@ function App() {
                 <Route path="/weather" element={<WeatherPage />} />
                 <Route path="/bubble" element={<BubblePage/>} />
                 <Route path="/photoBooth" element={<PhotoboothPage/>} />
+                <Route path="/map" element={<MapPage/>} />
+
             </Routes>
         </Router>
     )
