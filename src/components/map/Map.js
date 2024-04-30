@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import '../../styles/common/Style.css';
-import style from '../../styles/map/map.module.css';
+import style from '../../styles/map/Map.module.css';
 import { Fragment, useEffect, useState } from 'react';
 import { DebounceInput } from 'react-debounce-input';
 
