@@ -21,51 +21,6 @@ function Weather() {
     const [hourlyWeather, setHourlyWeather] = useState([]);
     const baseTime = [2, 5, 8, 11, 14, 17, 20, 23];
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const apiKey = ''; /* 인증키 */
-    //             const hourlyWeatherData = [];
-    
-    //             for (let i = 0; i < baseTime.length; i++) {
-    //                 const currentTime = baseTime[i].toString().padStart(2, '0');
-    //                 const apiUrl = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}00&nx=57&ny=126`;
-    
-    //                 const response = await axios.get(apiUrl);
-    //                 const forecasts = response.data;
-    //                 setForecast(forecasts);
-    //                 console.log(forecasts);
-    
-    //                 // 데이터 처리
-    //                 const item0 = forecasts?.response?.body?.items?.item[0];
-    //                 const item5 = forecasts?.response?.body?.items?.item[5];
-
-    //                 if (item0 && item5) {
-    //                     const time = item0.fcstTime.substring(0, 2);
-    //                     const temperature = item0.fcstValue;
-    //                     const location = { x: item0.nx, y: item0.ny };
-    //                     const state = item5.fcstValue;
-        
-    //                     const hourlyWeatherDataItem = {
-    //                         time: time,
-    //                         temperature: temperature,
-    //                         location: location,
-    //                         state: state
-    //                     };
-        
-    //                     hourlyWeatherData.push(hourlyWeatherDataItem);
-    //                 }
-    //             }
-    //             setHourlyWeather(hourlyWeatherData);
-    //             setLoading(false); // 데이터 가져오기 완료
-    //         } catch (error) {
-    //             console.error('Error fetching data: ', error);
-    //         }
-    //     };
-    
-    //     fetchData();
-    // }, [currentDate]);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -110,55 +65,6 @@ function Weather() {
 
         fetchData();
     }, [currentDate]);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const apiKey = ''; /* 인증키 */
-    //             const hourlyWeatherData = [];
-
-    //             for (let i = 0; i <= 23; i++) {
-    //                 const currentTime = i.toString().padStart(2, '0') + '30';
-    //                 const apiUrl = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst
-    //                 ?serviceKey=${apiKey}&base_date=${currentDate}&base_time=${currentTime}&nx=60&ny=127`;
-
-    //                 const response = await fetch(apiUrl);
-    //                 const forecasts = await response.json();
-    //                 setForecast(forecasts);
-    //                 console.log(forecasts);
-
-    //                 // // 데이터 처리
-    //                 // const item0 = forecasts?.response?.body?.items?.item[0];
-    //                 // const item5 = forecasts?.response?.body?.items?.item[5];
-    //                 // // console.log(item0, item5);
-
-    //                 // if (item0 && item5) {
-    //                 //     const time = item0.fcstTime.substring(0, 2);
-    //                 //     const temperature = item0.fcstValue;
-    //                 //     const location = { x: item0.nx, y: item0.ny };
-    //                 //     const state = item5.fcstValue;
-
-    //                 //     const hourlyWeatherDataItem = {
-    //                 //         time: time,
-    //                 //         temperature: temperature,
-    //                 //         location: location,
-    //                 //         state: state
-    //                 //     };
-    //                 //     hourlyWeatherData.push(hourlyWeatherDataItem);
-    //                 // }
-    //             }
-    //             // setHourlyWeather(hourlyWeatherData);
-    //             setLoading(false); // 데이터 가져오기 완료
-    //         } catch (error) {
-    //             console.error('Error fetching data: ', error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, [currentDate]);
-    
-    if (loading) return <div>Loading...</div>;
-    if (!forecast) return <div>No forecast data available</div>;
 
     return(
         <div className={weatherStyle['container']}>
