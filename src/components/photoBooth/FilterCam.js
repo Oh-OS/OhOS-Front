@@ -4,34 +4,34 @@ import style from '../../styles/photoBooth/FilterCam.module.css'
 import Webcam from 'react-webcam';
 
 function FilterCam() {
-    const [ height, setHeight ] = useState(0);
-    const [ width, setWidth ] = useState(0);
-    const [ ratio, setRadio ] = useState(0);
+    const [ height, setHeight ] = useState(254.66666666666669);
+    const [ width, setWidth ] = useState(580.796875);
+
     const videos = Array.from({ length: 9 });
 
     const videoConstraints = {
-      facingMode: "user",
-      aspectRatio: ratio
+      width: width,
+      height: height,
+      facingMode: "user"
     };
 
-    function handlrResize() {
+    function handleResize() {
       let width = camArea.getBoundingClientRect().width / 3 - 8;
       let height = camArea.getBoundingClientRect().height / 3 - 8;
       setHeight(height);
       setWidth(width);
-      setRadio(width / height);
     }
 
     const camAreaRef = useRef(null);
     let camArea;
+
     useEffect(() => {
       camArea = camAreaRef.current;
       let width = camArea.getBoundingClientRect().width / 3 - 8;
       let height = camArea.getBoundingClientRect().height / 3 - 8;
       setHeight(height);
       setWidth(width);
-      setRadio(width / height);
-      window.addEventListener('resize', handlrResize)
+      window.addEventListener('resize', handleResize)
     }, []);
 
 
