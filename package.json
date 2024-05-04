@@ -10,11 +10,13 @@
     "lodash.debounce": "^4.0.8",
     "npm": "^10.5.0",
     "react": "^18.2.0",
+    "react-debounce-input": "^3.3.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.22.3",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
+    "react-webcam": "^7.2.0",
     "save-dev": "^0.0.1-security",
     "web-vitals": "^2.1.4"
   },
