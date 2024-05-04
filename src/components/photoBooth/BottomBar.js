@@ -11,9 +11,10 @@ function Photobooth({ setMain, main }) {
 
     return(
         <div className={style['bottom-bar']}>
+            {main && 
             <div className={style['photo-btn']}>
                 <Icon icon="f7:camera-fill" className={style['camera-icon']}/>
-            </div>
+            </div>}
             <div className={style['filter-btn']} onClick={handleClick}>효과</div>
         </div>
     )

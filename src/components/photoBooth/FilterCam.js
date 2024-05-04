@@ -1,65 +1,51 @@
 import React, { useRef, useEffect, useState } from 'react';
 import '../../styles/common/Style.css'
 import style from '../../styles/photoBooth/FilterCam.module.css'
-// import Webcam from 'react-webcam';
-function FilterCam({ main }) {
-    const videoRef = useRef(null);
-    const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
+import Webcam from 'react-webcam';
 
-    const drawCanvas = () => {
-        if (!main) {
-          const video = videoRef.current;
-    
-          canvasRefs.forEach((canvasRef) => {
-            if (canvasRef.current) {
-              const ctx = canvasRef.current.getContext('2d');
-              ctx.save();
-              ctx.scale(-1, 1);
-              ctx.drawImage(video, -canvasRef.current.width, 0, canvasRef.current.width, canvasRef.current.height);
-              ctx.restore();
-            }
-          });
-        }
-        requestAnimationFrame(drawCanvas);
+function FilterCam() {
+    const [ height, setHeight ] = useState(254.66666666666669);
+    const [ width, setWidth ] = useState(580.796875);
 
+    const videos = Array.from({ length: 9 });
+
+    const videoConstraints = {
+      width: width,
+      height: height,
+      facingMode: "user"
+    };
+
+    function handleResize() {
+      let width = camArea.getBoundingClientRect().width / 3 - 8;
+      let height = camArea.getBoundingClientRect().height / 3 - 8;
+      setHeight(height);
+      setWidth(width);
     }
 
-    useEffect(() => {
-        if (!main) {
-          const constraints = { video: true };
-          navigator.mediaDevices.getUserMedia(constraints)
-            .then((stream) => {
-              videoRef.current.srcObject = stream;
-              videoRef.current.onloadedmetadata = () => {
-                videoRef.current.play();
-              };
-            })
-            .catch((error) => {
-              console.error('Error accessing the camera: ', error);
-            });
-        } else {
-          const stream = videoRef.current.srcObject;
-          const tracks = stream.getTracks();
-    
-          tracks.forEach((track) => {
-            track.stop();
-          });
-        }
-      });
+    const camAreaRef = useRef(null);
+    let camArea;
 
     useEffect(() => {
-        drawCanvas();
-      }, [main]);
+      camArea = camAreaRef.current;
+      let width = camArea.getBoundingClientRect().width / 3 - 8;
+      let height = camArea.getBoundingClientRect().height / 3 - 8;
+      setHeight(height);
+      setWidth(width);
+      window.addEventListener('resize', handleResize)
+    }, []);
+
 
     return (
-        <div>
-            <video ref={videoRef} className={style['video']}></video>
+        <div className={style['grid-cam']} ref={camAreaRef} >
+          {
+            videos.map((s, index) => 
+                <Webcam mirrored audio={false}
+                  height={height} width={width}
+                  videoConstraints={videoConstraints}
+                  className={style['cam']} key={index}/>
+            )
+          }
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
-            {canvasRefs.map((canvasRef, index) => (
-            <canvas key={index} ref={canvasRef} width={640 / 3} height={480 / 3} />
-            ))}
-        </div>
         </div>
     )
 }
