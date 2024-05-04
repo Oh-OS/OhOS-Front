@@ -2,8 +2,54 @@ import { useEffect, useState } from 'react';
 import '../../styles/common/Style.css'
 import translationStyle from '../../styles/translation/translationPage.module.css'
 
+const DebounceTextarea = ({ onChange, value, debounceTimeout, ...rest }) => {
+    const [innerValue, setInnerValue] = useState(value);
 
-function Translation() {
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            onChange({ target: {value: innerValue} });
+        }, debounceTimeout);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [innerValue, onChange, debounceTimeout]);
+
+    const handleChange = (e) => {
+        setInnerValue(e.target.value);
+    };
+
+    return <textarea {...rest} value={innerValue} onChange={handleChange} />
+}
+
+function translateText(text, source_lang, target_lang){
+    console.log(source_lang, target_lang)
+   const authKey = "a216958b-b2f9-4262-8953-b06796f2cf23:fx";
+   return new Promise((resolve, reject) => {
+   fetch("/deepl/v2/translate", {
+        method: "POST",
+        headers: {
+            "Authorization": "DeepL-Auth-Key " + authKey,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ "text": [text],"source_lang": source_lang, "target_lang": target_lang})
+    }).then(res => {
+        console.log(res)
+        return res.json();
+    }).then(data => {
+        // console.log("경과" , data.translations[0].text);
+        resolve(data.translations[0].text);
+    }).catch(error => {
+        reject(error);
+    });
+});
+   
+    
+    
+
+}; 
+
+function Translation(props) {
     const [inputTarget, setInputTarget] = useState('KO');
     const [resultTarget, setResultTarget] = useState('EN');
     const [inputText, setInputText] = useState('');
@@ -18,6 +64,10 @@ function Translation() {
     }
 
     const handleButtonClick = () => {
+        if(resultTarget === 'JA' || resultTarget === 'ZH') {
+            return;
+        }
+        
         setResultText(inputText);
         setInputText(resultText);
         setInputTarget(resultTarget);
@@ -40,32 +90,22 @@ function Translation() {
             setResultTarget(selectedLanguage)
         }
     };
-    // 객체 형태 안에 바꿀 텍스트랑 어떤 값으로 바꿀 건지 보내야 함
-    const translateText = function(text){
-        const authKey = "c329d234-0b70-43e7-a803-e91eba9a9b61:fx";
-        fetch("/deepl/v2/translate", {
-            method: "POST",
-            headers: {
-                "Authorization": "DeepL-Auth-Key " + authKey,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ "text": [text], "target_lang": "JA" })
-        }).then(res => {
-            // 오류 처리: HTTP 상태 코드 확인
-            if (!res.ok) {
-                throw new Error("Network response was not ok");
-            }
-            // JSON 파싱 및 반환
-            return res.json();
-        }).then(data => {
-            // 번역 결과를 처리하는 코드
-            setResultText(data.translations[0].text);
-            // console.log(data);
-        }).catch(error => {
-            // 오류 처리: 네트워크 오류 또는 JSON 형식 오류
-            console.error('There was a problem with the fetch operation:', error);
-        });
-    };    
+    
+   
+    
+ useEffect(() => {
+        if(inputText.length >= 1){
+            translateText(inputText, inputTarget, resultTarget)
+            .then(text => {
+                setResultText(text); 
+            })
+            .catch(error => {
+                console.error("Translation error:", error);
+            });
+        }
+    }, [inputText])
+
+    
     return(
         <div className={translationStyle['container']}>
             <p className={translationStyle['title']}>번역</p>
@@ -75,13 +115,13 @@ function Translation() {
                         <option value='EN'>영어 (미국)</option>
                         <option value='KO'>한국어</option>
                     </select>
-                    <input
+                    <DebounceTextarea
                         className={translationStyle['input-text']}
                         placeholder={inputPlaceholder}
                         value={inputText}
+                        debounceTimeout = {2000} 
                         onChange={(e) =>{
-                            setInputText(e.target.value)
-                            translateText(e.target.value)  
+                            setInputText(e.target.value);
                         }}
                     />
                 </div>
@@ -99,13 +139,13 @@ function Translation() {
                         <option value='EN'>영어 (미국)</option>
                         <option value='KO'>한국어</option>
                         <option value='JA'>일본어</option>
-                        <option value='ZH'>중국어</option>
+                        <option value='ZH'>중국어</option> 
                     </select>
-                    <input
+                    <textarea
                         className={translationStyle['result-text']}
                         placeholder={resultPlaceholder}
                         value={resultText}
-                        onChange={(e) =>setResultText(e.target.value)}
+                        onChange={(e) => setResultText(e.target.value)}
                         readOnly
                     />
                 </div>
@@ -113,4 +153,5 @@ function Translation() {
         </div>
     )
 }
+
 export default Translation;
