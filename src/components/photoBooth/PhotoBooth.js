@@ -11,7 +11,7 @@ function Photobooth() {
     return(
         <div className={style['background']}>
             <div className={style['cam-area']}>
-                { main ? <MainCam/> : <FilterCam main={main}/>}
+                { main ? <MainCam/> : <FilterCam/>}
             </div>
             <BottomBar setMain={setMain} main={main}/>
         </div>
