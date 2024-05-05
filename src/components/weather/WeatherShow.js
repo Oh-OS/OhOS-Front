@@ -2,6 +2,13 @@ import '../../styles/common/Style.css';
 import styles from '../../styles/weather/WeatherShow.module.css';
 
 function WeatherShow({ hourlyWeather }) {
+    const date = new Date();
+    date.setDate(date.getDate());
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const currentDate = `${year}.${month}.${day}`;
+
     // console.log(hourlyWeather)
     const weatherImage = (state) => {
         let url = '';
@@ -44,7 +51,7 @@ function WeatherShow({ hourlyWeather }) {
         <>
             <div className={styles['weatherDiv']}>
                 <div className={styles['weatherStyle']}>
-                    <p>남은 하루동안 맑은 날씨가 이어집니다.</p>
+                    <p>{currentDate} 날씨입니다.</p>
                     <div className={styles['presentWeatherDiv']}>
                         {hourlyWeather.map((hour, index) => {
                             const { url, className } = weatherImage(hour.state);
