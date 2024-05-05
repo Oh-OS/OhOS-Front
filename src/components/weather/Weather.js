@@ -11,6 +11,7 @@ import WeatherShow from './WeatherShow';
 
 function Weather() {
     const date = new Date();
+    date.setDate(date.getDate() - 1);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -20,6 +21,16 @@ function Weather() {
     const [loading, setLoading] = useState(true);
     const [hourlyWeather, setHourlyWeather] = useState([]);
     const baseTime = [2, 5, 8, 11, 14, 17, 20, 23];
+
+    const maxTemperature = () => {
+        if (hourlyWeather.length === 0) return null;
+        return Math.max(...hourlyWeather.map(item => item.temperature));
+    };
+
+    const minTemperature = () => {
+        if (hourlyWeather.length === 0) return null;
+        return Math.min(...hourlyWeather.map(item => item.temperature));
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,12 +83,11 @@ function Weather() {
             <div className={weatherStyle['background']}>
                 <div className={weatherStyle['allDiv']}>
                     {/* 정보*/}
-                    <WeatherInfo hourlyWeather={hourlyWeather} />
+                    <WeatherInfo hourlyWeather={hourlyWeather} maxTemperature={maxTemperature} minTemperature={minTemperature} />
                     {/* <WeatherInfo /> */}
                     <div className={weatherStyle['bottomContainer']}>
                         {/* 검색창 */}
                         <WeatherSearch />
-
                         {/* 날씨 보여주는 */}
                         <WeatherShow hourlyWeather={hourlyWeather} />
                         {/* <WeatherShow /> */}
