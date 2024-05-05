@@ -1,7 +1,7 @@
 import '../../styles/common/Style.css';
 import WeatherInfoStyle from '../../styles/weather/WeatherInfo.module.css';
 
-function WeatherInfo({ hourlyWeather }) {
+function WeatherInfo({ hourlyWeather, maxTemperature, minTemperature }) {
     // console.log('1. hourlyWeather : ', hourlyWeather);
 
     // const getCurrentHour = () => {
@@ -66,8 +66,8 @@ function WeatherInfo({ hourlyWeather }) {
                 <p>{currentTemperature}°</p>
                 <p>{currentWeather}</p>
                 <div className={WeatherInfoStyle['temperatureDiv']}>
-                    <p>최고:</p><p>18°</p>
-                    <p>최저:</p><p>10°</p>
+                    <p>최고: {maxTemperature()}°</p>
+                    <p>최저: {minTemperature()}°</p>
                 </div>
             </div>
         </>

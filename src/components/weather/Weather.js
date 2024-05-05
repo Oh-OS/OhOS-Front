@@ -22,6 +22,16 @@ function Weather() {
     const [hourlyWeather, setHourlyWeather] = useState([]);
     const baseTime = [2, 5, 8, 11, 14, 17, 20, 23];
 
+    const maxTemperature = () => {
+        if (hourlyWeather.length === 0) return null;
+        return Math.max(...hourlyWeather.map(item => item.temperature));
+    };
+
+    const minTemperature = () => {
+        if (hourlyWeather.length === 0) return null;
+        return Math.min(...hourlyWeather.map(item => item.temperature));
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -73,12 +83,11 @@ function Weather() {
             <div className={weatherStyle['background']}>
                 <div className={weatherStyle['allDiv']}>
                     {/* 정보*/}
-                    <WeatherInfo hourlyWeather={hourlyWeather} />
+                    <WeatherInfo hourlyWeather={hourlyWeather} maxTemperature={maxTemperature} minTemperature={minTemperature} />
                     {/* <WeatherInfo /> */}
                     <div className={weatherStyle['bottomContainer']}>
                         {/* 검색창 */}
                         <WeatherSearch />
-
                         {/* 날씨 보여주는 */}
                         <WeatherShow hourlyWeather={hourlyWeather} />
                         {/* <WeatherShow /> */}
