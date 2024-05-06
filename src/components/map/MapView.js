@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 
 /* 지도가 띄워질 컴포넌트 */
-function MapView() {
+function MapView({handleResultBox}) {
     // // 지도 server api 연결
     // const [data, setData] = useState([]);
     // useEffect(() => {
@@ -59,7 +59,7 @@ function MapView() {
     }, []);
 
     return(
-        <div id="map" className={style['map-view']}></div>
+        <div id="map" className={style['map-view']} onClick={()=>handleResultBox(true)}></div>
     )
 }
 
