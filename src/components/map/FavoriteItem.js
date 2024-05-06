@@ -8,7 +8,7 @@ function FavoriteItem(props){
         <Fragment>
             <div className={style['menu-item']}>
                 <img src={props.imgUrl} style={{width: 28, height: 28, marginRight: 10}}></img>
-                <div>미림분식</div>
+                <div>미림마이스터고</div>
             </div>
         </Fragment>
         
