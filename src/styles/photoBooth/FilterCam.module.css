@@ -1,7 +1,6 @@
 .video{
-    display: none;
-    width: 640px;
-    height: 360px;
+    position: absolute;
+    visibility: hidden;
 }
 
 .grid-cam{
@@ -12,4 +11,24 @@
     gap: 4px;
     width: 100%;
     height: 100%;
+}
+
+.invert{
+    filter: invert(100%);
+}
+
+.two{
+    filter: saturate(0);
+}
+
+.three{
+    filter: hue-rotate(90deg);
+}
+
+.four{
+    filter: brightness(2);
+}
+
+.six{
+    filter: sepia(100%);
 }
