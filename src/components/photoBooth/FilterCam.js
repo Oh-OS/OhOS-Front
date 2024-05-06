@@ -3,11 +3,11 @@ import '../../styles/common/Style.css'
 import style from '../../styles/photoBooth/FilterCam.module.css'
 import Webcam from 'react-webcam';
 
-function FilterCam() {
-    const [ height, setHeight ] = useState(254.66666666666669);
-    const [ width, setWidth ] = useState(580.796875);
-
-    const videos = Array.from({ length: 9 });
+function FilterCam({ width, height }) {
+    const camAreaRef = useRef();
+    const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
+    const videoClass = ['invert', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+    const videoRef = useRef();
 
     const videoConstraints = {
       width: width,
@@ -15,38 +15,41 @@ function FilterCam() {
       facingMode: "user"
     };
 
-    function handleResize() {
-      let width = camArea.getBoundingClientRect().width / 3 - 8;
-      let height = camArea.getBoundingClientRect().height / 3 - 8;
-      setHeight(height);
-      setWidth(width);
+    function drawImge() {
+      const video = videoRef.current;
+      if(video && canvasRefs[0].current){
+        canvasRefs.forEach((canvasRef) => {
+          const canvas = canvasRef.current;
+          var ctx = canvas.getContext('2d');
+
+          canvas.width = width;
+          canvas.height = height;
+
+          ctx.translate(canvas.width, 0);
+          ctx.scale(-1, 1);
+          ctx.drawImage(video.video, 0, 0, width, height);
+          setTimeout(drawImge, 33);
+        })
+      }
     }
 
-    const camAreaRef = useRef(null);
-    let camArea;
-
-    useEffect(() => {
-      camArea = camAreaRef.current;
-      let width = camArea.getBoundingClientRect().width / 3 - 8;
-      let height = camArea.getBoundingClientRect().height / 3 - 8;
-      setHeight(height);
-      setWidth(width);
-      window.addEventListener('resize', handleResize)
-    }, []);
-
-
+    setTimeout(drawImge, 33);
     return (
+      <>
+        <Webcam mirrored audio={false}
+          height={height} width={width}
+          videoConstraints={videoConstraints} className={style['video']}
+          ref={videoRef}/>
         <div className={style['grid-cam']} ref={camAreaRef} >
+
           {
-            videos.map((s, index) => 
-                <Webcam mirrored audio={false}
-                  height={height} width={width}
-                  videoConstraints={videoConstraints}
-                  className={style['cam']} key={index}/>
+            canvasRefs.map((canvasRef, index) => 
+                <canvas width={width} height={height} ref={canvasRef} className={style[videoClass[index]]} key={index}></canvas>
             )
           }
 
         </div>
+      </>
     )
 }
 

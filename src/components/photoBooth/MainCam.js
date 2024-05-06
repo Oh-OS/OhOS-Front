@@ -3,44 +3,43 @@ import '../../styles/common/Style.css'
 import style from '../../styles/photoBooth/MainCam.module.css'
 import Webcam from "react-webcam";
 
-function MainCam() {
-    const [ width, setWidth ] = useState(1766.390625);
-    const [ height, setHeight ] = useState(788);
+function MainCam({ width, height }) {
+    const camAreaRef = useRef();
+    const videoRef = useRef();
+    const canvasRef = useRef();
 
-    const camAreaRef = useRef(null);
-    let camArea;
+    function drawImge() {
+        const canvas = canvasRef.current;
+        const video = videoRef.current;
 
-    function handleResize() {
-        let width = camArea.getBoundingClientRect().width;
-        let height = camArea.getBoundingClientRect().height;
-        setWidth(width);
-        setHeight(height);
+        if (video && canvas) {
+            var ctx = canvas.getContext('2d');
+
+            canvas.width = width;
+            canvas.height = height;
+
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(video.video, 0, 0, width, height);
+            setTimeout(drawImge, 33);
+        }
     }
-
-    useEffect(() => {
-        camArea = camAreaRef.current;
-        let width = camArea.getBoundingClientRect().width;
-        let height = camArea.getBoundingClientRect().height;
-        setWidth(width);
-        setHeight(height);
-        window.addEventListener('resize', handleResize)
-        videoConstraints.width = width;
-        videoConstraints.height = height;
-        console.log(videoConstraints.width, videoConstraints.height);
-    }, [])
+    setTimeout(drawImge, 33);
 
     const videoConstraints = {
-        width: width,
         height: height,
+        width: width,
         facingMode: "user"
     };
 
     return(
         <div className={style['cam-area']} ref={camAreaRef}>
             <Webcam mirrored audio={false}
-                width={width} height={height}
+                height={height} width={width}
                 videoConstraints={videoConstraints}
-                className={style['main-cam']}/>   
+                className={style['main-cam']}
+                ref={videoRef}/>
+            <canvas ref={canvasRef} className={style['canvas']} width={width} height={height}></canvas>       
         </div>
     )
 }
