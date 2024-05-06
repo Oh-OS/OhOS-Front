@@ -8,8 +8,11 @@
 .cam-area{
     position: relative;
     height: calc(100vh - 49px - 75px);
-    width: 92vw;
-    margin: 49px 0 0 4vw;
+    /* width: 92vw; */
+    /* margin: 49px 0 0 4vw; */
+    margin-top: 49px;
+    left: 50%;
+    transform: translate(-50%, 0);
     background-color: black;
     overflow: hidden;
     object-fit: cover;
