@@ -9,8 +9,9 @@ import { Icon } from '@iconify/react';
 function SearchResultComponent(props){
     const [bookmark , setBookMark] = useState(false);
     const BookMarking = ()=> setBookMark(!bookmark);
-    // const [searchList , setSearchList] = useState([{title: "미림분식", location: "서울특별시 목동서로 349", kilometer : "8.2km"},{title: "미림마이스터고", location: "서울특별시 목동서로 349", kilometer : "8.2km"},])
-    const [searchList, setSearchList] = useState([]);
+    const [searchList , setSearchList] = useState([{id: 1, title: "미림분식", location: "서울특별시 목동서로 349", kilometer : "8.2km"},{id: 2, title: "미림마이스터고", location: "서울특별시 목동서로 349", kilometer : "8.2km"},])
+    // const [searchList, setSearchList] = useState([]);
+    const [bookmarkList, setBookmarkList] = useState([]);
 
     // useEffect(() => {
     //     const { kakao } = window;
@@ -34,17 +35,31 @@ function SearchResultComponent(props){
     //         }
     //     });
     // }, [keyword]);
+
+    const toggleBookmark = (id) => {
+        if (bookmarkList.includes(id)) {
+            setBookmarkList(bookmarkList.filter(itemId => itemId !== id));
+        } else {
+            setBookmarkList([...bookmarkList, id]);
+        }
+    };
+
+    const isBookmarked = (id) => {
+        return bookmarkList.includes(id);
+    };
+
     
     return(
         <div id='searchDiv' className={style['search-div']} style={{display: props.isOpen ? "block" : "none"}} >
             <ul>
                 {
                     searchList.map(item => {
+                        const isSelected = isBookmarked(item.id);
                         return(
                             <li className={style['search-item']}>
-                                <div style={{display:"flex",alignItems:"center"}}>
+                                <div style={{display:"flex",alignItems:"center"}} onClick={() => toggleBookmark(item.id)}>
                                     <span>{item.title}</span>
-                                    <Icon icon='solar:heart-outline' />
+                                    <Icon icon={isSelected ? 'solar:heart-bold' : 'solar:heart-outline'}/>
                                 </div>
                                 <div style={{fontSize:16, color:"rgba(255, 255, 255, 0.7)",marginTop:5}}>{item.kilometer}・{item.location}</div>
                              </li>
