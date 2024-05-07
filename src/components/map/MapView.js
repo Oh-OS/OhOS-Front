@@ -1,29 +1,31 @@
-// import axios from 'axios';
 import '../../styles/common/Style.css';
 import style from '../../styles/map/Map.module.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+import { MapHost } from '../../Config';
 
 
 /* 지도가 띄워질 컴포넌트 */
 function MapView({handleResultBox}) {
-    // // 지도 server api 연결
-    // const [data, setData] = useState([]);
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         try {
-    //             const response = await axios.get(`http://localhost:8080/bookmarks`);
-    //             if (response.status === 200) {
-    //                 setData(response.data);
-    //             } else {
-    //                 console.log("데이터 불러오기 실패 : ", response.status);
-    //             }
-    //         } catch(error) {
-    //             console.error("api 연결 실패 : ", error);
-    //         }
-    //     }
-    //     fetchData();
-    // }, []);
-    // console.log(data);
+    // 지도 server api 연결
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await axios.get(`${MapHost}/bookmarks`);
+                if (response.status === 200) {
+                    setData(response.data);
+                } else {
+                    console.log("데이터 불러오기 실패 : ", response.status);
+                }
+            } catch(error) {
+                console.error("api 연결 실패 : ", error);
+            }
+        }
+        fetchData();
+    }, []);
+    console.log(data);
 
     // kakao api 호출
     const {kakao} = window; 
