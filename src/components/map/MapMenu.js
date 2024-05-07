@@ -2,6 +2,7 @@ import '../../styles/common/Style.css';
 import style from '../../styles/map/Map.module.css';
 import { useState } from 'react';
 import { DebounceInput } from 'react-debounce-input';
+import { Icon } from '@iconify/react';
 
 import SearchResultComponent from './SearchResultComponent'
 import RecentSearchList from './RecentSearchList';
