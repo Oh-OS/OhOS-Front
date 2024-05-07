@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import '../../styles/common/Style.css';
 import style from '../../styles/map/Map.module.css';
 import { useEffect, useState } from 'react';
