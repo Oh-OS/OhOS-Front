@@ -3,11 +3,20 @@ import '../../styles/common/Style.css'
 import style from '../../styles/photoBooth/FilterCam.module.css'
 import Webcam from 'react-webcam';
 
+import XRay from './filters/XRay';
+import Stretch from './filters/Stretch';
+import Circle from './filters/Circle';
+import Basic from './filters/Basic';
+import Flip from './filters/Flip'
+import Press from './filters/Press'
+import Swirl from './filters/Swirl'
+
 function FilterCam({ width, height }) {
     const camAreaRef = useRef();
     const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
     const videoClass = ['invert', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     const videoRef = useRef();
+    const videoFunction = [XRay, Stretch, Stretch, Circle, Basic, Basic, Flip, Press, Swirl];
 
     const videoConstraints = {
       width: width,
@@ -18,17 +27,14 @@ function FilterCam({ width, height }) {
     function drawImge() {
       const video = videoRef.current;
       if(video && canvasRefs[0].current){
-        canvasRefs.forEach((canvasRef) => {
+        canvasRefs.forEach((canvasRef, index) => {
           const canvas = canvasRef.current;
           var ctx = canvas.getContext('2d');
 
           canvas.width = width;
           canvas.height = height;
 
-          ctx.translate(canvas.width, 0);
-          ctx.scale(-1, 1);
-          ctx.drawImage(video.video, 0, 0, width, height);
-          setTimeout(drawImge, 33);
+          videoFunction[index](ctx, video, canvas, width, height, drawImge);
         })
       }
     }
@@ -49,6 +55,18 @@ function FilterCam({ width, height }) {
           }
 
         </div>
+        <svg>
+            {/* <defs> */}
+            <filter id="swirlFilter" width="100%" height="100%" x="0%" y="0%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" result="turbulence"/>  
+                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="40" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+            <filter id="erode">
+                <feMorphology operator="erode" radius="2"></feMorphology>
+            </filter>
+            <rect width="200" height="200" style={{fill: 'green'}} filter='url(#swirlFilter)'/> 
+            {/* </defs> */}
+        </svg>
       </>
     )
 }

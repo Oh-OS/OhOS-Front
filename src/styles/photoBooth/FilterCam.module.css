@@ -14,11 +14,11 @@
 }
 
 .invert{
-    filter: invert(100%);
+    /* filter: invert(100%); */
 }
 
 .two{
-    filter: saturate(0);
+    /* filter: saturate(0); */
 }
 
 .three{
@@ -26,7 +26,7 @@
 }
 
 .four{
-    filter: brightness(2);
+    /* filter: brightness(2); */
 }
 
 .six{
