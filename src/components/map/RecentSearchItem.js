@@ -7,8 +7,8 @@ function RecentSearchItem(props){
     return (
         <Fragment>
             <div className={style['menu-item']}>
-                <img src={props.imgUrl} style={{width: 28, height: 28, marginRight: 10}}></img>
-                <div>미림분식</div>
+                <img src='/images/Map/search.svg' style={{width: 28, height: 28, marginRight: 10}}></img>
+                <div>{props.itemTitle}</div>
             </div>
         </Fragment>
         

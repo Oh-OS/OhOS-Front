@@ -20,8 +20,8 @@ function MapMenu({handleResultBox, isOpen}){
                 <DebounceInput className={style['debounce-input']} placeholder='검색' value={inputValue}  debounceTimeout={500} onChange={ (e) => setInputValue(e.target.value) } onClick={()=>handleResultBox(isOpen)}/>
             </div>
             <SearchResultComponent isOpen={isOpen}/>
-            <FavoriteList imgUrl={ '/images/Map/heart.svg' } listTitle={ "즐겨찾기" }/>
-            <RecentSearchList imgUrl={ '/images/Map/search.svg' } listTitle={ "최근 검색" }/>
+            <FavoriteList  listTitle={ "즐겨찾기" }/>
+            <RecentSearchList listTitle={ "최근 검색" }/>
            
         </div>
 
