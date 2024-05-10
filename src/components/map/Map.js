@@ -8,8 +8,8 @@ function Map() {
     const handleResultBox = (open) => setIsOpen(!open); 
     return (
         <div style={{width: "100vw", height:"100vh", display: "flex"}}>
-        <MapMenu handleResultBox={handleResultBox} isOpen={isOpen}/>
-        <MapView handleResultBox={handleResultBox}/>
+            <MapMenu handleResultBox={handleResultBox} isOpen={isOpen}/>
+            <MapView handleResultBox={handleResultBox}/>
         </div>
     )
 }
