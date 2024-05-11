@@ -27,7 +27,7 @@ function MapMenu({ handleResultBox, isOpen, data }){
             setSearchList([]);
             return;
         }
-        const apiKey = '6684bf4ed1ed13090fa493ea1a743307';
+        const apiKey = '';
         try {
             const response = await axios.get(`https://dapi.kakao.com/v2/local/search/keyword.json?query=${keyword}`, {
                 headers: {
