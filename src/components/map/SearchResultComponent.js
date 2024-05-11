@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { MapHost } from '../../Config';
 
 import '../../styles/common/Style.css';
 import style from '../../styles/map/Map.module.css';
@@ -6,68 +8,101 @@ import style from '../../styles/map/Map.module.css';
 import { Icon } from '@iconify/react';
 
 /*검색 결과 컴포넌트*/
-function SearchResultComponent(props){
-    const [bookmark , setBookMark] = useState(false);
-    const BookMarking = ()=> setBookMark(!bookmark);
-    const [searchList , setSearchList] = useState([{id: 1, title: "미림분식", location: "서울특별시 목동서로 349", kilometer : "8.2km"},{id: 2, title: "미림마이스터고", location: "서울특별시 목동서로 349", kilometer : "8.2km"},])
-    // const [searchList, setSearchList] = useState([]);
-    const [bookmarkList, setBookmarkList] = useState([]);
-
-    // useEffect(() => {
-    //     const { kakao } = window;
-    //     const ps = new kakao.maps.services.Places();
+function SearchResultComponent({ isOpen, searchList, data }) {
+    const [bookmarkList, setBookmarkList] = useState([data]);
     
-    //     ps.keywordSearch(keyword, (data, status, pagination) => {
-    //         if (status === kakao.maps.services.Status.OK) {
-    //             // 검색 결과를 처리하는 로직
-    //             const searchData = data.map(place => ({
-    //                 title: place.place_name,
-    //                 location: place.address_name,
-    //                 kilometer: "",
-    //             }));
-    //             setSearchList(searchData);
-    //         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-    //             // 검색 결과가 없는 경우 처리
-    //             setSearchList([]);
-    //         } else if (status === kakao.maps.services.Status.ERROR) {
-    //             // 검색 과정에서 오류가 발생한 경우 처리
-    //             console.error('검색 오류 발생 :', status);
-    //         }
-    //     });
-    // }, [keyword]);
+    const cilckedHeart = async (index) => {
+        const selectedItem = searchList[index];
+        if (selectedItem) {
+            try {
+                const request = await axios.post(`${MapHost}/bookmarks`, {
+                    locationName: selectedItem.place_name,
+                    latitude: selectedItem.y,
+                    longitude: selectedItem.x
+                });
+    
+                if (request.status === 201) {
+                    console.log("즐겨찾기 추가 성공!");
+                    setBookmarkList([...bookmarkList, request.data]);
+                } else {
+                    console.log("즐겨찾기 추가 실패 : ", request.status);
+                }
+    
+            } catch(error) {
+                console.log("서버 연결 실패 : ", error);
+            }
+        }
+    }
 
-    const toggleBookmark = (id) => {
-        if (bookmarkList.includes(id)) {
-            setBookmarkList(bookmarkList.filter(itemId => itemId !== id));
-        } else {
-            setBookmarkList([...bookmarkList, id]);
+    const deletedHeart = async (index, id) => {
+        try {
+            const request = await axios.delete(`${MapHost}/bookmarks/${id}`);
+            if (request.status === 204) {
+                console.log("즐겨찾기 삭제 성공");
+                setBookmarkList(bookmarkList.filter(itemId => itemId !== index));
+            } else {
+                console.log("즐겨찾기 삭제 실패 : ", request.status);
+            }
+        } catch(error) {
+            console.log("서버 연결 실패 : ", error);
+        }
+    }
+
+    const toggleBookmark = async (index) => {
+        const selectedItem = searchList[index];
+        const isSelected = isBookmarked(index);
+        const clickedCoordinate = {
+            latitude: selectedItem.y,
+            longitude: selectedItem.x
+        };
+    
+        const savedItem = data.find(item => String(item.latitude) === String(clickedCoordinate.latitude) && String(item.longitude) === String(clickedCoordinate.longitude));
+    
+        if (savedItem) {
+            // 이미 저장된 항목인 경우 해당 항목을 삭제
+            await deletedHeart(index, savedItem.id);
+        } else if (!isSelected) {
+            // 저장되어 있지 않은 항목인 경우 즐겨찾기를 추가
+            await cilckedHeart(index);
         }
     };
 
-    const isBookmarked = (id) => {
-        return bookmarkList.includes(id);
+    const isBookmarked = (index) => {
+        return bookmarkList.includes(index);
     };
 
+    const isSaved = (index) => {
+        const selectedItem = searchList[index];
+        let savedItem = false;
+        for (const item of data) {
+            if (String(item.latitude) === selectedItem.y && String(item.longitude) === selectedItem.x) {
+                savedItem = true;
+                break;
+            }
+        }
+        return savedItem;
+    };
     
     return(
-        <div id='searchDiv' className={style['search-div']} style={{display: props.isOpen ? "block" : "none"}} >
+        <div id='searchDiv' className={style['search-div']} style={{display: isOpen ? "block" : "none"}} >
             <ul>
                 {
-                    searchList.map(item => {
-                        const isSelected = isBookmarked(item.id);
+                    Array.isArray(searchList) && searchList.length > 0 && searchList.map((item, index) => {
+                        const isSelected = isBookmarked(index);
                         return(
-                            <li className={style['search-item']}>
-                                <div style={{display:"flex",alignItems:"center"}} onClick={() => toggleBookmark(item.id)}>
-                                    <span>{item.title}</span>
-                                    <Icon icon={isSelected ? 'solar:heart-bold' : 'solar:heart-outline'}/>
+                            <li className={style['search-item']} key={index}>
+                                <div style={{display:"flex",alignItems:"center"}}>
+                                    <span>{item.place_name}</span>
+                                    <Icon icon={isSelected || isSaved(index) ? 'solar:heart-bold' : 'solar:heart-outline'} onClick={() => toggleBookmark(index)}/>
                                 </div>
-                                <div style={{fontSize:16, color:"rgba(255, 255, 255, 0.7)",marginTop:5}}>{item.kilometer}・{item.location}</div>
-                             </li>
+                                {/* <div style={{fontSize:16, color:"rgba(255, 255, 255, 0.7)",marginTop:5}}>{item.kilometer}・{item.address_name}</div> */}
+                                <div style={{fontSize:16, color:"rgba(255, 255, 255, 0.7)",marginTop:5}}>{item.address_name}</div>
+                            </li>
                         )
                     })
                 }
             </ul>
-        </div>    
+        </div>
     )
 }
 
