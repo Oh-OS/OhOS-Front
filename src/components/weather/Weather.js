@@ -8,6 +8,7 @@ import TitleBar from '../common/TitleBar';
 import WeatherInfo from './WeatherInfo';
 import WeatherSearch from './WeatherSearch';
 import WeatherShow from './WeatherShow';
+import { WeatherApiKey } from '../../ApiKey';
 
 function Weather() {
     const date = new Date();
@@ -35,7 +36,7 @@ function Weather() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiKey = ''; /* 인증키 */
+                const apiKey = `${WeatherApiKey}`; /* 인증키 */
                 const hourlyWeatherData = [];
 
                 for (let i = 0; i < baseTime.length; i++) {

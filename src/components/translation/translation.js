@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../../styles/common/Style.css'
 import translationStyle from '../../styles/translation/translationPage.module.css'
+import { TranslateApiKey } from '../../ApiKey';
 
 const DebounceTextarea = ({ onChange, value, debounceTimeout, ...rest }) => {
     const [innerValue, setInnerValue] = useState(value);
@@ -24,7 +25,7 @@ const DebounceTextarea = ({ onChange, value, debounceTimeout, ...rest }) => {
 
 function translateText(text, source_lang, target_lang){
     console.log(source_lang, target_lang)
-   const authKey = "a216958b-b2f9-4262-8953-b06796f2cf23:fx";
+   const authKey = `${TranslateApiKey}`;
    return new Promise((resolve, reject) => {
    fetch("/deepl/v2/translate", {
         method: "POST",

@@ -8,6 +8,7 @@ import axios from 'axios';
 import SearchResultComponent from './SearchResultComponent'
 import RecentSearchList from './RecentSearchList';
 import FavoriteList from './FavoriteList';
+import { MapRestApiKey } from '../../ApiKey';
 
 
 /* 지도 메뉴 컴포넌트 */
@@ -27,7 +28,7 @@ function MapMenu({ handleResultBox, isOpen, data }){
             setSearchList([]);
             return;
         }
-        const apiKey = '';
+        const apiKey = `${MapRestApiKey}`;
         try {
             const response = await axios.get(`https://dapi.kakao.com/v2/local/search/keyword.json?query=${keyword}`, {
                 headers: {
