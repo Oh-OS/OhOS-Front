@@ -11,7 +11,7 @@ import FavoriteList from './FavoriteList';
 
 
 /* 지도 메뉴 컴포넌트 */
-function MapMenu({handleResultBox, isOpen}){
+function MapMenu({ handleResultBox, isOpen, data }){
     const [inputValue , setInputValue] = useState('');
     const [searchList, setSearchList] = useState([]);
 
@@ -27,7 +27,7 @@ function MapMenu({handleResultBox, isOpen}){
             setSearchList([]);
             return;
         }
-        const apiKey = '';
+        const apiKey = '6684bf4ed1ed13090fa493ea1a743307';
         try {
             const response = await axios.get(`https://dapi.kakao.com/v2/local/search/keyword.json?query=${keyword}`, {
                 headers: {
@@ -63,9 +63,9 @@ function MapMenu({handleResultBox, isOpen}){
             </div>
             {
                 searchList.length > 0 &&
-                <SearchResultComponent isOpen={isOpen} searchList={searchList}/>
+                <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data}/>
             }
-            <FavoriteList />
+            <FavoriteList data={data} />
             <RecentSearchList />
            
         </div>
