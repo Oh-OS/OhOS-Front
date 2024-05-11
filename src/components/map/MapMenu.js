@@ -1,10 +1,10 @@
-import '../../styles/common/Style.css';
-import style from '../../styles/map/Map.module.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import { Icon } from '@iconify/react';
 import axios from 'axios';
 
+import '../../styles/common/Style.css';
+import style from '../../styles/map/Map.module.css';
 import SearchResultComponent from './SearchResultComponent'
 import RecentSearchList from './RecentSearchList';
 import FavoriteList from './FavoriteList';
@@ -12,9 +12,9 @@ import { MapRestApiKey } from '../../ApiKey';
 
 
 /* 지도 메뉴 컴포넌트 */
-function MapMenu({ handleResultBox, isOpen, data }){
+function MapMenu({ handleResultBox, isOpen, data, setLocation }){
     const [inputValue , setInputValue] = useState('');
-    const [searchList, setSearchList] = useState([]);
+    const [searchList, setSearchList] = useState('');
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -66,7 +66,7 @@ function MapMenu({ handleResultBox, isOpen, data }){
                 searchList.length > 0 &&
                 <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data}/>
             }
-            <FavoriteList data={data} />
+            <FavoriteList data={data} setLocation={setLocation}/>
             <RecentSearchList />
            
         </div>
