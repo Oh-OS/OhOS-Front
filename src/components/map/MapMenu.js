@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import { Icon } from '@iconify/react';
+import { MapRestApiKey } from '../../Config';
 import axios from 'axios';
 
 import '../../styles/common/Style.css';
@@ -8,7 +9,6 @@ import style from '../../styles/map/Map.module.css';
 import SearchResultComponent from './SearchResultComponent'
 import RecentSearchList from './RecentSearchList';
 import FavoriteList from './FavoriteList';
-import { MapRestApiKey } from '../../ApiKey';
 
 
 /* 지도 메뉴 컴포넌트 */

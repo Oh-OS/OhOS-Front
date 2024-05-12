@@ -8,7 +8,7 @@ import TitleBar from '../common/TitleBar';
 import WeatherInfo from './WeatherInfo';
 import WeatherSearch from './WeatherSearch';
 import WeatherShow from './WeatherShow';
-import { WeatherApiKey } from '../../ApiKey';
+import { WeatherApiKey } from '../../Config';
 import { WeatherHost } from '../../Config';
 
 function Weather() {
