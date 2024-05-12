@@ -9,6 +9,10 @@ import MapView from './MapView';
 function Map() {
     const [isOpen , setIsOpen] = useState(false);
     const handleResultBox = (open) => setIsOpen(!open);
+    const [location, setLocation] = useState({
+        latitude: 37.4667824,
+        longitude: 126.9336292
+    });
 
     // 지도 server api 연결
     const [data, setData] = useState([]);
@@ -31,8 +35,8 @@ function Map() {
 
     return (
         <div style={{width: "100vw", height:"100vh", display: "flex"}}>
-            <MapMenu handleResultBox={handleResultBox} isOpen={isOpen} data={data} />
-            <MapView handleResultBox={handleResultBox} data={data}/>
+            <MapMenu handleResultBox={handleResultBox} isOpen={isOpen} data={data} setLocation={setLocation}/>
+            <MapView handleResultBox={handleResultBox} data={data} location={location} />
         </div>
     )
 }

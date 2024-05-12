@@ -8,7 +8,7 @@ import style from '../../styles/map/Map.module.css';
 import { Icon } from '@iconify/react';
 
 /*검색 결과 컴포넌트*/
-function SearchResultComponent({ isOpen, searchList, data }) {
+function SearchResultComponent({ isOpen, searchList, data, currentLatitude, currentLongitude }) {
     const [bookmarkList, setBookmarkList] = useState([data]);
     
     const cilckedHeart = async (index) => {
@@ -82,21 +82,68 @@ function SearchResultComponent({ isOpen, searchList, data }) {
         }
         return savedItem;
     };
+
+    // 두 지점 간의 거리를 계산하는 함수
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;  // 위도 차이
+        const dLon = (lon2 - lon1) * Math.PI / 180;  // 경도 차이
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c; // 두 지점 사이의 거리
+        return distance;
+    }
+    // 검색된 결과들의 좌표와 현재 좌표 사이의 거리를 계산하여 반환하는 함수
+    function calculateDistancesFromCurrentLocation(currentLatitude, currentLongitude, searchList) {
+        const distances = searchList.map(item => {
+            const distance = calculateDistance(
+                currentLatitude,
+                currentLongitude,
+                parseFloat(item.y),
+                parseFloat(item.x)
+            );
+            return distance;
+        });
+        return distances;
+    }
+    function sortByDistance(currentLatitude, currentLongitude, searchList) {
+        const distances = calculateDistancesFromCurrentLocation(currentLatitude, currentLongitude, searchList);
+        const sortedSearchList = [...searchList].sort((a, b) => {
+            const distanceA = distances[searchList.indexOf(a)];
+            const distanceB = distances[searchList.indexOf(b)];
+            return distanceA - distanceB;
+        });
+        return sortedSearchList;
+    }
+    const sortedSearchList = sortByDistance(currentLatitude, currentLongitude, searchList);
     
     return(
         <div id='searchDiv' className={style['search-div']} style={{display: isOpen ? "block" : "none"}} >
             <ul>
                 {
-                    Array.isArray(searchList) && searchList.length > 0 && searchList.map((item, index) => {
+                    Array.isArray(sortedSearchList) && sortedSearchList.length > 0 && sortedSearchList.map((item, index) => {
                         const isSelected = isBookmarked(index);
+                        const distance = calculateDistance(
+                            currentLatitude,
+                            currentLongitude,
+                            parseFloat(item.y),
+                            parseFloat(item.x)
+                        );
+                        let distanceDisplay;
+                        if (distance >= 1) {
+                            distanceDisplay = `${(distance).toFixed(1)}km`;
+                        } else {
+                            distanceDisplay = `${Math.floor(distance * 1000)}m`;
+                        }
                         return(
                             <li className={style['search-item']} key={index}>
                                 <div style={{display:"flex",alignItems:"center"}}>
                                     <span>{item.place_name}</span>
                                     <Icon icon={isSelected || isSaved(index) ? 'solar:heart-bold' : 'solar:heart-outline'} onClick={() => toggleBookmark(index)}/>
                                 </div>
-                                {/* <div style={{fontSize:16, color:"rgba(255, 255, 255, 0.7)",marginTop:5}}>{item.kilometer}・{item.address_name}</div> */}
-                                <div style={{fontSize:16, color:"rgba(255, 255, 255, 0.7)",marginTop:5}}>{item.address_name}</div>
+                                <div style={{fontSize:16, color:"rgba(255, 255, 255, 0.7)",marginTop:5}}>{distanceDisplay}・{item.address_name}</div>
                             </li>
                         )
                     })
