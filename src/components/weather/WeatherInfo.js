@@ -2,33 +2,18 @@ import '../../styles/common/Style.css';
 import WeatherInfoStyle from '../../styles/weather/WeatherInfo.module.css';
 
 function WeatherInfo({ hourlyWeather, maxTemperature, minTemperature }) {
-    // console.log('1. hourlyWeather : ', hourlyWeather);
-
-    // const getCurrentHour = () => {
-    //     const now = new Date();
-    //     return now.getHours();
-    // };
-
     const getCurrentHour = () => {
         const now = new Date();
-        const currentHour = now.getHours();
-        const closestHour = Math.floor(currentHour / 3) * 3 + 3;
-    
-        if (closestHour < 3) {
-            return '03';
-        } else if (closestHour >= 21) {
-            return '21';
-        } else {
-            return closestHour.toString().padStart(2, '0');
-        }
+        return now.getHours();
     };
 
     const getCurrentState = (hourlyWeather, currentHour) => {
         const currentData = hourlyWeather.find(data => parseInt(data.time) === currentHour);
-        if (currentData && currentData.state && currentData.temperature) {
+        if (currentData && currentData.sky && currentData.temperature) {
             const data = {
                 temperature: currentData.temperature,
-                state: currentData.state
+                sky: currentData.sky,
+                pty: currentData.pty,
             };
             return data;
         } else {
@@ -36,27 +21,34 @@ function WeatherInfo({ hourlyWeather, maxTemperature, minTemperature }) {
         }
     };
 
-    // const currentHour = getCurrentHour();
     const currentHour = parseInt(getCurrentHour());
     const currentState = getCurrentState(hourlyWeather, currentHour);
 
-    // console.log('2. currentHour : ', Object(currentHour))
-    // console.log('3. currentState : ', currentState)
-
-    const getWeather = (state) => {
+    const getWeather = (sky, pty) => {
         let weather = '';
-        switch (state) {
-            case '1': weather = '맑음'; break;
-            case '3': weather = '구름많음'; break;
-            case '4': weather = '흐림'; break;
-            default: weather = null;
+        if (pty === '0') {
+            switch (sky) {
+                case '1': weather = '맑음'; break;
+                case '3': weather = '구름많음'; break;
+                case '4': weather = '흐림'; break;
+                default: weather = null;
+            }
+        } else {
+            switch(pty) {
+                case '1': weather = '비'; break;
+                case '2': weather = '비/눈'; break;
+                case '3': weather = '눈'; break;
+                case '5': weather = '빗방울'; break;
+                case '6': weather = '빗방울눈날림'; break;
+                case '7': weather = '눈날림'; break;
+                default: weather = null;
+            }
         }
         return weather;
     };
 
-    const currentWeather = currentState ? getWeather(currentState.state) : null;
+    const currentWeather = currentState ? getWeather(currentState.sky, currentState.pty) : null;
     const currentTemperature = currentState ? currentState.temperature : null;
-    // console.log('4. currentWeather, currentTemperature : ', currentWeather, currentTemperature);
 
     return (
         <>
