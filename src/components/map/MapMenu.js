@@ -64,7 +64,7 @@ function MapMenu({ handleResultBox, isOpen, data, setLocation }){
             </div>
             {
                 searchList.length > 0 &&
-                <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data}/>
+                <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data} currentLatitude={37.4667824} currentLongitude={126.9336292}/>
             }
             <FavoriteList data={data} setLocation={setLocation}/>
             <RecentSearchList />

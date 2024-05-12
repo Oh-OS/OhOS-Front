@@ -36,7 +36,7 @@ function Map() {
     return (
         <div style={{width: "100vw", height:"100vh", display: "flex"}}>
             <MapMenu handleResultBox={handleResultBox} isOpen={isOpen} data={data} setLocation={setLocation}/>
-            <MapView handleResultBox={handleResultBox} data={data} location={location}/>
+            <MapView handleResultBox={handleResultBox} data={data} location={location} />
         </div>
     )
 }
