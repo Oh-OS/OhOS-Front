@@ -95,6 +95,7 @@ function SearchResultComponent({ isOpen, searchList, data, currentLatitude, curr
         const distance = R * c; // 두 지점 사이의 거리
         return distance;
     }
+
     // 검색된 결과들의 좌표와 현재 좌표 사이의 거리를 계산하여 반환하는 함수
     function calculateDistancesFromCurrentLocation(currentLatitude, currentLongitude, searchList) {
         const distances = searchList.map(item => {
