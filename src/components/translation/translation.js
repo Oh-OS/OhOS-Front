@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../../styles/common/Style.css'
 import translationStyle from '../../styles/translation/translationPage.module.css'
-import { TranslateApiKey } from '../../ApiKey';
+import { TranslateApiKey } from '../../Config';
 
 const DebounceTextarea = ({ onChange, value, debounceTimeout, ...rest }) => {
     const [innerValue, setInnerValue] = useState(value);
