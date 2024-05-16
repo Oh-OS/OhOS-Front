@@ -38,21 +38,15 @@ function WeatherSearch() {
                     x: parseInt(document.x),
                     y: parseInt(document.y)
                 }));
-                setSearchList(documents)
-                console.log("api 호출 성공!", response.data.documents);
+                setSearchList(documents);
+                console.log("api 호출 성공!", searchList);
             } else {
                 console.log('api 호출 실패', response.status);
             }
         } catch (error) {
             console.error('api 연결 실패:', error);
-        } finally {
-            setSearchList([]);
         }
     };
-
-    if (searchList.length !== 0) {
-        console.log(searchList);
-    }
 
     return (
         <>
