@@ -1,0 +1,24 @@
+.canvas {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100vw;
+}
+.container{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 10vw;
+  background-color: rgba(0, 0, 0, 0.764);
+  backdrop-filter: blur(5px);
+  margin: 0;
+  height: 100vh;
+  z-index: 9;
+}
+.SiriText{
+  color: white;
+  margin-top: 10vw;
+  font-size: 1.6rem;
+}
