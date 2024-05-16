@@ -13,19 +13,14 @@
     font-weight: 300;
 }
 
-/* 위치 */
-.topContainer >p:nth-child(2) {
-    font-size: 0.9rem;
-}
-
 /* 현재 온도 */
-.topContainer >p:nth-child(3) {
+.topContainer >p:nth-child(2) {
     font-size: 4.5rem;
     font-weight: 100;
 }
 
 /* 날씨 상태(맑음, 흐림) */
-.topContainer > p:nth-child(4) {
+.topContainer > p:nth-child(3) {
     font-size: 1.2rem;
 }
 
