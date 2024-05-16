@@ -9,6 +9,8 @@ import Launchpad from './pages/LaunchpadPage';
 import BubblePage from './pages/BubblePage';
 import PhotoboothPage from './pages/PhotobootPage';
 import MapPage from './pages/MapPage';
+import SiriPage from './pages/SiriPage';
+import AudioVisualizer from './components/siri/AudioVisualizer';
 
 function App() {
     return (
@@ -22,6 +24,8 @@ function App() {
                 <Route path="/bubble" element={<BubblePage/>} />
                 <Route path="/photoBooth" element={<PhotoboothPage/>} />
                 <Route path="/map" element={<MapPage/>} />
+                <Route path="/siri" element={<SiriPage/>} />
+                <Route path="/audioVisualizer" element={<AudioVisualizer/>} />
             </Routes>
         </Router>
     )
