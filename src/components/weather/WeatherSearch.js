@@ -59,6 +59,7 @@ function WeatherSearch() {
                     id='keyword' 
                     type='text' 
                     placeholder='위치를 검색하세요' 
+                    autoComplete='off'
                     className={WeatherSearchStyle['searchStyle']}
                     value={searchText}
                     onChange={handleInputChange}
