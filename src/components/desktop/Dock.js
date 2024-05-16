@@ -1,12 +1,17 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from '../../styles/desktop/Dock.module.css';
 
 function Dock() {
-
     const navigate = useNavigate();
+    const location = useLocation();
+
     const IconClick = (path) => {
-      navigate(path);
+        if (path === '/launchpad' && location.pathname === '/launchpad') {
+            navigate('/');
+        } else {
+            navigate(path);
+        }
     };
 
     return (
