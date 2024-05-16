@@ -9,12 +9,17 @@ function WeatherSearch() {
     const [searchText, setSearchText] = useState('');
     const [searchList, setSearchList] = useState([]); // 검색 결과 저장 배열
     const handleInputChange = (event) => {
-        setSearchText(event.target.value);
-        searchPlaces(event.target.value);
+        const newSearchText = event.target.value;
+        setSearchText(newSearchText);
     };
 
-    const searchPlaces = async () => {
-        const keyword = document.getElementById('keyword').value;
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            searchPlaces(searchText);
+        }
+    };
+
+    const searchPlaces = async (keyword) => {
         if (!keyword.trim()) {
             setSearchList([]);
             return;
@@ -38,6 +43,10 @@ function WeatherSearch() {
         }
     };
 
+    if (searchList.length !== 0) {
+        console.log(searchList);
+    }
+
     return (
         <>
             <div className={WeatherSearchStyle['searchDiv']}>
@@ -47,7 +56,8 @@ function WeatherSearch() {
                     placeholder='위치를 검색하세요' 
                     className={WeatherSearchStyle['searchStyle']}
                     value={searchText}
-                    onChange={handleInputChange} 
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
                 />
             </div>
         </>
