@@ -38,3 +38,11 @@
     width: 13.5%;
     outline: none;
 }
+.iconContainer{
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    top: 8vw;
+    width: 73vw;
+    column-gap: 10vw;
+}
