@@ -20,7 +20,7 @@ function Weather() {
 
     const [forecast, setForecast] = useState(null);
     const [hourlyWeather, setHourlyWeather] = useState([]);
-    // const baseTime = [2, 5, 8, 11, 14, 17, 20, 23];
+
     const baseTime = [];
     for(let i = 0; i < 24; i++) {
         const time = (i < 10 ? '0' : '') + i + '30';
@@ -50,13 +50,11 @@ function Weather() {
                     const response = await fetch(apiUrl);
                     const forecasts = await response.json();
                     setForecast(forecasts);
-                    // console.log(forecasts);
 
                     // 데이터 처리
                     const PTY = forecasts?.response?.body?.items?.item[6]; // 강수형태
                     const SKY = forecasts?.response?.body?.items?.item[18]; // 하늘상태
                     const T1H = forecasts?.response?.body?.items?.item[24]; // 기온
-                    // console.log(PTY, SKY, T1H);
 
                     if (PTY && SKY && T1H) {
                         const time = PTY.fcstTime.substring(0, 2); // 시간
@@ -75,6 +73,7 @@ function Weather() {
                         hourlyWeatherData.push(hourlyWeatherDataItem);
                     }
                 }
+
                 setHourlyWeather(hourlyWeatherData);
             } catch (error) {
                 console.error('Error fetching data: ', error);
@@ -97,7 +96,6 @@ function Weather() {
                         <WeatherSearch />
                         {/* 날씨 보여주는 */}
                         <WeatherShow hourlyWeather={hourlyWeather} />
-                        {/* <WeatherShow /> */}
                     </div>
                 </div>
             </div>
