@@ -39,12 +39,14 @@ function WeatherSearch() {
                     y: parseInt(document.y)
                 }));
                 setSearchList(documents)
-                console.log("검색 결과 저장 성공!");
+                console.log("api 호출 성공!", response.data.documents);
             } else {
-                console.log('검색 결과를 가져오는데 실패했습니다.');
+                console.log('api 호출 실패', response.status);
             }
         } catch (error) {
-            console.error('검색 중 오류 발생:', error);
+            console.error('api 연결 실패:', error);
+        } finally {
+            setSearchList([]);
         }
     };
 
