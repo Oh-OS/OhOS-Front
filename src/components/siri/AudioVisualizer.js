@@ -34,7 +34,7 @@ const AudioVisualizer = () => {
 
   const visualize = () => {
     const canvas = canvasRef.current;
-    if (!canvas) return; // canvas가 null인 경우 visualize() 함수 종료
+    if (!canvas) return;
   
     const ctx = ctxRef.current;
     const analyser = analyserRef.current;
@@ -42,7 +42,7 @@ const AudioVisualizer = () => {
   
     analyser.getByteFrequencyData(freqs);
   
-    canvas.width = canvas.clientWidth; // 캔버스 너비를 실제 너비로 설정
+    canvas.width = canvas.clientWidth;
     canvas.height = 500;
   
     path(0);
