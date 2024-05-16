@@ -4,7 +4,8 @@ import Dock from '../components/desktop/Dock'
 import SearchBar from '../components/launchpad/SearchBar';
 import styles from '../styles/launchpad/LaunchpadPage.module.css'
 import { useNavigate } from "react-router-dom";
-import IconContainer from '../components/launchpad/Icon';
+// import IconContainer from '../components/launchpad/Icon';
+import IconContainer from '../components/launchpad/IconContainer';
 
 function LaunchpadPage() {
 
@@ -16,7 +17,7 @@ function LaunchpadPage() {
     return (
         <div>
             <div style={{display:"flex", justifyContent:"center"}}>
-                <SearchBar/>
+                {/* <SearchBar/> */}
                 <Dock />
                 <div onClick={() => IconClick('/')} className={styles.backgroundBlur}></div>
                 <div className={styles['iconContainer']}>
