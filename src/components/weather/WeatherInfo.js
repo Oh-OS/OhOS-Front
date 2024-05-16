@@ -54,7 +54,6 @@ function WeatherInfo({ hourlyWeather, maxTemperature, minTemperature }) {
         <>
             <div className={WeatherInfoStyle['topContainer']}>
                 <p>나의 위치</p>
-                <p>서울특별시</p>
                 <p>{currentTemperature}°</p>
                 <p>{currentWeather}</p>
                 <div className={WeatherInfoStyle['temperatureDiv']}>

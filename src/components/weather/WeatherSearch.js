@@ -33,7 +33,12 @@ function WeatherSearch() {
             });
 
             if (response.status === 200) {
-                setSearchList(response.data.documents);
+                const documents = response.data.documents.map(document => ({
+                    ...document,
+                    x: parseInt(document.x),
+                    y: parseInt(document.y)
+                }));
+                setSearchList(documents)
                 console.log("검색 결과 저장 성공!");
             } else {
                 console.log('검색 결과를 가져오는데 실패했습니다.');
@@ -54,6 +59,7 @@ function WeatherSearch() {
                     id='keyword' 
                     type='text' 
                     placeholder='위치를 검색하세요' 
+                    autoComplete='off'
                     className={WeatherSearchStyle['searchStyle']}
                     value={searchText}
                     onChange={handleInputChange}
