@@ -12,9 +12,9 @@ import FavoriteList from './FavoriteList';
 
 
 /* 지도 메뉴 컴포넌트 */
-function MapMenu({ handleResultBox, isOpen, data, setLocation }){
+function MapMenu({ handleResultBox, isOpen, data, setData, setLocation }){
     const [inputValue , setInputValue] = useState('');
-    const [searchList, setSearchList] = useState('');
+    const [searchList, setSearchList] = useState([]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -58,13 +58,13 @@ function MapMenu({ handleResultBox, isOpen, data, setLocation }){
                     className={style['debounce-input']} 
                     placeholder='검색' value={inputValue} 
                     debounceTimeout={500} 
-                    onChange={handleInputChange} 
+                    onChange={handleInputChange}
                     onClick={()=>handleResultBox(isOpen)}
                 />
             </div>
             {
                 searchList.length > 0 &&
-                <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data} currentLatitude={37.4667824} currentLongitude={126.9336292}/>
+                <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data} setData={setData} currentLatitude={37.4667824} currentLongitude={126.9336292}/>
             }
             <FavoriteList data={data} setLocation={setLocation}/>
             <RecentSearchList />

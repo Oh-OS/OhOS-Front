@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { MapHost } from '../../Config';
 
@@ -8,38 +8,82 @@ import style from '../../styles/map/Map.module.css';
 import { Icon } from '@iconify/react';
 
 /*검색 결과 컴포넌트*/
-function SearchResultComponent({ isOpen, searchList, data, currentLatitude, currentLongitude }) {
-    const [bookmarkList, setBookmarkList] = useState([data]);
+function SearchResultComponent({ isOpen, searchList, data, setData, currentLatitude, currentLongitude }) {
+    const [bookmarkedIndices, setBookmarkedIndices] = useState([]);
+    let id = null;
+
+    // data가 변경될 때마다 bookmarkedIndices 업데이트
+    useEffect(() => {
+        const indices = searchList.map((item, index) => {
+            return data.some(savedItem => 
+                String(savedItem.latitude) === item.y && String(savedItem.longitude) === item.x) ? index : null;
+        }).filter(index => index !== null);
+        setBookmarkedIndices(indices);
+    }, [data]);
+
+    const isBookmarked = (index) => {
+        return bookmarkedIndices.includes(index);
+    };
+
+    const isSaved = (index) => {
+        const selectedItem = searchList[index];
+        return data.find(item => String(item.latitude) === selectedItem.y && String(item.longitude) === selectedItem.x);
+    };
+
+    const toggleBookmark = async (index) => {
+        const isSelected = isBookmarked(index);
+        const isSavedItem = isSaved(index);
     
+        if (isSelected && isSavedItem) {
+            // 이미 즐겨찾기에 있는 항목인 경우 삭제
+            await deletedHeart(index);
+        } else {
+            // 즐겨찾기에 추가
+            await cilckedHeart(index);
+        }
+    };
+
+    // 즐겨찾기 추가 서버 연결
     const cilckedHeart = async (index) => {
         const selectedItem = searchList[index];
-        if (selectedItem) {
-            try {
-                const request = await axios.post(`${MapHost}/bookmarks`, {
-                    locationName: selectedItem.place_name,
-                    latitude: selectedItem.y,
-                    longitude: selectedItem.x
-                });
-    
-                if (request.status === 201) {
-                    console.log("즐겨찾기 추가 성공!");
-                    setBookmarkList([...bookmarkList, request.data]);
-                } else {
-                    console.log("즐겨찾기 추가 실패 : ", request.status);
-                }
-    
-            } catch(error) {
-                console.log("서버 연결 실패 : ", error);
+        try {
+            const request = await axios.post(`${MapHost}/bookmarks`, {
+                locationName: selectedItem.place_name,
+                latitude: selectedItem.y,
+                longitude: selectedItem.x
+            });
+
+            if (request.status === 201) {
+                // 성공적으로 추가되면 해당 항목의 인덱스를 상태에 추가
+                console.log("즐겨찾기 추가 성공!");
+                setBookmarkedIndices([...bookmarkedIndices, index]);
+                setData([...data, request.data]);
+                id = request.data.id;
+            } else {
+                console.log("즐겨찾기 추가 실패 : ", request.status);
             }
+
+        } catch(error) {
+            console.log("서버 연결 실패 : ", error);
         }
     }
 
-    const deletedHeart = async (index, id) => {
+    // 즐겨찾기 삭제 서버 연결
+    const deletedHeart = async (index) => {
+        const selectedItem = searchList[index];
+        const itemToDelete = data.find(item => String(item.latitude) === selectedItem.y && String(item.longitude) === selectedItem.x);
+
+        if (!itemToDelete) {
+            console.log("삭제할 항목을 찾을 수 없습니다.");
+            return;
+        }
+
         try {
-            const request = await axios.delete(`${MapHost}/bookmarks/${id}`);
+            const request = await axios.delete(`${MapHost}/bookmarks/${itemToDelete.id}`);
             if (request.status === 204) {
                 console.log("즐겨찾기 삭제 성공");
-                setBookmarkList(bookmarkList.filter(itemId => itemId !== index));
+                setBookmarkedIndices(prevIndices => prevIndices.filter(idx => idx !== index));
+                setData(prevData => prevData.filter(item => item.id !== itemToDelete.id));
             } else {
                 console.log("즐겨찾기 삭제 실패 : ", request.status);
             }
@@ -47,41 +91,6 @@ function SearchResultComponent({ isOpen, searchList, data, currentLatitude, curr
             console.log("서버 연결 실패 : ", error);
         }
     }
-
-    const toggleBookmark = async (index) => {
-        const selectedItem = searchList[index];
-        const isSelected = isBookmarked(index);
-        const clickedCoordinate = {
-            latitude: selectedItem.y,
-            longitude: selectedItem.x
-        };
-    
-        const savedItem = data.find(item => String(item.latitude) === String(clickedCoordinate.latitude) && String(item.longitude) === String(clickedCoordinate.longitude));
-    
-        if (savedItem) {
-            // 이미 저장된 항목인 경우 해당 항목을 삭제
-            await deletedHeart(index, savedItem.id);
-        } else if (!isSelected) {
-            // 저장되어 있지 않은 항목인 경우 즐겨찾기를 추가
-            await cilckedHeart(index);
-        }
-    };
-
-    const isBookmarked = (index) => {
-        return bookmarkList.includes(index);
-    };
-
-    const isSaved = (index) => {
-        const selectedItem = searchList[index];
-        let savedItem = false;
-        for (const item of data) {
-            if (String(item.latitude) === selectedItem.y && String(item.longitude) === selectedItem.x) {
-                savedItem = true;
-                break;
-            }
-        }
-        return savedItem;
-    };
 
     // 두 지점 간의 거리를 계산하는 함수
     function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -109,6 +118,7 @@ function SearchResultComponent({ isOpen, searchList, data, currentLatitude, curr
         });
         return distances;
     }
+    // 거리 순으로 정렬
     function sortByDistance(currentLatitude, currentLongitude, searchList) {
         const distances = calculateDistancesFromCurrentLocation(currentLatitude, currentLongitude, searchList);
         const sortedSearchList = [...searchList].sort((a, b) => {
@@ -125,7 +135,13 @@ function SearchResultComponent({ isOpen, searchList, data, currentLatitude, curr
             <ul>
                 {
                     Array.isArray(sortedSearchList) && sortedSearchList.length > 0 && sortedSearchList.map((item, index) => {
-                        const isSelected = isBookmarked(index);
+                        const originalIndex = searchList.findIndex(
+                            searchItem => 
+                                searchItem.place_name === item.place_name &&
+                                searchItem.address_name === item.address_name
+                        );
+                        const isSelected = isBookmarked(originalIndex);
+                        const isSavedItem = isSaved(originalIndex);
                         const distance = calculateDistance(
                             currentLatitude,
                             currentLongitude,
@@ -142,7 +158,10 @@ function SearchResultComponent({ isOpen, searchList, data, currentLatitude, curr
                             <li className={style['search-item']} key={index}>
                                 <div style={{display:"flex",alignItems:"center"}}>
                                     <span>{item.place_name}</span>
-                                    <Icon icon={isSelected || isSaved(index) ? 'solar:heart-bold' : 'solar:heart-outline'} onClick={() => toggleBookmark(index)}/>
+                                    <Icon 
+                                        icon={isSelected || isSavedItem ? 'solar:heart-bold' : 'solar:heart-outline'} 
+                                        onClick={() => toggleBookmark(originalIndex)} 
+                                    />
                                 </div>
                                 <div style={{fontSize:16, color:"rgba(255, 255, 255, 0.7)",marginTop:5}}>{distanceDisplay}・{item.address_name}</div>
                             </li>
