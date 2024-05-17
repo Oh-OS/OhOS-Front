@@ -7,10 +7,10 @@
 }
 
 .searchBar{
-    position: absolute;
+    position: relative;
     display: flex;
     z-index: 2;
-    width: 15%;
+    width: 15vw;
     height: 30px;
     border: 1px solid #ffffff99;
     border-radius: 5px;
@@ -34,7 +34,22 @@
     background-position: 2% center;
     text-align: start;
     text-indent: 0;
-    padding-left: 1.5%;
-    width: 13.5%;
+    padding-left: 1.5vw;
+    width: 13.5vw;
     outline: none;
+    align-items: center;
+    position: relative;
+}
+.iconContainer{
+    position: absolute;
+    z-index: 2;
+    top: 2vw;
+    width: 73vw;
+    column-gap: 10vw;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 4vw;
 }

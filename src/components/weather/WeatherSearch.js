@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapRestApiKey } from '../../Config';
 import axios from 'axios';
 
@@ -12,6 +12,10 @@ function WeatherSearch() {
         const newSearchText = event.target.value;
         setSearchText(newSearchText);
     };
+
+    useEffect(() => {
+        console.log(searchList);
+    }, [searchList])
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -39,7 +43,7 @@ function WeatherSearch() {
                     y: parseInt(document.y)
                 }));
                 setSearchList(documents);
-                console.log("api 호출 성공!", searchList);
+                console.log("api 호출 성공!");
             } else {
                 console.log('api 호출 실패', response.status);
             }
