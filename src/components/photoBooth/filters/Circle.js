@@ -1,18 +1,86 @@
 export default function Circle(ctx, video, canvas, width, height, drawImge){
-    const radius = Math.min(width, height) / 2;
-    const centerX = width / 2;
-    const centerY = height / 2;
-
     canvas.width = width;
     canvas.height = height;
 
     ctx.translate(canvas.width, 0);
 
     ctx.scale(-1, 1);
-    ctx.filter = 'blur(5px)';
-    ctx.drawImage(video.video, 0, 0, width, height);
+    // const width1 = width / 5;
+    const r = height / 3 * 2;
+    const startW = (width - r) / 2;
+    const startH = height / 3;
     
-    ctx.filter = 'none';
+    // ctx.drawImage(video.video, startW, startH, 20, 20, 0, 0, startW, height);
+    // ctx.filter = 'blur(5px)';
+    // ctx.drawImage(video.video, 0, 0, width, height);
+    // ctx.beginPath();
+    // ctx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2);
+    // ctx.fillStyle = "gray";
+    // ctx.fillRect(100, 0, 80, 20);
+    // ctx.rotate(0 * Math.PI / 180);
+    // ctx.fillStyle = "red";
+    // ctx.fillRect(100, 0, 80, 20);
+
+    // 회전된 이미지 크기와 위치 계산
+    var offsetX = -width / 2;
+    var offsetY = -height / 2;
+    var rotatedWidth = height; // 이미지를 45도 회전하면 가로와 세로가 바뀜
+    var rotatedHeight = width; 
+
+    // 회전된 이미지 그리기
+    // ctx.drawImage(video.video, startW + r, height / 2, 1, 1, startW + r, height / 2, width / 2, 7);
+
+    // ctx.rotate(1 * Math.PI / 180);
+    // ctx.drawImage(video.video, startW + r, height / 2 + 3, 1, 1, startW + r, height / 2 - 1, width / 2, 7);
+
+    // ctx.rotate(2 * Math.PI / 180);
+    // ctx.drawImage(video.video, startW + r, height / 2 + 6, 1, 1, startW + r, height / 2 - 11, width / 2, 7);
+
+    // ctx.rotate(3 * Math.PI / 180);
+    // ctx.drawImage(video.video, startW + r, height / 2 + 9, 1, 1, startW + r, height / 2 - 29, width / 2, 7);
+    // ctx.rotate(4 * Math.PI / 180);
+    // ctx.drawImage(video.video, startW + r, height / 2 + 9, 1, 1, startW + r, height / 2 - 56, width / 2, 7);
+    // ctx.rotate(5 * Math.PI / 180);
+    // ctx.drawImage(video.video, startW + r, height / 2 + 9, 1, 1, startW + r, height / 2 - 70, width / 2, 7);
+    // ctx.rotate(6 * Math.PI / 180);
+    // ctx.drawImage(video.video, startW + r, height / 2 + 9, 1, 1, startW + r, height / 2 - 120, width / 2, 7);
+    // ctx.rotate(7 * Math.PI / 180);
+    // ctx.drawImage(video.video, startW + r, height / 2 + 9, 1, 1, startW + r, height / 2 - 170, width / 2, 7);
+    // ctx.rotate(8 * Math.PI / 180);
+    // ctx.drawImage(video.video, startW + r, height / 2 + 9, 1, 1, startW + r, height / 2 - 250, width / 2, 7);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // // Save the current state
+    ctx.save();
+
+    // // Create a path for the triangle
+    ctx.beginPath();
+    ctx.moveTo(width, height / 2); // Top point of the triangle
+    ctx.lineTo(width, height / 2 + 10); // Bottom left point
+    ctx.lineTo(startW + r, height / 2); // Bottom right point
+    ctx.closePath();
+
+    // // Clip to the current path
+    ctx.clip();
+
+    // // Draw the video
+    ctx.drawImage(video.video, width, height / 2, 4, 4, 0, 0, canvas.width, canvas.height);
+
+    // // Restore the previous state
+    ctx.restore();
+    
+    // 회전된 캔버스 축을 원본 캔버스로 돌려놓기 
+     ctx.setTransform(1, 0, 0, 1, 0, 0);
+     ctx.translate(canvas.width, 0);
+
+    ctx.scale(-1, 1);
+    //  ctx.scale(-1, 1);
+    // ctx.stroke();
+    
+
+    ctx.fillStyle = 'none';
+    // ctx.filter = 'none';
     ctx.beginPath();
     
     ctx.arc(width / 2, height / 2, Math.min(width, height) / 3, 0, 2 * Math.PI);
@@ -21,7 +89,8 @@ export default function Circle(ctx, video, canvas, width, height, drawImge){
 
     ctx.drawImage(video.video, 0, 0, width, height);
     ctx.restore();
-    // ctx.save();
+
+    ctx.save();
     // console.log(centerX - radius, centerY - radius, radius * 2, radius * 2)
     // 102 0 262.6666666666667 262.6666666666667
 

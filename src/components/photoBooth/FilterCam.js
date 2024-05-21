@@ -4,11 +4,13 @@ import style from '../../styles/photoBooth/FilterCam.module.css'
 import Webcam from 'react-webcam';
 
 import XRay from './filters/XRay';
-import Stretch from './filters/Stretch';
+import StretchH from './filters/StretchH';
+import Zombie from './filters/Zombie';
 import Circle from './filters/Circle';
 import Basic from './filters/Basic';
+import Comic from './filters/Comic';
+import StretchV from './filters/StretchV';
 import Flip from './filters/Flip'
-import Press from './filters/Press'
 import Swirl from './filters/Swirl'
 
 function FilterCam({ width, height }) {
@@ -16,7 +18,7 @@ function FilterCam({ width, height }) {
     const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
     const videoClass = ['invert', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     const videoRef = useRef();
-    const videoFunction = [XRay, Stretch, Stretch, Circle, Basic, Basic, Flip, Press, Swirl];
+    const videoFunction = [XRay, StretchH, Zombie, Circle, Basic, Comic, Flip, StretchV, Swirl];
 
     const videoConstraints = {
       width: width,
