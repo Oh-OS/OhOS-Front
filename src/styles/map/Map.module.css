@@ -70,8 +70,16 @@ input::placeholder {
     align-items: center;
     margin-bottom: 10px;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.menu-item > div{
+.menu-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu-title > div{
     font-size: 16px; 
     font-weight: 200;
 }
