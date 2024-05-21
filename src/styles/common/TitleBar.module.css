@@ -15,6 +15,7 @@
     height: 17px;
     border-radius: 50%;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .close{
