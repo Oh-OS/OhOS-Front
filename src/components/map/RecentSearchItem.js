@@ -17,7 +17,7 @@ function RecentSearchItem({item, setLocation, setRecentMarker}){
                     <img src='/images/Map/search.svg' style={{width: 28, height: 28, marginRight: 10}} onClick={clickItem}></img>
                     <div>{item.place_name}</div>
                 </div>
-                <Icon icon='bi:x' />
+                <Icon icon='bi:x' style={{ cursor: 'pointer' }} />
             </div>
         </Fragment>
         
