@@ -1,0 +1,19 @@
+.resultsListDiv {
+    border: 0;
+    width: 20vw;
+    padding: 1.2%;
+    display: flex;
+    border-radius: 15px;
+    flex-direction: column;
+    background-color: #337ACA;
+}
+
+.resultsListDiv * {
+    width: auto;
+    height: auto;
+    color: white;
+    font-weight: 200;
+    font-size: 0.7rem;
+    line-height: 1rem;
+    padding-left: 1.5%;
+}
