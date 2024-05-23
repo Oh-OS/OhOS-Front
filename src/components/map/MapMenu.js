@@ -81,9 +81,8 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
                 searchList.length > 0 &&
                 <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data} setData={setData} currentLatitude={37.4667824} currentLongitude={126.9336292} handleAddRecentList={handleAddRecentList}/>
             }
-            <FavoriteList data={data} setLocation={setLocation} recentList={recentList} handleDeleteRecentList={handleDeleteRecentList} setRecentMarker={setRecentMarker}/>
-            <RecentSearchList />
-           
+            <FavoriteList data={data} setLocation={setLocation}/>
+            <RecentSearchList recentList={recentList} setLocation={setLocation} handleDeleteRecentList={handleDeleteRecentList} setRecentMarker={setRecentMarker}/>
         </div>
 
         </>
