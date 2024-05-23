@@ -72,7 +72,9 @@ function WeatherSearch() {
                     onKeyDown={handleKeyDown}
                 />
             </div>
-            <WeatherSearchList searchList={searchList} />
+            {searchList.length > 0 && 
+                <WeatherSearchList searchList={searchList} />
+            }
         </>
     )
 }
