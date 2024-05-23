@@ -22,7 +22,6 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
     };
     const handleAddRecentList = (item) => {
         setRecentList(prev => (recentList.includes(item))?[...prev].slice(0, 5):[item, ...prev].slice(0, 5))
-        console.log(recentList)
         setLocation({latitude: item.y, longitude: item.x})
         setRecentMarker(item)
     } 
@@ -90,7 +89,11 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
                     reFetchData={reFetchData}
                 />
             }
-            <FavoriteList data={data} setLocation={setLocation} reFetchData={reFetchData} />
+            <FavoriteList
+                data={data}
+                setLocation={setLocation}
+                reFetchData={reFetchData}
+            />
             <RecentSearchList 
                 recentList={recentList} 
                 setLocation={setLocation} 

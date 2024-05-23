@@ -18,6 +18,7 @@ function FavoriteList({ data, setData, setLocation, reFetchData }) {
             }
         } catch(error) {
             console.log("서버 연결 실패", error);
+            reFetchData();
         }
     }
 
