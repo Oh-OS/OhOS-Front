@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import { Icon } from '@iconify/react';
 import { MapRestApiKey } from '../../Config';
@@ -12,7 +12,7 @@ import FavoriteList from './FavoriteList';
 
 
 /* 지도 메뉴 컴포넌트 */
-function MapMenu({ handleResultBox, isOpen, data, setData, setLocation }){
+function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentList, setRecentList, setRecentMarker}){
     const [inputValue , setInputValue] = useState('');
     const [searchList, setSearchList] = useState([]);
 
@@ -20,6 +20,21 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation }){
         setInputValue(e.target.value);
         searchPlaces(e.target.value);
     };
+    const handleAddRecentList = (item) => {
+        setRecentList(prev => (recentList.includes(item))?[...prev].slice(0, 5):[item, ...prev].slice(0, 5))
+        console.log(recentList)
+        setLocation({latitude: item.y, longitude: item.x})
+        setRecentMarker(item)
+    } 
+    const handleDeleteRecentList= () => {
+        setRecentList([])
+    }
+
+      //새로고침 후에도 최근 검색 남아있게 
+    useEffect(() => {
+    localStorage.setItem('recentList', JSON.stringify(recentList))
+    },[recentList])
+    
 
     // Kakao Maps API를 사용하여 장소 검색
     const searchPlaces = async () => {
@@ -64,11 +79,10 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation }){
             </div>
             {
                 searchList.length > 0 &&
-                <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data} setData={setData} currentLatitude={37.4667824} currentLongitude={126.9336292}/>
+                <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data} setData={setData} currentLatitude={37.4667824} currentLongitude={126.9336292} handleAddRecentList={handleAddRecentList}/>
             }
             <FavoriteList data={data} setLocation={setLocation}/>
-            <RecentSearchList />
-           
+            <RecentSearchList recentList={recentList} setLocation={setLocation} handleDeleteRecentList={handleDeleteRecentList} setRecentMarker={setRecentMarker}/>
         </div>
 
         </>
