@@ -1,8 +1,9 @@
 import React from 'react';
+import WeatherSearchListStyle from '../../styles/weather/WeatherSearchList.module.css';
 
 function WeatherSearchList({ searchList }) {
     return (
-        <div>
+        <div className={WeatherSearchListStyle['resultsListDiv']}>
             <>
                 {searchList.map((item, index) => (
                     <p key={index}>
