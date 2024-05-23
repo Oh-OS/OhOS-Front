@@ -90,7 +90,7 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
                     reFetchData={reFetchData}
                 />
             }
-            <FavoriteList data={data} setLocation={setLocation}/>
+            <FavoriteList data={data} setLocation={setLocation} reFetchData={reFetchData} />
             <RecentSearchList 
                 recentList={recentList} 
                 setLocation={setLocation} 

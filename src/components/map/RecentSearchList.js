@@ -5,7 +5,6 @@ import RecentSearchItem from './RecentSearchItem';
 
 
 function RecentSearchList({setLocation, recentList, handleDeleteRecentList, setRecentMarker}){
-    console.log(recentList);
     return (
         <div className={style['menu-list-div']}>
             <div style={{color: "#A1A1A1", marginBottom:"7%", fontSize: 14}}>최근 검색</div>
