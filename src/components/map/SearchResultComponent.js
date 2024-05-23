@@ -8,7 +8,7 @@ import style from '../../styles/map/Map.module.css';
 import { Icon } from '@iconify/react';
 
 /*검색 결과 컴포넌트*/
-function SearchResultComponent({ isOpen, searchList, data, setData, currentLatitude, currentLongitude, handleAddRecentList }) {
+function SearchResultComponent({ isOpen, searchList, data, setData, currentLatitude, currentLongitude, handleAddRecentList, reFetchData }) {
     const [bookmarkedIndices, setBookmarkedIndices] = useState([]);
     let id = null;
 
@@ -59,6 +59,7 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
                 setBookmarkedIndices([...bookmarkedIndices, index]);
                 setData([...data, request.data]);
                 id = request.data.id;
+                reFetchData();
             } else {
                 console.log("즐겨찾기 추가 실패 : ", request.status);
             }
@@ -84,6 +85,7 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
                 console.log("즐겨찾기 삭제 성공");
                 setBookmarkedIndices(prevIndices => prevIndices.filter(idx => idx !== index));
                 setData(prevData => prevData.filter(item => item.id !== itemToDelete.id));
+                reFetchData();
             } else {
                 console.log("즐겨찾기 삭제 실패 : ", request.status);
             }
