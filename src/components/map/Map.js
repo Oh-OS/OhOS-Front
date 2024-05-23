@@ -19,7 +19,6 @@ function Map() {
 
     // 지도 server api 연결
     const [data, setData] = useState([]);
-    const [prevData, setPrevData] = useState([]);
     async function fetchData() {
         try {
             const response = await axios.get(`${MapHost}/bookmarks`);
@@ -39,31 +38,31 @@ function Map() {
     }, []);
 
     const reFetchData = async () => {
+        console.log("다시 호출");
         await fetchData();
     }
 
     return (
         <div style={{width: "100vw", height:"100vh", display: "flex"}}>
             <MapMenu 
-                handleResultBox={handleResultBox} 
-                isOpen={isOpen} 
-                data={data} 
-                setData={setData} 
-                location={location} 
-                setLocation={setLocation} 
-                recentList={recentList} 
-                setRecentList={setRecentList} 
-                setRecentMarker={setRecentMarker} 
+                handleResultBox={handleResultBox}
+                isOpen={isOpen}
+                data={data}
+                setData={setData}
+                location={location}
+                setLocation={setLocation}
+                recentList={recentList}
+                setRecentList={setRecentList}
+                setRecentMarker={setRecentMarker}
                 reFetchData={reFetchData}
             />
 
             <MapView 
-                handleResultBox={handleResultBox} 
-                data={data} 
-                location={location} 
-                setRecentMarker={setRecentMarker} 
-                recentMarker={recentMarker} 
-                reFetchData={reFetchData} 
+                handleResultBox={handleResultBox}
+                data={data}
+                location={location}
+                setRecentMarker={setRecentMarker}
+                recentMarker={recentMarker}
             />
         </div>
     )
