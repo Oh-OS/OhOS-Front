@@ -63,6 +63,7 @@ function Map() {
                 location={location}
                 setRecentMarker={setRecentMarker}
                 recentMarker={recentMarker}
+                reFetchData={reFetchData}
             />
         </div>
     )

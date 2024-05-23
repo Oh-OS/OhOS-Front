@@ -12,6 +12,10 @@ function FavoriteItem({ title, latitude, longitude, setLocation, id, deleteHeart
         });
     }
 
+    const handleDeleteClick = () => {
+        deleteHeart(id);
+    }
+
     return (
         <Fragment>
             <div className={style['menu-item']}>
@@ -19,7 +23,7 @@ function FavoriteItem({ title, latitude, longitude, setLocation, id, deleteHeart
                     <img src='/images/Map/heart.svg' style={{width: 28, height: 28, marginRight: 10}} alt='Heart Icon' />
                     <div>{title}</div>
                 </div>
-                <div onClick={() => deleteHeart(id)} style={{ cursor: 'pointer' }}>
+                <div onClick={handleDeleteClick} style={{ cursor: 'pointer' }}>
                     <Icon icon='bi:x' />
                 </div>
             </div>
