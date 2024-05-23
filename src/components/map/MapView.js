@@ -4,7 +4,7 @@ import '../../styles/common/Style.css';
 import style from '../../styles/map/Map.module.css';
 
 /* 지도가 띄워질 컴포넌트 */
-function MapView({ handleResultBox, data, location }) {
+function MapView({ handleResultBox, data, location, recentMarker }) {
     const [map, setMap] = useState(null);
     // kakao api 호출
     const {kakao} = window;
@@ -41,6 +41,19 @@ function MapView({ handleResultBox, data, location }) {
             });
         }
     }, [map, data]);
+
+    useEffect(() => {
+        const position = new kakao.maps.LatLng(recentMarker.y, recentMarker.x);
+        const marker = new kakao.maps.Marker({
+            map: map,
+            position: position,
+        });
+        
+        return () => {
+            if (marker) marker.setMap(null);
+          };
+   }, [recentMarker, map]);
+
 
     return(
         <div id="map" className={style['map-view']} onClick={()=>handleResultBox(true)}></div>

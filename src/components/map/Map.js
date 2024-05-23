@@ -14,6 +14,9 @@ function Map() {
         longitude: 126.9336292
     });
 
+    const [recentList, setRecentList] = useState(JSON.parse(localStorage.getItem('recentList')) || []);
+    const [recentMarker, setRecentMarker] = useState({}); 
+
     // 지도 server api 연결
     const [data, setData] = useState([]);
     const [prevData, setPrevData] = useState([]);
@@ -45,8 +48,8 @@ function Map() {
 
     return (
         <div style={{width: "100vw", height:"100vh", display: "flex"}}>
-            <MapMenu handleResultBox={handleResultBox} isOpen={isOpen} data={data} setData={setData} setLocation={setLocation} />
-            <MapView handleResultBox={handleResultBox} data={data} location={location} />
+            <MapMenu handleResultBox={handleResultBox} isOpen={isOpen} data={data} setData={setData} location={location} setLocation={setLocation} recentList={recentList} setRecentList={setRecentList} setRecentMarker={setRecentMarker}/>
+            <MapView handleResultBox={handleResultBox} data={data} location={location} setRecentMarker={setRecentMarker} recentMarker={recentMarker}/>
         </div>
     )
 }

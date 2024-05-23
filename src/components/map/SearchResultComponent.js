@@ -8,7 +8,7 @@ import style from '../../styles/map/Map.module.css';
 import { Icon } from '@iconify/react';
 
 /*검색 결과 컴포넌트*/
-function SearchResultComponent({ isOpen, searchList, data, setData, currentLatitude, currentLongitude }) {
+function SearchResultComponent({ isOpen, searchList, data, setData, currentLatitude, currentLongitude, handleAddRecentList }) {
     const [bookmarkedIndices, setBookmarkedIndices] = useState([]);
     let id = null;
 
@@ -155,7 +155,7 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
                             distanceDisplay = `${Math.floor(distance * 1000)}m`;
                         }
                         return(
-                            <li className={style['search-item']} key={index}>
+                            <li className={style['search-item']} key={index} onClick={() => handleAddRecentList(item)}>
                                 <div style={{display:"flex",alignItems:"center"}}>
                                     <span>{item.place_name}</span>
                                     <Icon 
