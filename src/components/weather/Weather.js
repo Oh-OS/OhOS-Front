@@ -20,6 +20,7 @@ function Weather() {
 
     const [forecast, setForecast] = useState(null);
     const [hourlyWeather, setHourlyWeather] = useState([]);
+    const [coordinates, setCoordinates] = useState({x: 126, y: 37});
 
     const baseTime = [];
     for(let i = 0; i < 24; i++) {
@@ -45,7 +46,7 @@ function Weather() {
 
                 for (let i = 0; i < baseTime.length; i++) {
                     const currentTime = baseTime[i].toString();
-                    const apiUrl = `${WeatherHost}?serviceKey=${apiKey}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=35&ny=126`;
+                    const apiUrl = `${WeatherHost}?serviceKey=${apiKey}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${coordinates.y}&ny=${coordinates.x}`;
 
                     const response = await fetch(apiUrl);
                     const forecasts = await response.json();
