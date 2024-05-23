@@ -38,18 +38,33 @@ function Map() {
         fetchData();
     }, []);
 
-    // 이전 데이터와 바뀐 데이터 비교하여 다르면 fetchData 호출
-    useEffect(() => {
-        if (JSON.stringify(data) !== JSON.stringify(prevData)) {
-            fetchData();
-            setPrevData(data);
-        }
-    }, [data]);
+    const reFetchData = async () => {
+        await fetchData();
+    }
 
     return (
         <div style={{width: "100vw", height:"100vh", display: "flex"}}>
-            <MapMenu handleResultBox={handleResultBox} isOpen={isOpen} data={data} setData={setData} location={location} setLocation={setLocation} recentList={recentList} setRecentList={setRecentList} setRecentMarker={setRecentMarker}/>
-            <MapView handleResultBox={handleResultBox} data={data} location={location} setRecentMarker={setRecentMarker} recentMarker={recentMarker}/>
+            <MapMenu 
+                handleResultBox={handleResultBox} 
+                isOpen={isOpen} 
+                data={data} 
+                setData={setData} 
+                location={location} 
+                setLocation={setLocation} 
+                recentList={recentList} 
+                setRecentList={setRecentList} 
+                setRecentMarker={setRecentMarker} 
+                reFetchData={reFetchData}
+            />
+
+            <MapView 
+                handleResultBox={handleResultBox} 
+                data={data} 
+                location={location} 
+                setRecentMarker={setRecentMarker} 
+                recentMarker={recentMarker} 
+                reFetchData={reFetchData} 
+            />
         </div>
     )
 }

@@ -12,7 +12,7 @@ import FavoriteList from './FavoriteList';
 
 
 /* 지도 메뉴 컴포넌트 */
-function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentList, setRecentList, setRecentMarker}){
+function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentList, setRecentList, setRecentMarker, reFetchData }){
     const [inputValue , setInputValue] = useState('');
     const [searchList, setSearchList] = useState([]);
 
@@ -79,10 +79,24 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
             </div>
             {
                 searchList.length > 0 &&
-                <SearchResultComponent isOpen={isOpen} searchList={searchList} data={data} setData={setData} currentLatitude={37.4667824} currentLongitude={126.9336292} handleAddRecentList={handleAddRecentList}/>
+                <SearchResultComponent 
+                    isOpen={isOpen} 
+                    searchList={searchList} 
+                    data={data} 
+                    setData={setData} 
+                    currentLatitude={37.4667824} 
+                    currentLongitude={126.9336292} 
+                    handleAddRecentList={handleAddRecentList}
+                    reFetchData={reFetchData}
+                />
             }
             <FavoriteList data={data} setLocation={setLocation}/>
-            <RecentSearchList recentList={recentList} setLocation={setLocation} handleDeleteRecentList={handleDeleteRecentList} setRecentMarker={setRecentMarker}/>
+            <RecentSearchList 
+                recentList={recentList} 
+                setLocation={setLocation} 
+                handleDeleteRecentList={handleDeleteRecentList} 
+                setRecentMarker={setRecentMarker}
+            />
         </div>
 
         </>
