@@ -30,9 +30,9 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
         setRecentList([])
     }
 
-      //새로고침 후에도 최근 검색 남아있게 
+    //새로고침 후에도 최근 검색 남아있게 
     useEffect(() => {
-    localStorage.setItem('recentList', JSON.stringify(recentList))
+        localStorage.setItem('recentList', JSON.stringify(recentList))
     },[recentList])
     
 

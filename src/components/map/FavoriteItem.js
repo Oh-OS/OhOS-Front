@@ -9,17 +9,19 @@ function FavoriteItem({ title, latitude, longitude, setLocation, id, deleteHeart
         setLocation({
             latitude: latitude,
             longitude, longitude
-        })
+        });
     }
 
     return (
         <Fragment>
-            <div className={style['menu-item']} onClick={cilckedItem}>
-                <div className={style['menu-title']}>
-                    <img src='/images/Map/heart.svg' style={{width: 28, height: 28, marginRight: 10}}></img>
+            <div className={style['menu-item']}>
+                <div className={style['menu-title']} onClick={cilckedItem}>
+                    <img src='/images/Map/heart.svg' style={{width: 28, height: 28, marginRight: 10}} alt='Heart Icon' />
                     <div>{title}</div>
                 </div>
-                <Icon icon='bi:x' onClick={() => deleteHeart(id)} style={{ cursor: 'pointer' }} />
+                <div onClick={() => deleteHeart(id)} style={{ cursor: 'pointer' }}>
+                    <Icon icon='bi:x' />
+                </div>
             </div>
         </Fragment>
     )
