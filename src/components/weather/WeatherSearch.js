@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapRestApiKey } from '../../Config';
 import axios from 'axios';
+import WeatherSearchList from '../weather/WeatherSearchList'
 
 import '../../styles/common/Style.css'
 import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css'
@@ -71,6 +72,7 @@ function WeatherSearch() {
                     onKeyDown={handleKeyDown}
                 />
             </div>
+            <WeatherSearchList searchList={searchList} />
         </>
     )
 }
