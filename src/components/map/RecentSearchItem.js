@@ -12,9 +12,9 @@ function RecentSearchItem({item, setLocation, setRecentMarker}){
     }
     return (
         <Fragment>
-            <div className={style['menu-item']}>
+            <div className={style['menu-item']} onClick={clickItem}>
                 <div className={style['menu-title']}>
-                    <img src='/images/Map/search.svg' style={{width: 28, height: 28, marginRight: 10}} onClick={clickItem}></img>
+                    <img src='/images/Map/search.svg' style={{width: 28, height: 28, marginRight: 10}}></img>
                     <div>{item.place_name}</div>
                 </div>
                 <Icon icon='bi:x' style={{ cursor: 'pointer' }} />

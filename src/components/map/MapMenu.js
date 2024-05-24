@@ -89,17 +89,19 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
                     reFetchData={reFetchData}
                 />
             }
-            <FavoriteList
-                data={data}
-                setLocation={setLocation}
-                reFetchData={reFetchData}
-            />
-            <RecentSearchList 
-                recentList={recentList} 
-                setLocation={setLocation} 
-                handleDeleteRecentList={handleDeleteRecentList} 
-                setRecentMarker={setRecentMarker}
-            />
+            <div style={{position:"fixed", top:"10.9vh"}}>
+                <FavoriteList
+                    data={data}
+                    setLocation={setLocation}
+                    reFetchData={reFetchData}
+                />
+                <RecentSearchList 
+                    recentList={recentList} 
+                    setLocation={setLocation} 
+                    handleDeleteRecentList={handleDeleteRecentList} 
+                    setRecentMarker={setRecentMarker}
+                />
+            </div>
         </div>
 
         </>
