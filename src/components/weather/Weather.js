@@ -8,8 +8,6 @@ import TitleBar from '../common/TitleBar';
 import WeatherInfo from './WeatherInfo';
 import WeatherSearch from './WeatherSearch';
 import WeatherShow from './WeatherShow';
-import { WeatherApiKey } from '../../Config';
-import { WeatherHost } from '../../Config';
 
 function Weather() {
     const date = new Date();
@@ -38,15 +36,16 @@ function Weather() {
         return Math.min(...hourlyWeather.map(item => item.temperature));
     };
 
+    const { WeatherHOST, weatherApiKey } = import.meta.env;
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiKey = `${process.env.WeatherApiKey}`; /* 인증키 */
+                const apiKey = `${weatherApiKey}`; /* 인증키 */
                 const hourlyWeatherData = [];
 
                 for (let i = 0; i < baseTime.length; i++) {
                     const currentTime = baseTime[i].toString();
-                    const apiUrl = `${process.env.WeatherHost}?serviceKey=${apiKey}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${coordinates.y}&ny=${coordinates.x}`;
+                    const apiUrl = `${WeatherHOST}?serviceKey=${apiKey}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${coordinates.y}&ny=${coordinates.x}`;
 
                     const response = await fetch(apiUrl);
                     const forecasts = await response.json();
