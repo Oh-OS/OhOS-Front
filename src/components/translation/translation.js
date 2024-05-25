@@ -24,30 +24,31 @@ const DebounceTextarea = ({ onChange, value, debounceTimeout, ...rest }) => {
 
 function translateText(text, source_lang, target_lang){
     console.log(source_lang, target_lang)
-   const authKey = `${process.env.REACT_APP_TRANSLATEAPIKEY}`;
-   return new Promise((resolve, reject) => {
-   fetch("/deepl/v2/translate", {
-        method: "POST",
-        headers: {
-            "Authorization": "DeepL-Auth-Key " + authKey,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ "text": [text],"source_lang": source_lang, "target_lang": target_lang})
-    }).then(res => {
-        console.log(res)
-        return res.json();
-    }).then(data => {
-        // console.log("경과" , data.translations[0].text);
-        resolve(data.translations[0].text);
-    }).catch(error => {
-        reject(error);
+    const authKey = `${process.env.REACT_APP_TRANSLATEAPIKEY}`;
+    return new Promise((resolve, reject) => {
+        fetch("/deepl/v2/translate", {
+            method: "POST",
+            headers: {
+                "Authorization": "DeepL-Auth-Key " + authKey,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "text": [text], "source_lang": source_lang, "target_lang": target_lang })
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok ' + res.statusText);
+            }
+            return res.json();
+        }).then(data => {
+            if (data.translations && data.translations.length > 0) {
+                resolve(data.translations[0].text);
+            } else {
+                reject(new Error('Translation response was empty or invalid'));
+            }
+        }).catch(error => {
+            reject(error);
+        });
     });
-});
-   
-    
-    
-
-}; 
+} 
 
 function Translation(props) {
     const [inputTarget, setInputTarget] = useState('KO');
