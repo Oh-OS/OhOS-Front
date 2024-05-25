@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { MapHost } from '../../Config';
 
 import '../../styles/common/Style.css';
 import MapMenu from './MapMenu';
@@ -21,7 +20,7 @@ function Map() {
     const [data, setData] = useState([]);
     async function fetchData() {
         try {
-            const response = await axios.get(`${MapHost}/bookmarks`);
+            const response = await axios.get(`${process.env.REACT_APP_MAPHOST}/bookmarks`);
             if (response.status === 200) {
                 console.log("데이터 불러오기 성공");
                 setData(response.data);

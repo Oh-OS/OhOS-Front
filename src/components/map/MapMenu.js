@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import { Icon } from '@iconify/react';
-import { MapRestApiKey } from '../../Config';
 import axios from 'axios';
 
 import '../../styles/common/Style.css';
@@ -42,11 +41,10 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
             setSearchList([]);
             return;
         }
-        const apiKey = `${MapRestApiKey}`;
         try {
             const response = await axios.get(`https://dapi.kakao.com/v2/local/search/keyword.json?query=${keyword}`, {
                 headers: {
-                    'Authorization': `KakaoAK ${apiKey}`
+                    'Authorization': `KakaoAK ${process.env.REACT_APP_MAPRESTAPIKEY}`
                 }
             });
 
@@ -74,6 +72,7 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
                     debounceTimeout={500} 
                     onChange={handleInputChange}
                     onClick={()=>handleResultBox(isOpen)}
+                    autoComplete='off'
                 />
             </div>
             {
