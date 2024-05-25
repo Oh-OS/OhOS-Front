@@ -1,40 +1,52 @@
 import openai
-from config import *
 import time
-openai.api_key = ""
-
+import os
+import playsound
 import speech_recognition as sr
 from gtts import gTTS
-import os
-import time
-import playsound
 
-def textToVoice(text):
-     tts = gTTS(text=text, lang='ko')
-     filename='voice3.mp3'
-     tts.save(filename)
-     playsound.playsound(filename)
-     os.remove(filename)
+openai.api_key = ""
 
-def voiceToText(timeout=None):
+def log_to_file(content, filename='conversation_logs.txt'):
+    with open(filename, 'a') as file:
+        file.write(content + '\n')
+
+def text_to_voice(text):
+    tts = gTTS(text=text, lang='ko')
+    filename = 'voice3.mp3'
+    tts.save(filename)
+    playsound.playsound(filename)
+    os.remove(filename)
+
+def voice_to_text(timeout=None):
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("say something: ")
+        print("말해주세요: ")
         audio = r.listen(source)
         said = " "
 
         try:
             said = r.recognize_google(audio, language="ko-KR")
-            print("Your speech thinks like: ", said)
+            print("당신의 말: ", said)
         except:
             pass
             time.sleep(3)
-    
+
     return said
+
+file_path = 'conversation_logs.txt'
+
+with open(file_path, 'w') as f:
+    f.write('')
+
+if os.path.exists(file_path):
+    print(f"{file_path} 파일이 성공적으로 생성되었습니다.")
+else:
+    print(f"{file_path} 파일이 생성되지 않았습니다.")
 
 content = ''
 voice_recognition_started = False
-timeout_duration = 5 
+timeout_duration = 5
 
 pages = {
     '지도': '/map',
@@ -42,33 +54,33 @@ pages = {
     '연락처': '/contacts',
     '버블': '/bubble',
     '날씨': '/weather',
-    '비스코드': '/visual_studio_code',
-    '비주얼스튜디오코드': '/visual_studio_code',
-    '브이에스코드': '/visual_studio_code',
-    '사파리': '/safari'
+    '비스코드': 'https://github.dev/github/dev',
+    '비주얼스튜디오코드': 'https://github.dev/github/dev',
+    '브이에스코드': 'https://github.dev/github/dev',
+    '사파리': 'https://www.google.co.kr'
 }
 
 while True:
     if not voice_recognition_started:
-        prompt = voiceToText()
+        prompt = voice_to_text()
         if '시리야' in prompt:
             voice_recognition_started = True
             print("네?")
-            textToVoice("네?")
+            text_to_voice("네?")
 
     if voice_recognition_started:
-        prompt = voiceToText(timeout=timeout_duration)
+        prompt = voice_to_text(timeout=timeout_duration)
         if not prompt:
             break
 
         command = next((key for key in pages.keys() if key in prompt), None)
-        action_keywords = ["열어", "켜", "틀어", "오픈", "보여"]
+        action_keywords = ["열어", "켜", "틀어", "오픈", "보여", "이동", "옮겨"]
 
         if command and any(word in prompt for word in action_keywords):
-            page = pages[command] 
-            # textToVoice(f"{command}로 이동하겠습니다.")
+            page = pages[command]
             content = page
             break
+
         try:
             messages = [
                 {'role': 'system', 'content': 'You are a helpful assistant.'},
@@ -83,8 +95,9 @@ while True:
             ]
 
         if '굿바이' in prompt:
-            textToVoice("시리를 종료합니다.")
+            text_to_voice("시리를 종료합니다.")
             print("시리를 종료합니다.")
+            log_to_file("시리를 종료합니다.")
             break
 
         response = openai.ChatCompletion.create(
@@ -97,91 +110,142 @@ while True:
         msg = str(response['choices'][0]['message']['content']).strip()
         print("--------------------------------")
 
+        log_to_file(msg)
 
-        textToVoice(msg)
+        text_to_voice(msg)
 
         time.sleep(0.1)
 
         content = content + msg
 
-
 # import openai
-# from config import *
 # import time
-# openai.api_key = 
-
+# import os
+# import playsound
 # import speech_recognition as sr
 # from gtts import gTTS
-# import os
-# import time
-# import playsound
+# import requests
 
-# def textToVoice(text):
-#      tts = gTTS(text=text, lang='ko')
-#      filename='voice3.mp3'
-#      tts.save(filename) 
-#      playsound.playsound(filename) 
-#      os.remove(filename)
+# openai.api_key = 
 
+# def log_to_file(content, filename='conversation_logs.txt'):
+#     with open(filename, 'a') as file:
+#         file.write(content + '\n')
 
-# def voiceToText():
+# def text_to_voice(text):
+#     tts = gTTS(text=text, lang='ko')
+#     filename = 'voice3.mp3'
+#     tts.save(filename)
+#     playsound.playsound(filename)
+#     os.remove(filename)
+
+# def voice_to_text(timeout=None):
 #     r = sr.Recognizer()
 #     with sr.Microphone() as source:
-#         print("say something: ")
+#         print("말해주세요: ")
 #         audio = r.listen(source)
 #         said = " "
 
 #         try:
 #             said = r.recognize_google(audio, language="ko-KR")
-#             print("Your speech thinks like: ", said)
+#             print("당신의 말: ", said)
 #         except:
 #             pass
 #             time.sleep(3)
-    
+
 #     return said
 
+# file_path = 'conversation_logs.txt'
 
-# print("chatGPT를 종료하려면 '굿바이'라고 말하세요.")
-# textToVoice("chatGPT를 종료하려면 '굿바이'라고 말하세요.\n")
+# with open(file_path, 'w') as f:
+#     f.write('')
+
+# if os.path.exists(file_path):
+#     print(f"{file_path} 파일이 성공적으로 생성되었습니다.")
+# else:
+#     print(f"{file_path} 파일이 생성되지 않았습니다.")
 
 # content = ''
+# voice_recognition_started = False
+# timeout_duration = 5
+
+# pages = {
+#     '지도': '/map',
+#     '번역': '/translation',
+#     '연락처': '/contacts',
+#     '버블': '/bubble',
+#     '날씨': '/weather',
+#     '비스코드': 'https://github.dev/github/dev',
+#     '비주얼스튜디오코드': 'https://github.dev/github/dev',
+#     '브이에스코드': 'https://github.dev/github/dev',
+#     '사파리': 'https://www.google.co.kr'
+# }
+
+# # Node.js 서버의 URL
+# url = 'http://localhost:3000/conversation_logs'
 
 # while True:
+#     if not voice_recognition_started:
+#         prompt = voice_to_text()
+#         if '시리야' in prompt:
+#             voice_recognition_started = True
+#             print("네?")
+#             text_to_voice("네?")
 
-#     prompt = voiceToText()
-   
-#     try:
-#         messages = [
+#     if voice_recognition_started:
+#         prompt = voice_to_text(timeout=timeout_duration)
+#         if not prompt:
+#             break
+
+#         command = next((key for key in pages.keys() if key in prompt), None)
+#         action_keywords = ["열어", "켜", "틀어", "오픈", "보여", "이동", "옮겨"]
+
+#         if command and any(word in prompt for word in action_keywords):
+#             page = pages[command]
+#             content = page
+#             continue
+
+#         try:
+#             messages = [
 #                 {'role': 'system', 'content': 'You are a helpful assistant.'},
 #                 {'role': 'user', 'content': content},
 #             ]
-#         messages.append({'role': 'assistant', 'content': 'You are a helpful assistant.' })
-
-#         messages.append({'role': 'user', 'content': prompt })
-#     except:
-#         messages = [
+#             messages.append({'role': 'assistant', 'content': 'You are a helpful assistant.' })
+#             messages.append({'role': 'user', 'content': prompt })
+#         except:
+#             messages = [
 #                 {'role': 'system', 'content': 'You are a helpful assistant.'},
 #                 {'role': 'user', 'content': prompt},
 #             ]
 
-#     if '굿바이' in prompt:
-#         textToVoice("chatGPT를 종료합니다.")
-#         print("chatGPT를 종료합니다.")
-#         break
+#         if '굿바이' in prompt:
+#             text_to_voice("시리를 종료합니다.")
+#             print("시리를 종료합니다.")
+#             log_to_file("시리를 종료합니다.")
+#             break
 
-#     response = openai.ChatCompletion.create(
-#         model='gpt-3.5-turbo',
-#         messages=messages
-#     )
+#         response = openai.ChatCompletion.create(
+#             model='gpt-3.5-turbo',
+#             messages=messages
+#         )
 
-#     print("--------------------------------")
-#     print(str(response['choices'][0]['message']['content']).strip())
-#     msg = str(response['choices'][0]['message']['content']).strip()
-#     print("--------------------------------")
+#         print("--------------------------------")
+#         print(str(response['choices'][0]['message']['content']).strip())
+#         msg = str(response['choices'][0]['message']['content']).strip()
+#         print("--------------------------------")
 
+#         log_to_file(msg)
 
-#     textToVoice(msg)
+#         text_to_voice(msg)
 
-#     time.sleep(0.1)
+#         time.sleep(0.1)
 
-#     content = content + msg
+#         content = content + msg
+
+#     response = requests.get(url)
+
+#     if response.status_code == 200:
+#         data = response.text
+#         print(data)
+#     else:
+#         print('에러 : ', response.status_code)
