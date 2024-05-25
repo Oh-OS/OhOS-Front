@@ -73,12 +73,11 @@ function Weather() {
 
                 setHourlyWeather(hourlyWeatherData);
             } catch (error) {
-                console.error('Error fetching data: ', error);
+                console.error('서버 연결 실패', error);
             }
         };
-
         fetchData();
-    }, [currentDate]);
+    }, []);
 
     return(
         <div className={weatherStyle['container']}>
