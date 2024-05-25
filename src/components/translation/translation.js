@@ -26,7 +26,7 @@ function translateText(text, source_lang, target_lang){
     console.log(source_lang, target_lang)
    const authKey = `${process.env.REACT_APP_TRANSLATEAPIKEY}`;
    return new Promise((resolve, reject) => {
-   fetch("/deepl/v2/translate", {
+   fetch("https://api.deepl.com/v2/translate", {
         method: "POST",
         headers: {
             "Authorization": "DeepL-Auth-Key " + authKey,
