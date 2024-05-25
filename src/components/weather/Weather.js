@@ -45,6 +45,10 @@ function Weather() {
                     const apiUrl = `${process.env.REACT_APP_WEATHERHOST}?serviceKey=${process.env.REACT_APP_WEATHERAPIKEY}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${coordinates.y}&ny=${coordinates.x}`;
 
                     const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
                     const forecasts = await response.json();
                     setForecast(forecasts);
 
@@ -77,7 +81,7 @@ function Weather() {
             }
         };
         fetchData();
-    }, []);
+    }, [baseTime, coordinates, currentDate]);
 
     return(
         <div className={weatherStyle['container']}>
