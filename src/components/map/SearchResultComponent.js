@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { MapHost } from '../../Config';
 
 import '../../styles/common/Style.css';
 import style from '../../styles/map/Map.module.css';
@@ -8,7 +7,7 @@ import style from '../../styles/map/Map.module.css';
 import { Icon } from '@iconify/react';
 
 /*검색 결과 컴포넌트*/
-function SearchResultComponent({ isOpen, searchList, data, setData, currentLatitude, currentLongitude }) {
+function SearchResultComponent({ isOpen, searchList, data, setData, currentLatitude, currentLongitude, handleAddRecentList, reFetchData }) {
     const [bookmarkedIndices, setBookmarkedIndices] = useState([]);
     let id = null;
 
@@ -47,7 +46,7 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
     const cilckedHeart = async (index) => {
         const selectedItem = searchList[index];
         try {
-            const request = await axios.post(`${MapHost}/bookmarks`, {
+            const request = await axios.post(`${process.env.REACT_APP_MAPHOST}/bookmarks`, {
                 locationName: selectedItem.place_name,
                 latitude: selectedItem.y,
                 longitude: selectedItem.x
@@ -59,6 +58,7 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
                 setBookmarkedIndices([...bookmarkedIndices, index]);
                 setData([...data, request.data]);
                 id = request.data.id;
+                reFetchData();
             } else {
                 console.log("즐겨찾기 추가 실패 : ", request.status);
             }
@@ -79,11 +79,12 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
         }
 
         try {
-            const request = await axios.delete(`${MapHost}/bookmarks/${itemToDelete.id}`);
+            const request = await axios.delete(`${process.env.REACT_APP_MAPHOST}/bookmarks/${itemToDelete.id}`);
             if (request.status === 204) {
                 console.log("즐겨찾기 삭제 성공");
                 setBookmarkedIndices(prevIndices => prevIndices.filter(idx => idx !== index));
                 setData(prevData => prevData.filter(item => item.id !== itemToDelete.id));
+                reFetchData();
             } else {
                 console.log("즐겨찾기 삭제 실패 : ", request.status);
             }
@@ -155,7 +156,7 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
                             distanceDisplay = `${Math.floor(distance * 1000)}m`;
                         }
                         return(
-                            <li className={style['search-item']} key={index}>
+                            <li className={style['search-item']} key={index} onClick={() => handleAddRecentList(item)} >
                                 <div style={{display:"flex",alignItems:"center"}}>
                                     <span>{item.place_name}</span>
                                     <Icon 

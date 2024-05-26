@@ -20,11 +20,11 @@
     font-weight: bold;
     font-size: 2.25rem;
     display: inline-block;
-    margin-right: calc(100vw - 20% + 72px);
+    margin-right: calc(100vw - 30% + 72px);
 }
 
 .box {
-    width: 80%;
+    width: 70%;
     height: 55%;
     display: flex;
     padding: 72px;

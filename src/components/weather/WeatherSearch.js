@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { MapRestApiKey } from '../../Config';
 import axios from 'axios';
+import WeatherSearchList from '../weather/WeatherSearchList'
 
 import '../../styles/common/Style.css'
 import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css'
 
 function WeatherSearch() {
     const [searchText, setSearchText] = useState('');
-    const [searchList, setSearchList] = useState([]); // 검색 결과 저장 배열
+    const [searchList, setSearchList] = useState([]); 
+
     const handleInputChange = (event) => {
         const newSearchText = event.target.value;
         setSearchText(newSearchText);
     };
 
     useEffect(() => {
-        console.log(searchList);
+        if(searchList.length > 0) {
+            // console.log(searchList);
+        }
     }, [searchList])
 
     const handleKeyDown = (event) => {
@@ -66,6 +70,9 @@ function WeatherSearch() {
                     onKeyDown={handleKeyDown}
                 />
             </div>
+            {searchList.length > 0 && 
+                <WeatherSearchList searchList={searchList} />
+            }
         </>
     )
 }
