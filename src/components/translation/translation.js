@@ -115,7 +115,7 @@ function Translation(props) {
                         className={translationStyle['input-text']}
                         placeholder={inputPlaceholder}
                         value={inputText}
-                        debounceTimeout = {2000} 
+                        debounceTimeout = {1000} 
                         onChange={(e) =>{
                             setInputText(e.target.value);
                         }}
