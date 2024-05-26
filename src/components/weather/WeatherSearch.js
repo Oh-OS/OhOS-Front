@@ -9,7 +9,6 @@ import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css'
 function WeatherSearch() {
     const [searchText, setSearchText] = useState('');
     const [searchList, setSearchList] = useState([]); 
-    const [addressName, setAddressName] = useState('');
 
     const handleInputChange = (event) => {
         const newSearchText = event.target.value;
@@ -19,7 +18,6 @@ function WeatherSearch() {
     useEffect(() => {
         if(searchList.length > 0) {
             // console.log(searchList);
-            setAddressName(searchList);
         }
     }, [searchList])
 

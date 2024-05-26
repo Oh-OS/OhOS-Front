@@ -81,7 +81,7 @@ function Weather() {
             }
         };
         fetchData();
-    }, [baseTime, coordinates, currentDate]);
+    }, [coordinates, currentDate]);
 
     return(
         <div className={weatherStyle['container']}>
