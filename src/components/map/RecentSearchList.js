@@ -13,7 +13,7 @@ function RecentSearchList({setLocation, recentList, handleDeleteRecentList, setR
                     return  <RecentSearchItem item={item} setLocation={setLocation} setRecentMarker={setRecentMarker}/>
                 })
             }
-            <div style={{ position: "relative", fontSize: 14, top: "6.9%", alignSelf:" flex-start", marginTop: 8, color: "#FF55A9"}}  onClick={handleDeleteRecentList}>최근 검색 지우기</div>
+            <div style={{ position: "relative", fontSize: 14, top: "6.9%", alignSelf:" flex-start", marginTop: 15, color: "#FF55A9"}}  onClick={handleDeleteRecentList}>최근 검색 지우기</div>
         </div>
         
     )
