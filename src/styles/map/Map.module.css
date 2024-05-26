@@ -71,6 +71,7 @@ input::placeholder {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 .menu-title {
     width: 100%;
