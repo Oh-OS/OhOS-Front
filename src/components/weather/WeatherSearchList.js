@@ -4,13 +4,15 @@ import WeatherSearchListStyle from '../../styles/weather/WeatherSearchList.modul
 function WeatherSearchList({ searchList }) {
     return (
         <div className={WeatherSearchListStyle['resultsListDiv']}>
-            <>
-                {searchList.map((item, index) => (
-                    <p key={index}>
-                        <>{item.address_name}</>
-                    </p>
-                ))}
-            </>
+            <div className={WeatherSearchListStyle['resultsListBox']}>
+                <>
+                    {searchList.map((item, index) => (
+                        <p key={index}>
+                            <>{item.address_name}</>
+                        </p>
+                    ))}
+                </>
+            </div>
         </div>
     );
 }

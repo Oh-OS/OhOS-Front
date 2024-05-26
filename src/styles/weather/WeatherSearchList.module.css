@@ -1,4 +1,11 @@
 .resultsListDiv {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.resultsListBox {
     border: 0;
     width: 20vw;
     padding: 1.2%;
@@ -8,12 +15,12 @@
     background-color: #337ACA;
 }
 
-.resultsListDiv * {
+.resultsListBox * {
     width: auto;
     height: auto;
     color: white;
     font-weight: 200;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     line-height: 1rem;
     padding-left: 1.5%;
 }
