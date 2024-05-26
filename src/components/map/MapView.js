@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import '../../styles/common/Style.css';
 import style from '../../styles/map/Map.module.css';
 
 /* 지도가 띄워질 컴포넌트 */
-function MapView({ handleResultBox, data, location }) {
+function MapView({ handleResultBox, data, location, recentMarker, reFetchData }) {
     const [map, setMap] = useState(null);
+    const markersRef = useRef([]);
+    const previousDataRef = useRef([]);
     // kakao api 호출
     const {kakao} = window;
     useEffect(() => {
@@ -26,6 +28,8 @@ function MapView({ handleResultBox, data, location }) {
     }, [map, location]);
 
     useEffect(() => {
+        markersRef.current.forEach(marker => marker.setMap(null));
+        markersRef.current = [];
         if (map && data.length !== 0) {
             const imageSrc = "/images/Map/heart.svg"; 
             data.forEach((item) => {
@@ -38,9 +42,31 @@ function MapView({ handleResultBox, data, location }) {
                     title: item.locationName,
                     image: markerImage
                 });
+                markersRef.current.push(marker);
             });
         }
     }, [map, data]);
+
+    useEffect(() => {
+        const position = new kakao.maps.LatLng(recentMarker.y, recentMarker.x);
+        const marker = new kakao.maps.Marker({
+            map: map,
+            position: position,
+        });
+        
+        return () => {
+            if (marker) marker.setMap(null);
+        };
+   }, [recentMarker, map]);
+
+    useEffect(() => {
+        const isDataChanged = JSON.stringify(previousDataRef.current) !== JSON.stringify(data);
+        if (data.length !== 0 && isDataChanged) {
+            reFetchData();
+            previousDataRef.current = data;
+        }
+    }, [data, reFetchData]);
+
 
     return(
         <div id="map" className={style['map-view']} onClick={()=>handleResultBox(true)}></div>

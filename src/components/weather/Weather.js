@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
 
 import '../../styles/common/Style.css'
 import weatherStyle from '../../styles/weather/Weather.module.css'
@@ -8,8 +7,6 @@ import TitleBar from '../common/TitleBar';
 import WeatherInfo from './WeatherInfo';
 import WeatherSearch from './WeatherSearch';
 import WeatherShow from './WeatherShow';
-import { WeatherApiKey } from '../../Config';
-import { WeatherHost } from '../../Config';
 
 function Weather() {
     const date = new Date();
@@ -41,14 +38,17 @@ function Weather() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiKey = `${WeatherApiKey}`; /* 인증키 */
                 const hourlyWeatherData = [];
 
                 for (let i = 0; i < baseTime.length; i++) {
                     const currentTime = baseTime[i].toString();
-                    const apiUrl = `${WeatherHost}?serviceKey=${apiKey}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${coordinates.y}&ny=${coordinates.x}`;
+                    const apiUrl = `${process.env.REACT_APP_WEATHERHOST}?serviceKey=${process.env.REACT_APP_WEATHERAPIKEY}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${coordinates.y}&ny=${coordinates.x}`;
 
                     const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
                     const forecasts = await response.json();
                     setForecast(forecasts);
 
@@ -77,12 +77,11 @@ function Weather() {
 
                 setHourlyWeather(hourlyWeatherData);
             } catch (error) {
-                console.error('Error fetching data: ', error);
+                console.error('서버 연결 실패', error);
             }
         };
-
         fetchData();
-    }, [currentDate]);
+    }, [baseTime, coordinates, currentDate]);
 
     return(
         <div className={weatherStyle['container']}>
