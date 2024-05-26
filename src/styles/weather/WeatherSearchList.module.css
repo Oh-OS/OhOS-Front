@@ -2,6 +2,11 @@
     width: auto;
     height: auto;
     display: flex;
+    flex-direction: column;
+}
+
+.resultsListContainer {
+    display: flex;
     justify-content: flex-end;
 }
 
@@ -16,8 +21,6 @@
 }
 
 .resultsListBox * {
-    width: auto;
-    height: auto;
     color: white;
     font-weight: 200;
     font-size: 0.8rem;
