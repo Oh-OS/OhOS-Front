@@ -112,6 +112,7 @@ input::placeholder {
     background-color: transparent;
     color: white;
     font-size: 18px;
+    cursor: pointer;
 }
 .search-item:hover {
     background-color: #F74F9E;
