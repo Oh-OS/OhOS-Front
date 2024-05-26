@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { Icon } from '@iconify/react';
 
 
-function RecentSearchItem({item, setLocation, setRecentMarker}){
+function RecentSearchItem({item, setLocation, setRecentMarker,  handleDeleteItem}){
     let clickItem = ()=> {
         console.log(item.y, item.x)
         setLocation({latitude: item.y,longitude: item.x})
@@ -17,7 +17,7 @@ function RecentSearchItem({item, setLocation, setRecentMarker}){
                     <img src='/images/Map/search.svg' style={{width: 28, height: 28, marginRight: 10}}></img>
                     <div>{item.place_name}</div>
                 </div>
-                <Icon icon='bi:x' style={{ cursor: 'pointer' }} />
+                <Icon icon='bi:x' style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(item.id)}/>
             </div>
         </Fragment>
         

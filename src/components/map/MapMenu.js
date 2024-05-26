@@ -96,6 +96,7 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
                 />
                 <RecentSearchList 
                     recentList={recentList} 
+                    setRecentList={setRecentList}
                     setLocation={setLocation} 
                     handleDeleteRecentList={handleDeleteRecentList} 
                     setRecentMarker={setRecentMarker}

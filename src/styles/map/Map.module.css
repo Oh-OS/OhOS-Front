@@ -71,6 +71,7 @@ input::placeholder {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 .menu-title {
     width: 100%;
@@ -87,7 +88,7 @@ input::placeholder {
     box-sizing: border-box;
     z-index: 100;
     width: 100%;
-    height: 50.4vh;
+    max-height: 50.4vh;
     background-color: #2D2F32;
     position: relative;
     top: 6.9%;
