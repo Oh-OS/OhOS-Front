@@ -1,0 +1,25 @@
+.photo-list{
+    position: absolute;
+    bottom: 70px;
+    width: 100vw;
+    height: calc(70px - 6px);
+    padding: 3px 0;
+    background-color: #444448;
+    display: flex;
+    column-gap: 4px;
+    overflow-x: scroll;
+}
+
+.my-photo{
+    position: absolute;
+    height: calc(100vh - 49px - 70px * 2);
+    width: 1400px;
+    top: 49px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.selected-photo{
+    width: 100%;
+    height: 100%;
+}

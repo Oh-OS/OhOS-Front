@@ -4,10 +4,10 @@ import style from '../../styles/photoBooth/PhotoBooth.module.css'
 
 import MainCam from "./MainCam";
 import FilterCam from "./FilterCam";
-import BottomBar from './BottomBar';
 
 function Photobooth() {
     const [ main, setMain ] = useState(true);
+    const [ index, setIndex ] = useState(4);
 
     const camRef = useRef(null);
 
@@ -21,13 +21,24 @@ function Photobooth() {
         width : size.width / 3,
         height: size.height / 3
     }
+
+    const mainReq = {
+        index: index,
+        setIndex: setIndex,
+        main: main,
+        setMain: setMain
+    }
+
+    const filterReq = {
+        setIndex: setIndex,
+        main: main,
+        setMain: setMain
+    }
     
     return(
         <div className={style['background']}>
-            <div className={style['cam-area']} ref={camRef} style={{width: size.width}}>
-                { main ? <MainCam {...size}/> : <FilterCam {...filterSize}/>}
-            </div>
-            <BottomBar setMain={setMain} main={main}/>
+            { main ? <MainCam {...size} {...mainReq}/> : <FilterCam {...filterSize} {...filterReq}/>}
+            
         </div>
     )
 }
