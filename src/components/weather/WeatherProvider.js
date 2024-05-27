@@ -3,8 +3,8 @@ export const WeatherContext = createContext();
 
 function WeatherProvider({ children }) {
     const [selectedAddress, setSelectedAddress] = useState('서울 관악구 신림동');
-    const [selectedX, setSelectedX] = useState(37);
-    const [selectedY, setSelectedY] = useState(126);
+    const [selectedX, setSelectedX] = useState(126);
+    const [selectedY, setSelectedY] = useState(37);
 
     const selectContact = (address, x, y) => {
         setSelectedAddress(address);
