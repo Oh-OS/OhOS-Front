@@ -24,11 +24,17 @@
 
 /* 검색창, 날씨 Div */
 .bottomContainer {
-    justify-content: center;
+    position: relative;
     width: 55vw;
     height: auto;
+    margin-top: 3%;
+}
+
+.searchAndshow {
+    position: relative;
     display: flex;
     flex-direction: column;
-    row-gap: 50px;
+    row-gap: 30px;
     margin-top: 3%;
+    height: 100%;
 }

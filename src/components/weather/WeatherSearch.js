@@ -1,27 +1,30 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { MapRestApiKey } from '../../Config';
 import axios from 'axios';
 import WeatherSearchList from '../weather/WeatherSearchList';
 import { WeatherContext } from './WeatherProvider';
+import { DebounceInput } from 'react-debounce-input';
 
 import '../../styles/common/Style.css';
 import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css';
 
 function WeatherSearch() {
     const [searchText, setSearchText] = useState('');
-    const [searchList, setSearchList] = useState([]); 
+    const [searchList, setSearchList] = useState([]);
+    const searchDivRef = useRef(null);
 
     const { selectContact } = useContext(WeatherContext);
 
-    const handleInputChange = (event) => {
-        const newSearchText = event.target.value;
-        setSearchText(newSearchText);
-    };
-
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
+    useEffect(() => {
+        if (searchText) {
             searchPlaces(searchText);
+        } else {
+            setSearchList([]);
         }
+    }, [searchText]);
+
+    const handleInputChange = (event) => {
+        setSearchText(event.target.value);
     };
 
     const searchPlaces = async (keyword) => {
@@ -55,12 +58,28 @@ function WeatherSearch() {
 
     const handleItemClick = (item) => {
         selectContact(item.address_name, item.x, item.y);
+        setSearchList([]);
     };
+
+    const handleClickOutside = (event) => {
+        if (searchDivRef.current && !searchDivRef.current.contains(event.target)) {
+            setSearchList([]);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <>
-            <div className={WeatherSearchStyle['searchDiv']}>
-                <input
+            <div className={WeatherSearchStyle['searchDiv']} ref={searchDivRef}>
+                <DebounceInput
+                    minLength={2}
+                    debounceTimeout={500}
                     id='keyword' 
                     type='text' 
                     placeholder='위치를 검색하세요' 
@@ -68,12 +87,11 @@ function WeatherSearch() {
                     className={WeatherSearchStyle['searchStyle']}
                     value={searchText}
                     onChange={handleInputChange}
-                    onKeyDown={handleKeyDown}
                 />
+                {searchList.length > 0 && 
+                    <WeatherSearchList searchList={searchList} onItemClick={handleItemClick} />
+                }
             </div>
-            {searchList.length > 0 && 
-                <WeatherSearchList searchList={searchList} onItemClick={handleItemClick} />
-            }
         </>
     );
 }
