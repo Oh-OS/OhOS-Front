@@ -1,7 +1,13 @@
+import React, { useContext } from 'react';
+import { WeatherContext } from './WeatherProvider';
+
 import '../../styles/common/Style.css';
 import WeatherInfoStyle from '../../styles/weather/WeatherInfo.module.css';
 
 function WeatherInfo({ hourlyWeather, maxTemperature, minTemperature }) {
+    const { selectedAddress } = useContext(WeatherContext);
+    // console.log(selectedAddress);
+
     const getCurrentHour = () => {
         const now = new Date();
         return now.getHours();
@@ -53,7 +59,7 @@ function WeatherInfo({ hourlyWeather, maxTemperature, minTemperature }) {
     return (
         <>
             <div className={WeatherInfoStyle['topContainer']}>
-                <p>나의 위치</p>
+                <p>{selectedAddress}</p>
                 <p>{currentTemperature}°</p>
                 <p>{currentWeather}</p>
                 <div className={WeatherInfoStyle['temperatureDiv']}>
