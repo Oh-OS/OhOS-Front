@@ -1,7 +1,18 @@
+import React, { useState, useEffect } from 'react';
+
 import '../../styles/common/Style.css';
 import styles from '../../styles/weather/WeatherShow.module.css';
 
 function WeatherShow({ hourlyWeather }) {
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        if (hourlyWeather && hourlyWeather.length > 0) {
+            setLoading(false);
+        } else {
+            setLoading(true);
+        }
+    }, [hourlyWeather]);
+
     const date = new Date();
     date.setDate(date.getDate());
     const year = date.getFullYear();
@@ -73,21 +84,25 @@ function WeatherShow({ hourlyWeather }) {
     return (
         <>
             <div className={styles['weatherDiv']}>
+                <p>{currentDate} 날씨입니다.</p>
                 <div className={styles['weatherStyle']}>
-                    <p>{currentDate} 날씨입니다.</p>
                     <div className={styles['presentWeatherDiv']}>
-                        {sortedHourlyWeather.map((hour, index) => {
-                            const { url, className } = weatherImage(hour.sky, hour.pty, hour.time);
-                            const currentHour = getCurrentHour();
-                            const time = parseInt(currentHour) === parseInt(hour.time) ? '지금' : `${hour.time}시`;
-                            return (
-                                <div key={index} className={styles.presentWeather}>
-                                    <p>{time}</p>
-                                    <img src={`/images/Weather/${url}.png`} className={styles[className]} alt="weather icon" />
-                                    <p>{hour.temperature}°</p>
-                                </div>
-                            );
-                        })}
+                        {loading ? (
+                            <p>날씨 불러오는 중...</p>
+                        ) : (
+                            sortedHourlyWeather.map((hour, index) => {
+                                const { url, className } = weatherImage(hour.sky, hour.pty, hour.time);
+                                const currentHour = getCurrentHour();
+                                const time = parseInt(currentHour) === parseInt(hour.time) ? '지금' : `${hour.time}시`;
+                                return (
+                                    <div key={index} className={styles.presentWeather}>
+                                        <p>{time}</p>
+                                        <img src={`/images/Weather/${url}.png`} className={styles[className]} alt="weather icon" />
+                                        <p>{hour.temperature}°</p>
+                                    </div>
+                                );
+                            })
+                        )}
                     </div>
                 </div>
             </div>

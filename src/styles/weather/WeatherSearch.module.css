@@ -1,9 +1,20 @@
 /* 검색창 스타일 */
-.searchDiv {
-    width: auto;
+/* .searchDiv {
+    width: 100%;
     height: auto;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+} */
+
+.searchDiv {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+    z-index: 2;
 }
 
 .searchStyle {
@@ -16,6 +27,7 @@
     padding-left: 1.5%;
     font-weight: 200;
     font-size: 0.8rem;
+    margin-bottom: 1%;
 }
 
 .searchStyle:focus {

@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { MapRestApiKey } from '../../Config';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import WeatherSearchList from '../weather/WeatherSearchList'
+import WeatherSearchList from '../weather/WeatherSearchList';
+import { WeatherContext } from './WeatherProvider';
+import { DebounceInput } from 'react-debounce-input';
 
-import '../../styles/common/Style.css'
-import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css'
+import '../../styles/common/Style.css';
+import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css';
 
 function WeatherSearch() {
     const [searchText, setSearchText] = useState('');
-    const [searchList, setSearchList] = useState([]); 
+    const [searchList, setSearchList] = useState([]);
+    const searchDivRef = useRef(null);
+
+    const { selectContact } = useContext(WeatherContext);
 
     const handleInputChange = (event) => {
-        const newSearchText = event.target.value;
-        setSearchText(newSearchText);
+        setSearchText(event.target.value);
     };
-
-    useEffect(() => {
-        if(searchList.length > 0) {
-            // console.log(searchList);
-        }
-    }, [searchList])
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -32,11 +29,11 @@ function WeatherSearch() {
             setSearchList([]);
             return;
         }
-        const apiKey = `${MapRestApiKey}`;
+        
         try {
             const response = await axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${keyword}`, {
                 headers: {
-                    'Authorization': `KakaoAK ${apiKey}`
+                    'Authorization': `KakaoAK ${process.env.REACT_APP_MAPRESTAPIKEY}`
                 }
             });
 
@@ -56,9 +53,27 @@ function WeatherSearch() {
         }
     };
 
+    const handleItemClick = (item) => {
+        selectContact(item.address_name, item.x, item.y);
+        setSearchList([]);
+    };
+
+    const handleClickOutside = (event) => {
+        if (searchDivRef.current && !searchDivRef.current.contains(event.target)) {
+            setSearchList([]);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <>
-            <div className={WeatherSearchStyle['searchDiv']}>
+            <div className={WeatherSearchStyle['searchDiv']} ref={searchDivRef}>
                 <input
                     id='keyword' 
                     type='text' 
@@ -69,12 +84,12 @@ function WeatherSearch() {
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                 />
+                {searchList.length > 0 && 
+                    <WeatherSearchList searchList={searchList} onItemClick={handleItemClick} />
+                }
             </div>
-            {searchList.length > 0 && 
-                <WeatherSearchList searchList={searchList} />
-            }
         </>
-    )
+    );
 }
 
 export default WeatherSearch;

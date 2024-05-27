@@ -18,14 +18,14 @@
     text-align: left;
     margin-top: 70px;
     font-weight: bold;
-    font-size: 2.25rem;
+    font-size: 2rem;
     display: inline-block;
     margin-right: calc(100vw - 30% + 72px);
 }
 
 .box {
     width: 70%;
-    height: 55%;
+    height: 45%;
     display: flex;
     padding: 72px;
     border-radius: 25px;

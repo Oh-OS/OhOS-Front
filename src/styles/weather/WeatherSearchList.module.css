@@ -1,19 +1,45 @@
 .resultsListDiv {
+    width: 20vw;
+    max-height: 150px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #337ACA;
+    border-radius: 15px;
+    row-gap: 10px;
+    padding: 1.2%;
+    padding-left: 1.5%;
+    position: absolute;
+    top: 100%;
+    z-index: 3;
+}
+
+.resultsListContainer {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 1%;
+    transition: background-color 0.2s ease;
+}
+.resultsListContainer:hover {
+    /* background-color: rgba(51, 122, 202, 0.1); */
+    background-color: #579ae7;
+}
+
+.resultsListBox {
     border: 0;
     width: 20vw;
     padding: 1.2%;
     display: flex;
     border-radius: 15px;
     flex-direction: column;
-    background-color: #337ACA;
 }
 
-.resultsListDiv * {
-    width: auto;
-    height: auto;
+.resultsListBox * {
     color: white;
     font-weight: 200;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     line-height: 1rem;
     padding-left: 1.5%;
 }
