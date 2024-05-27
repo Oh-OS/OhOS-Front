@@ -14,16 +14,14 @@ function WeatherSearch() {
 
     const { selectContact } = useContext(WeatherContext);
 
-    useEffect(() => {
-        if (searchText) {
-            searchPlaces(searchText);
-        } else {
-            setSearchList([]);
-        }
-    }, [searchText]);
-
     const handleInputChange = (event) => {
         setSearchText(event.target.value);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            searchPlaces(searchText);
+        }
     };
 
     const searchPlaces = async (keyword) => {
@@ -76,9 +74,7 @@ function WeatherSearch() {
     return (
         <>
             <div className={WeatherSearchStyle['searchDiv']} ref={searchDivRef}>
-                <DebounceInput
-                    minLength={2}
-                    debounceTimeout={500}
+                <input
                     id='keyword' 
                     type='text' 
                     placeholder='위치를 검색하세요' 
@@ -86,6 +82,7 @@ function WeatherSearch() {
                     className={WeatherSearchStyle['searchStyle']}
                     value={searchText}
                     onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
                 />
                 {searchList.length > 0 && 
                     <WeatherSearchList searchList={searchList} onItemClick={handleItemClick} />
