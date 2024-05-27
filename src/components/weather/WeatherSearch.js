@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { MapRestApiKey } from '../../Config';
 import axios from 'axios';
 import WeatherSearchList from '../weather/WeatherSearchList';
 import { WeatherContext } from './WeatherProvider';
@@ -32,11 +31,11 @@ function WeatherSearch() {
             setSearchList([]);
             return;
         }
-        const apiKey = `${MapRestApiKey}`;
+        
         try {
             const response = await axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${keyword}`, {
                 headers: {
-                    'Authorization': `KakaoAK ${apiKey}`
+                    'Authorization': `KakaoAK ${process.env.REACT_APP_MAPRESTAPIKEY}`
                 }
             });
 
