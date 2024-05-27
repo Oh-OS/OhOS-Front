@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { MapRestApiKey } from '../../Config';
 import axios from 'axios';
 import WeatherSearchList from '../weather/WeatherSearchList';
+import { WeatherContext } from './WeatherProvider';
 
 import '../../styles/common/Style.css';
 import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css';
@@ -9,6 +10,8 @@ import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css';
 function WeatherSearch() {
     const [searchText, setSearchText] = useState('');
     const [searchList, setSearchList] = useState([]); 
+
+    const { selectContact } = useContext(WeatherContext);
 
     const handleInputChange = (event) => {
         const newSearchText = event.target.value;
@@ -51,7 +54,7 @@ function WeatherSearch() {
     };
 
     const handleItemClick = (item) => {
-        console.log(item.address_name, item.x, item.y);
+        selectContact(item.address_name, item.x, item.y);
     };
 
     return (
