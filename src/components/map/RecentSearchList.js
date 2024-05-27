@@ -16,7 +16,9 @@ function RecentSearchList({setLocation, recentList, setRecentList, handleDeleteR
                     return  <RecentSearchItem item={item} setLocation={setLocation} setRecentMarker={setRecentMarker}  handleDeleteItem={handleDeleteItem}/>
                 })
             }
-            <div style={{ position: "relative", fontSize: 14, top: "6.9%", alignSelf:" flex-start", marginTop: 15, color: "#FF55A9"}}  onClick={handleDeleteRecentList}>최근 검색 지우기</div>
+            {
+                recentList.length >0 &&  <div style={{ position: "relative", fontSize: 14, top: "6.9%", alignSelf:" flex-start", marginTop: 15, color: "#FF55A9"}}  onClick={handleDeleteRecentList}>최근 검색 지우기</div>
+            }
         </div>
         
     )
