@@ -13,7 +13,9 @@ import StretchV from './filters/StretchV';
 import Flip from './filters/Flip'
 import Swirl from './filters/Swirl'
 
-function FilterCam({ width, height, setIndex, setMain }) {
+import BottomBar from './BottomBar';
+
+function FilterCam({ width, height, setIndex, main, setMain}) {
     const camAreaRef = useRef();
     const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
     const videoClass = ['invert', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
@@ -50,33 +52,36 @@ function FilterCam({ width, height, setIndex, setMain }) {
 
     return (
       <>
-        <Webcam mirrored audio={false}
-          height={height} width={width}
-          videoConstraints={videoConstraints} className={style['video']}
-          ref={videoRef}/>
-        <div className={style['grid-cam']} ref={camAreaRef} >
+        <div className={style['cam-area']}>
+          <Webcam mirrored audio={false}
+            height={height} width={width}
+            videoConstraints={videoConstraints} className={style['video']}
+            ref={videoRef}/>
+          <div className={style['grid-cam']} ref={camAreaRef} style={{width: width * 3 + 8, height: height * 3 + 8}}>
 
-          {
-            canvasRefs.map((canvasRef, index) => 
-                <canvas width={width} height={height}
-                ref={canvasRef} className={style[videoClass[index]]}
-                key={index} onClick={() => setData(index)}></canvas>
-            )
-          }
+            {
+              canvasRefs.map((canvasRef, index) => 
+                  <canvas width={width} height={height}
+                  ref={canvasRef} className={style[videoClass[index]]}
+                  key={index} onClick={() => setData(index)}></canvas>
+              )
+            }
 
+          </div>
+          <svg>
+              {/* <defs> */}
+              <filter id="swirlFilter" width="100%" height="100%" x="0%" y="0%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" result="turbulence"/>  
+                  <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="40" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+              <filter id="erode">
+                  <feMorphology operator="erode" radius="2"></feMorphology>
+              </filter>
+              <rect width="200" height="200" style={{fill: 'green'}} filter='url(#swirlFilter)'/> 
+              {/* </defs> */}
+          </svg>
         </div>
-        <svg>
-            {/* <defs> */}
-            <filter id="swirlFilter" width="100%" height="100%" x="0%" y="0%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" result="turbulence"/>  
-                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="40" xChannelSelector="R" yChannelSelector="G"/>
-            </filter>
-            <filter id="erode">
-                <feMorphology operator="erode" radius="2"></feMorphology>
-            </filter>
-            <rect width="200" height="200" style={{fill: 'green'}} filter='url(#swirlFilter)'/> 
-            {/* </defs> */}
-        </svg>
+        <BottomBar setMain={setMain} main={main}/>
       </>
     )
 }
