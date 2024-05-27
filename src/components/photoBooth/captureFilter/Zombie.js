@@ -49,8 +49,6 @@ function hslToRgb(h, s, l) {
 }
 
 export default function Zombie(ctx, video, canvas, width, height) {
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
     ctx.drawImage(video.video, 0, 0, width, height);
 
     // 캔버스의 픽셀 데이터를 가져오기

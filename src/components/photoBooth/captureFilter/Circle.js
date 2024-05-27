@@ -1,10 +1,6 @@
 export default function Circle(ctx, video, canvas, width, height){
     canvas.width = width;
     canvas.height = height;
-
-    ctx.translate(canvas.width, 0);
-
-    ctx.scale(-1, 1);
     // const width1 = width / 5;
     const r = height / 3 * 2;
     const startW = (width - r) / 2;

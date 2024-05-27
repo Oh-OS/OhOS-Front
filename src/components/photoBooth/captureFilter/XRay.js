@@ -1,7 +1,4 @@
 export default function XRay(ctx, video, canvas, width, height) {
-    console.log('XRay');
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
     ctx.drawImage(video.video, 0, 0, width, height);
 
     const imageData = ctx.getImageData(0, 0, width, height);

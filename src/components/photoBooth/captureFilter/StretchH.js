@@ -1,8 +1,6 @@
 export default function StretchH(ctx, video, canvas, width, height) {
     const height1 = height / 5;
     const height2 = height1 * 3;
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
     ctx.drawImage(video.video, 0, 0, width, height / 3, 0, 0, width, height1);
     ctx.save();
     ctx.drawImage(video.video, 0, height / 3, width, height / 3, 0, height1, width, height2);

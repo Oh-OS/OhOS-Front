@@ -2,8 +2,6 @@ export default function StretchV(ctx, video, canvas, width, height) {
     const width1 = width / 5;
     const width2 = width1 * 3;
     const area = width / 3;
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
     ctx.drawImage(video.video, 0, 0, area, height, 0, 0, width1, height);
     
     ctx.drawImage(video.video, area, 0, area, height, width1, 0, width2, height);
