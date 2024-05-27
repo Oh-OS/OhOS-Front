@@ -19,6 +19,9 @@ import MyPhoto from "./MyPhoto";
 function MainCam({ width, height, index, setIndex, main, setMain }) {
     const [ captureCanvas, setCaptureCanvas ] = useState();
     const [ captureVideo, setCaptureVideo ] = useState();
+    const [ images, setImages ] = useState();
+    const [ selectedImage, setSelectedImage ] = useState();
+    const [ showImage, setShowImage ] = useState(false);
 
     const videoFunction = [XRay, StretchH, Zombie, Circle, Basic, Comic, Flip, StretchV, Swirl];
 
@@ -54,15 +57,36 @@ function MainCam({ width, height, index, setIndex, main, setMain }) {
     return(
         <>
             <div className={style['cam-area']} ref={camAreaRef}>
-                <Webcam mirrored audio={false}
-                    height={height} width={width}
+                <Webcam
+                    mirrored
+                    audio={false}
+                    height={height}
+                    width={width}
                     videoConstraints={videoConstraints}
                     className={style['main-cam']}
-                    ref={videoRef}/>
+                    ref={videoRef}
+                />
                 <canvas ref={canvasRef} className={style['canvas']} width={width} height={height}></canvas>  
             </div>
-            <BottomBar setMain={setMain} main={main} canvas={captureCanvas} video={captureVideo} index={index}/>
-            <MyPhoto />
+            <MyPhoto
+                images={images}
+                setImages={setImages}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
+                showImage={showImage}
+                setShowImage={setShowImage}
+            />
+            <BottomBar
+                setMain={setMain}
+                main={main}
+                canvas={captureCanvas}
+                video={captureVideo}
+                index={index}
+                setImages={setImages}
+                setSelectedImage={setSelectedImage}
+                showImage={showImage}
+                setShowImage={setShowImage}
+            />
         </>
     )
 }
