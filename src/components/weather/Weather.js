@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { WeatherContext } from './WeatherProvider';
 
-import '../../styles/common/Style.css'
-import weatherStyle from '../../styles/weather/Weather.module.css'
+import '../../styles/common/Style.css';
+import weatherStyle from '../../styles/weather/Weather.module.css';
 
 import TitleBar from '../common/TitleBar';
 import WeatherInfo from './WeatherInfo';
@@ -19,11 +19,10 @@ function Weather() {
     const [forecast, setForecast] = useState(null);
     const [hourlyWeather, setHourlyWeather] = useState([]);
     
-    const { selectedX } = useContext(WeatherContext);
-    const { selectedY } = useContext(WeatherContext);
+    const { selectedX, selectedY } = useContext(WeatherContext);
 
     const baseTime = [];
-    for(let i = 0; i < 24; i++) {
+    for (let i = 0; i < 24; i++) {
         const time = (i < 10 ? '0' : '') + i + '30';
         baseTime.push(time);
     }
@@ -45,7 +44,7 @@ function Weather() {
 
                 for (let i = 0; i < baseTime.length; i++) {
                     const currentTime = baseTime[i].toString();
-                    const apiUrl = `${process.env.REACT_APP_WEATHERHOST}?serviceKey=${process.env.REACT_APP_WEATHERAPIKEY}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${selectedX}&ny=${selectedY}`;
+                    const apiUrl = `${process.env.REACT_APP_WEATHERHOST}?serviceKey=${process.env.REACT_APP_WEATHERAPIKEY}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${selectedY}&ny=${selectedX}`;
 
                     const response = await fetch(apiUrl);
                     if (!response.ok) {
@@ -84,7 +83,7 @@ function Weather() {
             }
         };
         fetchData();
-    }, [currentDate]);
+    }, [selectedX, selectedY, currentDate]); 
 
     return(
         <div className={weatherStyle['container']}>
@@ -93,7 +92,6 @@ function Weather() {
                 <div className={weatherStyle['allDiv']}>
                     {/* 정보*/}
                     <WeatherInfo hourlyWeather={hourlyWeather} maxTemperature={maxTemperature} minTemperature={minTemperature} />
-                    {/* <WeatherInfo /> */}
                     <div className={weatherStyle['bottomContainer']}>
                         {/* 검색창 */}
                         <WeatherSearch />
