@@ -13,7 +13,7 @@ import StretchV from './filters/StretchV';
 import Flip from './filters/Flip'
 import Swirl from './filters/Swirl'
 
-function FilterCam({ width, height }) {
+function FilterCam({ width, height, setIndex, setMain }) {
     const camAreaRef = useRef();
     const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
     const videoClass = ['invert', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
@@ -42,6 +42,12 @@ function FilterCam({ width, height }) {
     }
 
     setTimeout(drawImge, 33);
+
+    const setData = (index) => {
+      setIndex(index);
+      setMain(true);
+    }
+
     return (
       <>
         <Webcam mirrored audio={false}
@@ -52,7 +58,9 @@ function FilterCam({ width, height }) {
 
           {
             canvasRefs.map((canvasRef, index) => 
-                <canvas width={width} height={height} ref={canvasRef} className={style[videoClass[index]]} key={index}></canvas>
+                <canvas width={width} height={height}
+                ref={canvasRef} className={style[videoClass[index]]}
+                key={index} onClick={() => setData(index)}></canvas>
             )
           }
 

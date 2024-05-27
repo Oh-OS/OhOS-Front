@@ -8,6 +8,7 @@ import BottomBar from './BottomBar';
 
 function Photobooth() {
     const [ main, setMain ] = useState(true);
+    const [ index, setIndex ] = useState(4);
 
     const camRef = useRef(null);
 
@@ -25,7 +26,7 @@ function Photobooth() {
     return(
         <div className={style['background']}>
             <div className={style['cam-area']} ref={camRef} style={{width: size.width}}>
-                { main ? <MainCam {...size}/> : <FilterCam {...filterSize}/>}
+                { main ? <MainCam {...size} index={index} setIndex={setIndex}/> : <FilterCam {...filterSize} setIndex={setIndex} setMain={setMain}/>}
             </div>
             <BottomBar setMain={setMain} main={main}/>
         </div>
