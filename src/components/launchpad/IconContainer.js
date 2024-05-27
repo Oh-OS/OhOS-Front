@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styles from '../../styles/launchpad/LaunchpadPage.module.css';
 import SearchBar from './SearchBar';
 import LaunchpadIcon from './LaunchpadIcon';
+import { useNavigate } from "react-router-dom";
 
 function IconContainer() {
   const [icons, setIcons] = useState([
@@ -26,12 +27,19 @@ function IconContainer() {
       icon.alt.toLowerCase().includes(lowerCaseSearchTerm)
     ));
     setFilteredIcons(filteredIcons);
-  };  
+  }; 
+
+
+  const navigate = useNavigate();
+  const IconClick = (path) => {
+    navigate(path);
+  };
+
 
   return (
     <div className={styles['container']}>
       <SearchBar onSearch={handleSearchChange} />
-      <div style={{ display: "flex", gap: "105.88px", flexWrap:"wrap"}}>
+      <div className={styles['icon-box']} onClick={() => IconClick('/')}>
         {filteredIcons.map((profile) => (
           <LaunchpadIcon
             key={profile.id}

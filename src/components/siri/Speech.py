@@ -8,7 +8,7 @@ from gtts import gTTS
 openai.api_key = ""
 
 def log_to_file(content, filename='/Users/haewon/Desktop/project/OhOS/OhOS-Front/src/components/siri/conversation_logs.txt', mode='w'):
-    with open(filename, mode) as file:  # mode 인자 추가
+    with open(filename, mode) as file:
         file.write(content + '\n')
 
 
