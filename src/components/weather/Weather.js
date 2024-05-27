@@ -10,14 +10,14 @@ import WeatherSearch from './WeatherSearch';
 import WeatherShow from './WeatherShow';
 
 function Weather() {
+    const [forecast, setForecast] = useState(null);
+    const [hourlyWeather, setHourlyWeather] = useState([]);
+
     const date = new Date();
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate() - 1).padStart(2, '0');
     const currentDate = `${year}${month}${day}`;
-
-    const [forecast, setForecast] = useState(null);
-    const [hourlyWeather, setHourlyWeather] = useState([]);
     
     const { selectedX, selectedY } = useContext(WeatherContext);
 
@@ -48,7 +48,7 @@ function Weather() {
 
                     const response = await fetch(apiUrl);
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        console.log("날씨 정보 불러오기 실패", response.status);
                     }
 
                     const forecasts = await response.json();
@@ -83,7 +83,11 @@ function Weather() {
             }
         };
         fetchData();
-    }, [selectedX, selectedY, currentDate]); 
+    }, [selectedX, selectedY, currentDate]);
+
+    useEffect(() => {
+        setHourlyWeather([]);
+    }, [selectedX, selectedY]);
 
     return(
         <div className={weatherStyle['container']}>
@@ -93,10 +97,12 @@ function Weather() {
                     {/* 정보*/}
                     <WeatherInfo hourlyWeather={hourlyWeather} maxTemperature={maxTemperature} minTemperature={minTemperature} />
                     <div className={weatherStyle['bottomContainer']}>
-                        {/* 검색창 */}
-                        <WeatherSearch />
-                        {/* 날씨 보여주는 */}
-                        <WeatherShow hourlyWeather={hourlyWeather} />
+                        <div className={weatherStyle['searchAndshow']}>
+                            {/* 검색창 */}
+                            <WeatherSearch />
+                            {/* 날씨 보여주는 */}
+                            <WeatherShow hourlyWeather={hourlyWeather} />
+                        </div>
                     </div>
                 </div>
             </div>
