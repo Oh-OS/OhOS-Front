@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { WeatherContext } from './WeatherProvider';
 
 import '../../styles/common/Style.css'
 import weatherStyle from '../../styles/weather/Weather.module.css'
@@ -17,7 +18,9 @@ function Weather() {
 
     const [forecast, setForecast] = useState(null);
     const [hourlyWeather, setHourlyWeather] = useState([]);
-    const [coordinates, setCoordinates] = useState({x: 126, y: 37});
+    
+    const { selectedX } = useContext(WeatherContext);
+    const { selectedY } = useContext(WeatherContext);
 
     const baseTime = [];
     for(let i = 0; i < 24; i++) {
@@ -42,7 +45,7 @@ function Weather() {
 
                 for (let i = 0; i < baseTime.length; i++) {
                     const currentTime = baseTime[i].toString();
-                    const apiUrl = `${process.env.REACT_APP_WEATHERHOST}?serviceKey=${process.env.REACT_APP_WEATHERAPIKEY}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${coordinates.y}&ny=${coordinates.x}`;
+                    const apiUrl = `${process.env.REACT_APP_WEATHERHOST}?serviceKey=${process.env.REACT_APP_WEATHERAPIKEY}&numOfRows=60&dataType=JSON&base_date=${currentDate}&base_time=${currentTime}&nx=${selectedX}&ny=${selectedY}`;
 
                     const response = await fetch(apiUrl);
                     if (!response.ok) {
@@ -81,7 +84,7 @@ function Weather() {
             }
         };
         fetchData();
-    }, [coordinates, currentDate]);
+    }, [currentDate]);
 
     return(
         <div className={weatherStyle['container']}>

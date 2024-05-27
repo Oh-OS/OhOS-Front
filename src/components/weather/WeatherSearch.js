@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { MapRestApiKey } from '../../Config';
 import axios from 'axios';
-import WeatherSearchList from '../weather/WeatherSearchList'
+import WeatherSearchList from '../weather/WeatherSearchList';
 
-import '../../styles/common/Style.css'
-import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css'
+import '../../styles/common/Style.css';
+import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css';
 
 function WeatherSearch() {
     const [searchText, setSearchText] = useState('');
@@ -14,12 +14,6 @@ function WeatherSearch() {
         const newSearchText = event.target.value;
         setSearchText(newSearchText);
     };
-
-    useEffect(() => {
-        if(searchList.length > 0) {
-            // console.log(searchList);
-        }
-    }, [searchList])
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -56,6 +50,10 @@ function WeatherSearch() {
         }
     };
 
+    const handleItemClick = (item) => {
+        console.log(item.address_name, item.x, item.y);
+    };
+
     return (
         <>
             <div className={WeatherSearchStyle['searchDiv']}>
@@ -71,10 +69,10 @@ function WeatherSearch() {
                 />
             </div>
             {searchList.length > 0 && 
-                <WeatherSearchList searchList={searchList} />
+                <WeatherSearchList searchList={searchList} onItemClick={handleItemClick} />
             }
         </>
-    )
+    );
 }
 
 export default WeatherSearch;
