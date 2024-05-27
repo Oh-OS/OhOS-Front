@@ -13,7 +13,13 @@ import StretchV from './filters/StretchV';
 import Flip from './filters/Flip'
 import Swirl from './filters/Swirl'
 
-function MainCam({ width, height, index, setIndex }) {
+import BottomBar from './BottomBar';
+import MyPhoto from "./MyPhoto";
+
+function MainCam({ width, height, index, setIndex, main, setMain }) {
+    const [ captureCanvas, setCaptureCanvas ] = useState();
+    const [ captureVideo, setCaptureVideo ] = useState();
+
     const videoFunction = [XRay, StretchH, Zombie, Circle, Basic, Comic, Flip, StretchV, Swirl];
 
     const camAreaRef = useRef();
@@ -23,6 +29,9 @@ function MainCam({ width, height, index, setIndex }) {
     function drawImge() {
         const canvas = canvasRef.current;
         const video = videoRef.current;
+
+        setCaptureCanvas(canvas);
+        setCaptureVideo(video);
 
         if (video && canvas) {
             var ctx = canvas.getContext('2d');
@@ -43,14 +52,18 @@ function MainCam({ width, height, index, setIndex }) {
     };
 
     return(
-        <div className={style['cam-area']} ref={camAreaRef}>
-            <Webcam mirrored audio={false}
-                height={height} width={width}
-                videoConstraints={videoConstraints}
-                className={style['main-cam']}
-                ref={videoRef}/>
-            <canvas ref={canvasRef} className={style['canvas']} width={width} height={height}></canvas>     
-        </div>
+        <>
+            <div className={style['cam-area']} ref={camAreaRef}>
+                <Webcam mirrored audio={false}
+                    height={height} width={width}
+                    videoConstraints={videoConstraints}
+                    className={style['main-cam']}
+                    ref={videoRef}/>
+                <canvas ref={canvasRef} className={style['canvas']} width={width} height={height}></canvas>  
+            </div>
+            <BottomBar setMain={setMain} main={main} canvas={captureCanvas} video={captureVideo} index={index}/>
+            <MyPhoto />
+        </>
     )
 }
 
