@@ -50,33 +50,62 @@ export default function Circle(ctx, video, canvas, width, height, drawImge){
     // ctx.drawImage(video.video, startW + r, height / 2 + 9, 1, 1, startW + r, height / 2 - 250, width / 2, 7);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(width, height / 2);
+    ctx.lineTo(width, height / 2 + 10);
+    ctx.lineTo(startW + r, height / 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(video.video, startW + r, height / 2 + 1, 4, 1, 0, 0, width, height);
+    ctx.restore();
 
-    // // Save the current state
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(width, height / 2);
+    ctx.lineTo(width, height / 2 - 10);
+    ctx.lineTo(startW + r, height / 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(video.video, startW + r, height / 2 - 1, 4, 1, 0, 0, width, height);
+    ctx.restore();
     ctx.save();
 
-    // // Create a path for the triangle
+    ctx.save();
     ctx.beginPath();
-    ctx.moveTo(width, height / 2); // Top point of the triangle
-    ctx.lineTo(width, height / 2 + 10); // Bottom left point
-    ctx.lineTo(startW + r, height / 2); // Bottom right point
+    ctx.moveTo(width, height / 2 + 10);
+    ctx.lineTo(width, height / 2 + 30);
+    ctx.lineTo(startW + r, height / 2);
     ctx.closePath();
-
-    // // Clip to the current path
     ctx.clip();
+    ctx.drawImage(video.video, startW + r, height / 2 + 3, 4, 2, 0, 0, width, height);
+    ctx.restore();
 
-    // // Draw the video
-    ctx.drawImage(video.video, width, height / 2, 4, 4, 0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(width, height / 2 + 30);
+    ctx.lineTo(width, height / 2 + 60);
+    ctx.lineTo(startW + r, height / 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(video.video, startW + r, height / 2 + 6, 4, 3, 0, 0, width, height);
+    ctx.restore();
 
-    // // Restore the previous state
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(width, height / 2 + 60);
+    ctx.lineTo(width, height / 2 + 100);
+    ctx.lineTo(startW + r, height / 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(video.video, startW + r, height / 2 + 10, 4, 4, 0, 0, width, height);
     ctx.restore();
     
     // 회전된 캔버스 축을 원본 캔버스로 돌려놓기 
-     ctx.setTransform(1, 0, 0, 1, 0, 0);
-     ctx.translate(canvas.width, 0);
-
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
-    //  ctx.scale(-1, 1);
-    // ctx.stroke();
     
 
     ctx.fillStyle = 'none';
