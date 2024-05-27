@@ -1,34 +1,47 @@
+const express = require('express');
 const fs = require('fs');
+const path = require('path');
+const cors = require('cors');
 
-const filePath = '/Users/haewon/Downloads/playsound-master/conversation_logs.txt';
+const app = express();
+const port = 3000;
 
-fs.readFile(filePath, 'utf8', (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  console.log(data);
+const logFilePath = '/Users/haewon/Desktop/project/OhOS/OhOS-Front/src/components/siri/conversation_logs.txt';
+
+app.use(cors());
+
+function readLastLines(filePath, numLines, callback) {
+    const stats = fs.statSync(filePath);
+    const fileSize = stats.size;
+    const readSize = Math.min(fileSize, numLines);
+    const startPosition = fileSize - readSize > 0 ? fileSize - readSize : 0;
+
+    const readStream = fs.createReadStream(filePath, { start: startPosition, end: fileSize });
+    let data = '';
+
+    readStream.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    readStream.on('end', () => {
+        callback(null, data);
+    });
+
+    readStream.on('error', (err) => {
+        callback(err);
+    });
+}
+
+app.get('/api/logs', (req, res) => {
+    readLastLines(logFilePath, 1024, (err, data) => {
+        if (err) {
+            console.error('Error reading the log file:', err);
+            return res.status(500).send('파일 읽기 오류');
+        }
+        res.send(data);
+    });
 });
 
-// const express = require('express');
-// const fs = require('fs');
-// const path = require('path');
-// const app = express();
-// const port = 3000;
-
-// const filePath = '/Users/haewon/Downloads/playsound-master/conversation_logs.txt';
-
-// app.get('/conversation_logs', (req, res) => {
-//     fs.readFile(filePath, 'utf8', (err, data) => {
-//         if (err) {
-//             console.error(err);
-//             res.status(500).send('Internal Server Error');
-//             return;
-//         }
-//         res.send(data);
-//     });
-// });
-
-// app.listen(port, () => {
-//     console.log(`Server running at http://localhost:${port}/`);
-// });
+app.listen(port, () => {
+    console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
+});
