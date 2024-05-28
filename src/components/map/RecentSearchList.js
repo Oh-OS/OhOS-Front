@@ -12,8 +12,8 @@ function RecentSearchList({setLocation, recentList, setRecentList, handleDeleteR
         <div className={style['menu-list-div']}>
             <div style={{color: "#A1A1A1", marginBottom:"7%", fontSize: 14}}>최근 검색</div>
             {
-                recentList.map(item => {
-                    return  <RecentSearchItem item={item} setLocation={setLocation} setRecentMarker={setRecentMarker}  handleDeleteItem={handleDeleteItem}/>
+                recentList.map((item, index) => {
+                    return  <RecentSearchItem item={item} setLocation={setLocation} setRecentMarker={setRecentMarker}  handleDeleteItem={handleDeleteItem} key={index}/>
                 })
             }
             {
