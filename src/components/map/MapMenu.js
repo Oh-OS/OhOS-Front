@@ -46,12 +46,13 @@ function MapMenu({ data, setData, setLocation, recentList, setRecentList, setRec
     
     // input 이외의 구역을 누르면 검색결과창 숨기기 
     let outSideClick = ({target}) => {
-        if(!isOpen && (!showResultRef.current.contains(target)))
+        console.log( showResultRef.current)
+        if(!isOpen && (!showResultRef.current || !showResultRef.current.contains(target)))
             setOpen(false);
     }
     useEffect(() => {
-        window.addEventListener('click', outSideClick)
-        return() => window.addEventListener("click", outSideClick)
+        window.addEventListener('mousedown', outSideClick)
+        return() => window.removeEventListener("mousedown", outSideClick)
 
     }, [])
 
