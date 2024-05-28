@@ -87,12 +87,8 @@ input::placeholder {
     position: relative;
     box-sizing: border-box;
     z-index: 100;
-    width: 100%;
     max-height: 50.4vh;
     background-color: #2D2F32;
-    position: relative;
-    top: 6.9%;
-    left: 10%;
     margin-top: 10px;
     border-radius: 10px;
     padding: 10px;
