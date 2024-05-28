@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { DebounceInput } from 'react-debounce-input';
+import React, { useEffect, useState, useRef, Fragment } from 'react';
 import { Icon } from '@iconify/react';
 import axios from 'axios';
 
@@ -11,14 +10,18 @@ import FavoriteList from './FavoriteList';
 
 
 /* 지도 메뉴 컴포넌트 */
-function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentList, setRecentList, setRecentMarker, reFetchData }){
+function MapMenu({ data, setData, setLocation, recentList, setRecentList, setRecentMarker, reFetchData }){
     const [inputValue , setInputValue] = useState('');
     const [searchList, setSearchList] = useState([]);
 
+    const showResultRef  = useRef(null);
+    const [isOpen, setOpen] = useState(false);
+
+
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
-        searchPlaces(e.target.value);
     };
+
     const handleAddRecentList = (item) => {
         setRecentList(prev => (recentList.includes(item))?[...prev].slice(0, 5):[item, ...prev].slice(0, 5))
         setLocation({latitude: item.y, longitude: item.x})
@@ -33,6 +36,24 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
         localStorage.setItem('recentList', JSON.stringify(recentList))
     },[recentList])
     
+    //엔터 누르면 검색
+    const onSubmitSearch = (e) => {
+        if (e.key === 'Enter') {
+            setOpen(true)
+            searchPlaces(e.target.value);
+        }
+      };
+    
+    // input 이외의 구역을 누르면 검색결과창 숨기기 
+    let outSideClick = ({target}) => {
+        if(!isOpen && (!showResultRef.current.contains(target)))
+            setOpen(false);
+    }
+    useEffect(() => {
+        window.addEventListener('click', outSideClick)
+        return() => window.addEventListener("click", outSideClick)
+
+    }, [])
 
     // Kakao Maps API를 사용하여 장소 검색
     const searchPlaces = async () => {
@@ -60,34 +81,33 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
     };
 
     return (
-        <>
-        <div className={style['map-menu-div']}>
-
-            <div className={style['map-input']}>
-                <Icon icon='ion:search-outline' style={{ color: 'white' }}/>
-                <DebounceInput 
+        <div className={style['map-menu-div']} >
+            <div className={style['map-input']} >
+                <Icon icon='ion:search-outline' style={{color: 'white'}}/>
+                <input
                     id='keyword' 
                     className={style['debounce-input']} 
                     placeholder='검색' value={inputValue} 
-                    debounceTimeout={500} 
                     onChange={handleInputChange}
-                    onClick={()=>handleResultBox(isOpen)}
+                    onKeyDown={onSubmitSearch}
                     autoComplete='off'
                 />
             </div>
+            <div ref={showResultRef} style={{width: "100%", position: "relative", top: "6.9%",left: "10%"}}>
             {
                 searchList.length > 0 &&
-                <SearchResultComponent 
-                    isOpen={isOpen} 
-                    searchList={searchList} 
-                    data={data} 
-                    setData={setData} 
-                    currentLatitude={37.4667824} 
-                    currentLongitude={126.9336292} 
-                    handleAddRecentList={handleAddRecentList}
-                    reFetchData={reFetchData}
-                />
+                   <SearchResultComponent 
+                        isOpen={isOpen}
+                        searchList={searchList} 
+                        data={data} 
+                        setData={setData} 
+                        currentLatitude={37.4667824} 
+                        currentLongitude={126.9336292} 
+                        handleAddRecentList={handleAddRecentList}
+                        reFetchData={reFetchData}
+                    />
             }
+            </div>
             <div style={{position:"fixed", top:"10.9vh"}}>
                 <FavoriteList
                     data={data}
@@ -102,9 +122,8 @@ function MapMenu({ handleResultBox, isOpen, data, setData, setLocation, recentLi
                     setRecentMarker={setRecentMarker}
                 />
             </div>
-        </div>
+    </div>
 
-        </>
     ) 
 }
 export default MapMenu;

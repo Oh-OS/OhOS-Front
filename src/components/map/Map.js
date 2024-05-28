@@ -6,8 +6,6 @@ import MapMenu from './MapMenu';
 import MapView from './MapView';
 
 function Map() {
-    const [isOpen , setIsOpen] = useState(false);
-    const handleResultBox = (open) => setIsOpen(!open);
     const [location, setLocation] = useState({
         latitude: 37.4667824,
         longitude: 126.9336292
@@ -15,7 +13,7 @@ function Map() {
 
     const [recentList, setRecentList] = useState(JSON.parse(localStorage.getItem('recentList')) || []);
     const [recentMarker, setRecentMarker] = useState({}); 
-
+ 
     // 지도 server api 연결
     const [data, setData] = useState([]);
     async function fetchData() {
@@ -44,8 +42,6 @@ function Map() {
     return (
         <div style={{width: "100vw", height:"100vh", display: "flex"}}>
             <MapMenu 
-                handleResultBox={handleResultBox}
-                isOpen={isOpen}
                 data={data}
                 setData={setData}
                 location={location}
@@ -55,9 +51,7 @@ function Map() {
                 setRecentMarker={setRecentMarker}
                 reFetchData={reFetchData}
             />
-
             <MapView 
-                handleResultBox={handleResultBox}
                 data={data}
                 location={location}
                 setRecentMarker={setRecentMarker}

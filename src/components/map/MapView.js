@@ -4,7 +4,7 @@ import '../../styles/common/Style.css';
 import style from '../../styles/map/Map.module.css';
 
 /* 지도가 띄워질 컴포넌트 */
-function MapView({ handleResultBox, data, location, recentMarker, reFetchData }) {
+function MapView({ data, location, recentMarker, reFetchData }) {
     const [map, setMap] = useState(null);
     const markersRef = useRef([]);
     const previousDataRef = useRef([]);
@@ -69,7 +69,7 @@ function MapView({ handleResultBox, data, location, recentMarker, reFetchData })
 
 
     return(
-        <div id="map" className={style['map-view']} onClick={()=>handleResultBox(true)}></div>
+        <div id="map" className={style['map-view']}></div>
     )
 }
 

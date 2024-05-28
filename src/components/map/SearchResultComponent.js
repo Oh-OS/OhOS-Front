@@ -130,9 +130,8 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
         return sortedSearchList;
     }
     const sortedSearchList = sortByDistance(currentLatitude, currentLongitude, searchList);
-    
     return(
-        <div id='searchDiv' className={style['search-div']} style={{display: isOpen ? "block" : "none"}} >
+        <div id='searchDiv' className={style['search-div']} style={{display: isOpen ? "block" : "none"}}>
             <ul>
                 {
                     Array.isArray(sortedSearchList) && sortedSearchList.length > 0 && sortedSearchList.map((item, index) => {
@@ -156,7 +155,7 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
                             distanceDisplay = `${Math.floor(distance * 1000)}m`;
                         }
                         return(
-                            <li className={style['search-item']} key={index} onClick={() => handleAddRecentList(item)} >
+                            <li className={style['search-item']} key={index} onClick={() => handleAddRecentList(item)}>
                                 <div style={{display:"flex",alignItems:"center"}}>
                                     <span>{item.place_name}</span>
                                     <Icon 
