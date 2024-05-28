@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import WeatherSearchList from '../weather/WeatherSearchList';
 import { WeatherContext } from './WeatherProvider';
-import { DebounceInput } from 'react-debounce-input';
 
 import '../../styles/common/Style.css';
 import WeatherSearchStyle from '../../styles/weather/WeatherSearch.module.css';
@@ -58,12 +57,12 @@ function WeatherSearch() {
         setSearchList([]);
     };
 
+    // 다른 곳 클릭했을 시 list 닫기
     const handleClickOutside = (event) => {
         if (searchDivRef.current && !searchDivRef.current.contains(event.target)) {
             setSearchList([]);
         }
     };
-
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
