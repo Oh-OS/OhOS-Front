@@ -89,6 +89,7 @@ option {
     width: 70px;
     height: 70px;
     display: flex;
+    cursor: pointer;
     border-radius: 50%;
     align-items: center;
     justify-content: center;
