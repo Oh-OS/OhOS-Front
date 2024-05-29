@@ -23,7 +23,8 @@ function MapMenu({ data, setData, setLocation, recentList, setRecentList, setRec
     };
 
     const handleAddRecentList = (item) => {
-        setRecentList(prev => (recentList.includes(item))?[...prev].slice(0, 5):[item, ...prev].slice(0, 5))
+        //중복된 값 있는지 체크하기
+        setRecentList(prev => recentList.some(currentitem => currentitem.id === item.id)?[...prev].slice(0, 5):[item, ...prev].slice(0, 5))
         setLocation({latitude: item.y, longitude: item.x})
         setRecentMarker(item)
     } 
