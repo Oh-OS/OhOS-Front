@@ -23,7 +23,8 @@ function MapMenu({ data, setData, setLocation, recentList, setRecentList, setRec
     };
 
     const handleAddRecentList = (item) => {
-        setRecentList(prev => (recentList.includes(item))?[...prev].slice(0, 5):[item, ...prev].slice(0, 5))
+        //중복된 값 있는지 체크하기
+        setRecentList(prev => recentList.some(currentitem => currentitem.id === item.id)?[...prev].slice(0, 5):[item, ...prev].slice(0, 5))
         setLocation({latitude: item.y, longitude: item.x})
         setRecentMarker(item)
     } 
@@ -46,12 +47,13 @@ function MapMenu({ data, setData, setLocation, recentList, setRecentList, setRec
     
     // input 이외의 구역을 누르면 검색결과창 숨기기 
     let outSideClick = ({target}) => {
-        if(!isOpen && (!showResultRef.current.contains(target)))
+        console.log( showResultRef.current)
+        if(!isOpen && (!showResultRef.current || !showResultRef.current.contains(target)))
             setOpen(false);
     }
     useEffect(() => {
-        window.addEventListener('click', outSideClick)
-        return() => window.addEventListener("click", outSideClick)
+        window.addEventListener('mousedown', outSideClick)
+        return() => window.removeEventListener("mousedown", outSideClick)
 
     }, [])
 
