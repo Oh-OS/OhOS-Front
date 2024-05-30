@@ -92,7 +92,6 @@ function Weather() {
 
     return(
         <div className={weatherStyle['container']}>
-            <div style={{position: "absolute", zIndex: 100}}> <TitleBar /> </div>
             <div className={weatherStyle['background']}>
                 <div className={weatherStyle['allDiv']}>
                     {/* 정보*/}
