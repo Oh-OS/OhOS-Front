@@ -7,10 +7,10 @@ import { Icon } from '@iconify/react';
 import showImageFuntion from './ShowImage';
 import { PhotoContext } from './PhotoProvider';
 
-function MyPhoto({ selectedImage, setSelectedImage, showImage, setShowImage }) {
+function MyPhoto({ selectedImage, setSelectedImage, showImage, setShowImage, selectedPhoto, setSelectedPhoto }) {
     const { images, setImages } = useContext(PhotoContext);
     const photoListRef = useRef();
-    const [ selectedPhoto, setSelectedPhoto ] = useState(null);
+    
 
     useEffect(() => {
         getPhotos();
