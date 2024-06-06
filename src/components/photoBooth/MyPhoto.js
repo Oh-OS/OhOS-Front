@@ -2,11 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import '../../styles/common/Style.css'
 import style from '../../styles/photoBooth/MyPhoto.module.css'
 import axios from 'axios';
+import { Icon } from '@iconify/react';
 
 import showImageFuntion from './ShowImage';
 
 function MyPhoto({ images, setImages, selectedImage, setSelectedImage, showImage, setShowImage }) {
     const photoListRef = useRef();
+    const [ selectedPhoto, setSelectedPhoto ] = useState(null);
 
     useEffect(() => {
         getPhotos();
@@ -20,18 +22,29 @@ function MyPhoto({ images, setImages, selectedImage, setSelectedImage, showImage
     }, [images])
 
 
+    const selectPhoto = (id, index) => {
+        showImageFuntion(id, setSelectedImage, setShowImage)
+        setSelectedPhoto(index);
+    }
+
     const getPhotos = async () => {
         try{
             const photos = await axios.get(`${process.env.REACT_APP_PHOTOHOST}/photos`)
 
-            setImages(
-                photos.data.map(photo => {
-                    return <img src={`${process.env.REACT_APP_PHOTOHOST}/${photo.imagePath}`}
-                        className={style['photos']}
-                        onClick={() => showImageFuntion(photo.id, setSelectedImage, setShowImage)}
-                        key={photo.id}></img>
-                })
-            )
+            if(photos.data.length === 0) { // 사진이 없는 경우
+                setImages([]);
+            }else {
+                setImages(photos.data);
+            }
+        }catch(error){
+            console.error(error);
+        }
+    }
+
+    const deletePhoto = async (id) => {
+        try{
+            const response = await axios.delete(`${process.env.REACT_APP_PHOTOHOST}/photos/${id}`);
+            console.log(response);
         }catch(error){
             console.error(error);
         }
@@ -46,9 +59,24 @@ function MyPhoto({ images, setImages, selectedImage, setSelectedImage, showImage
                 </div>
             }
             
-            <div className={style['photo-list']} ref={photoListRef}>
-                {images}
-            </div>
+            {images && (
+                <div className={style['photo-list']} ref={photoListRef}>
+                    {images.map((photo, index) => (
+                        <div className={style['photos-box']} key={photo.id} onClick={() => selectPhoto(photo.id, index)}>
+                            <img
+                                src={`${process.env.REACT_APP_PHOTOHOST}/${photo.imagePath}`}
+                                className={`${style['photo']} ${selectedPhoto === index ? style['my-photo-list'] : ''}`}
+                            />
+                            {selectedPhoto === index && (
+                                <div className={style['delete-box']} onClick={() => deletePhoto(photo.id)}>
+                                    <Icon icon="ph:x-bold" className={style['delete-icon']} />
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            )}
+            
         </>
     )
 }
