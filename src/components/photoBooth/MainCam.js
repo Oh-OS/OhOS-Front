@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import '../../styles/common/Style.css'
 import style from '../../styles/photoBooth/MainCam.module.css'
 import Webcam from "react-webcam";
@@ -6,7 +6,7 @@ import Webcam from "react-webcam";
 import XRay from './filters/XRay';
 import StretchH from './filters/StretchH';
 import Zombie from './filters/Zombie';
-import Circle from './filters/Circle';
+import Sunglass from './mainFilter/Sunglass';
 import Basic from './filters/Basic';
 import Comic from './filters/Comic';
 import StretchV from './filters/StretchV';
@@ -22,8 +22,9 @@ function MainCam({ width, height, index, main, setMain }) {
     
     const [ selectedImage, setSelectedImage ] = useState();
     const [ showImage, setShowImage ] = useState(false);
+    const [ selectedPhoto, setSelectedPhoto ] = useState(null);
 
-    const videoFunction = [XRay, StretchH, Zombie, Circle, Basic, Comic, Flip, StretchV, Swirl];
+    const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Comic, Flip, StretchV, Swirl];
 
     const camAreaRef = useRef();
     const videoRef = useRef();
@@ -73,6 +74,8 @@ function MainCam({ width, height, index, main, setMain }) {
                 setSelectedImage={setSelectedImage}
                 showImage={showImage}
                 setShowImage={setShowImage}
+                selectedPhoto={selectedPhoto}
+                setSelectedPhoto={setSelectedPhoto}
             />
             <BottomBar
                 setMain={setMain}
@@ -82,6 +85,7 @@ function MainCam({ width, height, index, main, setMain }) {
                 index={index}
                 showImage={showImage}
                 setShowImage={setShowImage}
+                setSelectedPhoto={setSelectedPhoto}
             />
         </>
     )
