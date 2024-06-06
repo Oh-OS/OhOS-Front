@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react';
 import { PhotoContext } from "./PhotoProvider";
 import CaptureImage from './CaptureImage';
 
-function BottomBar({ setMain, main, canvas, video, index, showImage, setShowImage }) {
+function BottomBar({ setMain, main, canvas, video, index, showImage, setShowImage, setSelectedPhoto }) {
     const [countdown, setCountdown] = useState(null);
     const { setImages } = useContext(PhotoContext);
 
@@ -17,6 +17,7 @@ function BottomBar({ setMain, main, canvas, video, index, showImage, setShowImag
     const takePhoto = () => {
         if(showImage){
             setShowImage(false)
+            setSelectedPhoto(null);
         }else{
             CaptureImage(canvas, video, index, setCountdown, setImages)
         }
