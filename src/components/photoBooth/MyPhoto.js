@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import '../../styles/common/Style.css'
 import style from '../../styles/photoBooth/MyPhoto.module.css'
 import axios from 'axios';
 import { Icon } from '@iconify/react';
 
 import showImageFuntion from './ShowImage';
+import { PhotoContext } from './PhotoProvider';
 
-function MyPhoto({ images, setImages, selectedImage, setSelectedImage, showImage, setShowImage }) {
+function MyPhoto({ selectedImage, setSelectedImage, showImage, setShowImage }) {
+    const { images, setImages } = useContext(PhotoContext);
     const photoListRef = useRef();
     const [ selectedPhoto, setSelectedPhoto ] = useState(null);
 
@@ -41,10 +43,12 @@ function MyPhoto({ images, setImages, selectedImage, setSelectedImage, showImage
         }
     }
 
-    const deletePhoto = async (id) => {
+    const deletePhoto = async (id, event) => {
+        event.stopPropagation(); // 이벤트 버블링 방지
         try{
             const response = await axios.delete(`${process.env.REACT_APP_PHOTOHOST}/photos/${id}`);
             console.log(response);
+            getPhotos();
         }catch(error){
             console.error(error);
         }
@@ -68,7 +72,7 @@ function MyPhoto({ images, setImages, selectedImage, setSelectedImage, showImage
                                 className={`${style['photo']} ${selectedPhoto === index ? style['my-photo-list'] : ''}`}
                             />
                             {selectedPhoto === index && (
-                                <div className={style['delete-box']} onClick={() => deletePhoto(photo.id)}>
+                                <div className={style['delete-box']} onClick={e => deletePhoto(photo.id, e)}>
                                     <Icon icon="ph:x-bold" className={style['delete-icon']} />
                                 </div>
                             )}

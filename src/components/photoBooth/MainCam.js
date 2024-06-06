@@ -16,10 +16,10 @@ import Swirl from './filters/Swirl'
 import BottomBar from './BottomBar';
 import MyPhoto from "./MyPhoto";
 
-function MainCam({ width, height, index, setIndex, main, setMain }) {
+function MainCam({ width, height, index, main, setMain }) {
     const [ captureCanvas, setCaptureCanvas ] = useState();
     const [ captureVideo, setCaptureVideo ] = useState();
-    const [ images, setImages ] = useState();
+    
     const [ selectedImage, setSelectedImage ] = useState();
     const [ showImage, setShowImage ] = useState(false);
 
@@ -69,8 +69,6 @@ function MainCam({ width, height, index, setIndex, main, setMain }) {
                 <canvas ref={canvasRef} className={style['canvas']} width={width} height={height}></canvas>  
             </div>
             <MyPhoto
-                images={images}
-                setImages={setImages}
                 selectedImage={selectedImage}
                 setSelectedImage={setSelectedImage}
                 showImage={showImage}
@@ -82,8 +80,6 @@ function MainCam({ width, height, index, setIndex, main, setMain }) {
                 canvas={captureCanvas}
                 video={captureVideo}
                 index={index}
-                setImages={setImages}
-                setSelectedImage={setSelectedImage}
                 showImage={showImage}
                 setShowImage={setShowImage}
             />
