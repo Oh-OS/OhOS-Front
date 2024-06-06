@@ -9,12 +9,10 @@ import Flip from './captureFilter/Flip'
 import Swirl from './captureFilter/Swirl'
 
 import axios from 'axios';
-import style from '../../styles/photoBooth/MyPhoto.module.css'
-import showImage from './ShowImage';
 
 const videoFunction = [XRay, StretchH, Zombie, Circle, Basic, Comic, Flip, StretchV, Swirl];
 
-export default function startCountdown(canvas, video, index, setImages, setSelectedImage, setCountdown) {
+export default function startCountdown(canvas, video, index, setCountdown, setImages) {
     let count = 3;
     setCountdown(count);
 
@@ -23,40 +21,34 @@ export default function startCountdown(canvas, video, index, setImages, setSelec
         if (count === 0) {
             clearInterval(countdownInterval);
             setCountdown(null);
-            captureImage(canvas, video, index, setImages, setSelectedImage);
+            captureImage(canvas, video, index, setImages);
         } else {
             setCountdown(count);
         }
     }, 1000);
 }
 
-const captureImage = (canvas, video, index, setImages, setSelectedImage) => {
+const captureImage = (canvas, video, index, setImages) => {
     const ctx = canvas.getContext('2d');
     if (video.video && canvas) {
         videoFunction[index](ctx, video, canvas, 1400, 788)
 
         const image = canvas.toDataURL('image/png');
-        downloadImage(image, setImages, setSelectedImage);
+        DownloadImage(image, setImages);
     }
 }
 
-const downloadImage = async (capturedImage, setImages, setSelectedImage) => {
+const DownloadImage = async (capturedImage, setImages) => {
+
     if (capturedImage) {
         try{
-            const blob = base64ToBlob(capturedImage);
+            const blob = base64ToBlob(capturedImage); // 이미지 용량 줄이기
             const formData = new FormData();
             formData.append('photo', blob, 'photo.png');
 
             const photo = await axios.post(`${process.env.REACT_APP_PHOTOHOST}/photos`, formData)
 
-            setImages(prev => 
-                prev.concat(
-                    <img src={`${process.env.REACT_APP_PHOTOHOST}/${photo.data.imagePath}`}
-                    className={style['photos']}
-                    onClick={() => showImage(photo.data.id, setSelectedImage)}
-                    key={photo.data.id}></img>
-                )
-            )
+            setImages(prev => prev.concat(photo.data))
         }catch(error){
             console.error(error);
         }

@@ -24,7 +24,6 @@ function Photobooth() {
 
     const mainReq = {
         index: index,
-        setIndex: setIndex,
         main: main,
         setMain: setMain
     }
