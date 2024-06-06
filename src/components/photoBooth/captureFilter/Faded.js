@@ -1,4 +1,4 @@
-export default function Comic(ctx, video, canvas, width, height) {
+export default function Faded(ctx, video, canvas, width, height) {
     ctx.drawImage(video.video, 0, 0, width, height);
 
     // 캔버스의 픽셀 데이터를 가져오기
