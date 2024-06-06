@@ -8,7 +8,7 @@ import StretchH from './filters/StretchH';
 import Zombie from './filters/Zombie';
 import Sunglass from './mainFilter/Sunglass';
 import Basic from './filters/Basic';
-import Comic from './filters/Comic';
+import Comic from './filters/Faded';
 import StretchV from './filters/StretchV';
 import Flip from './filters/Flip'
 import Swirl from './filters/Swirl'

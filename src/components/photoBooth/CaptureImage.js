@@ -3,14 +3,14 @@ import StretchH from './captureFilter/StretchH';
 import Zombie from './captureFilter/Zombie';
 import Sunglass from './captureFilter/Sunglass';
 import Basic from './captureFilter/Basic';
-import Comic from './captureFilter/Comic';
+import Faded from './captureFilter/Faded';
 import StretchV from './captureFilter/StretchV';
 import Flip from './captureFilter/Flip'
 import Swirl from './captureFilter/Swirl'
 
 import axios from 'axios';
 
-const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Comic, Flip, StretchV, Swirl];
+const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Faded, Flip, StretchV, Swirl];
 
 export default function startCountdown(canvas, video, index, setCountdown, setImages) {
     let count = 3;

@@ -8,7 +8,7 @@ import StretchH from './filters/StretchH';
 import Zombie from './filters/Zombie';
 import Sunglass from './filters/Sunglass';
 import Basic from './filters/Basic';
-import Comic from './filters/Comic';
+import Faded from './filters/Faded';
 import StretchV from './filters/StretchV';
 import Flip from './filters/Flip'
 import Swirl from './filters/Swirl'
@@ -19,7 +19,7 @@ function FilterCam({ width, height, setIndex, main, setMain}) {
     const camAreaRef = useRef();
     const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
     const videoRef = useRef();
-    const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Comic, Flip, StretchV, Swirl];
+    const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Faded, Flip, StretchV, Swirl];
 
     const videoConstraints = {
       width: width,
