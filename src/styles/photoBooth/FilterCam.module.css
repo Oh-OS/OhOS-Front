@@ -22,22 +22,18 @@
     height: 100%;
 }
 
-.invert{
-    /* filter: invert(100%); */
+.sunglass-img1{
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    left: 100px;
+    width: 100px;
 }
 
-.two{
-    /* filter: saturate(0); */
-}
-
-.three{
-    filter: hue-rotate(90deg);
-}
-
-.four{
-    /* filter: brightness(2); */
-}
-
-.six{
-    filter: sepia(100%);
+.sunglass-img2{
+    position: absolute;
+    z-index: 1;
+    top: 80px;
+    left: 250px;
+    width: 100px;
 }
