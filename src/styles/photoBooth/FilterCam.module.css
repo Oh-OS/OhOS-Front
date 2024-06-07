@@ -37,3 +37,27 @@
     left: 250px;
     width: 100px;
 }
+
+.abalone-img1{
+    position: absolute;
+    z-index: 1;
+    top: 110px;
+    left: 50px;
+    width: 100px;
+}
+
+.abalone-img2{
+    position: absolute;
+    z-index: 1;
+    top: 90px;
+    left: 180px;
+    width: 100px;
+}
+
+.abalone-img3{
+    position: absolute;
+    z-index: 1;
+    top: 120px;
+    left: 310px;
+    width: 100px;
+}
