@@ -6,11 +6,11 @@ import Basic from './captureFilter/Basic';
 import Faded from './captureFilter/Faded';
 import StretchV from './captureFilter/StretchV';
 import Flip from './captureFilter/Flip'
-import Swirl from './captureFilter/Swirl'
+import Abalone from './captureFilter/Abalone'
 
 import axios from 'axios';
 
-const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Faded, Flip, StretchV, Swirl];
+const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Faded, Flip, StretchV, Abalone];
 
 export default function startCountdown(canvas, video, index, setCountdown, setImages) {
     let count = 3;
