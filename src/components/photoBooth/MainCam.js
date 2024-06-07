@@ -4,14 +4,14 @@ import style from '../../styles/photoBooth/MainCam.module.css'
 import Webcam from "react-webcam";
 
 import XRay from './filters/XRay';
-import StretchH from './filters/StretchH';
+import StretchH from './mainFilter/StretchH';
 import Zombie from './filters/Zombie';
 import Sunglass from './mainFilter/Sunglass';
 import Basic from './filters/Basic';
-import Comic from './filters/Faded';
-import StretchV from './filters/StretchV';
-import Flip from './filters/Flip'
-import Swirl from './filters/Swirl'
+import Faded from './filters/Faded';
+import StretchV from './mainFilter/StretchV';
+import Flip from './mainFilter/Flip'
+import Abalone from './mainFilter/Abalone'
 
 import BottomBar from './BottomBar';
 import MyPhoto from "./MyPhoto";
@@ -24,7 +24,7 @@ function MainCam({ width, height, index, main, setMain }) {
     const [ showImage, setShowImage ] = useState(false);
     const [ selectedPhoto, setSelectedPhoto ] = useState(null);
 
-    const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Comic, Flip, StretchV, Swirl];
+    const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Faded, Flip, StretchV, Abalone];
 
     const camAreaRef = useRef();
     const videoRef = useRef();
@@ -61,8 +61,8 @@ function MainCam({ width, height, index, main, setMain }) {
                 <Webcam
                     mirrored
                     audio={false}
-                    height={height}
-                    width={width}
+                    height={720}
+                    width={1280}
                     videoConstraints={videoConstraints}
                     className={style['main-cam']}
                     ref={videoRef}
