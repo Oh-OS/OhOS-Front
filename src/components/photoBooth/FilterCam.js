@@ -11,7 +11,7 @@ import Basic from './filters/Basic';
 import Faded from './filters/Faded';
 import StretchV from './filters/StretchV';
 import Flip from './filters/Flip'
-import Swirl from './filters/Swirl'
+import Abalone from './filters/Abalone'
 
 import BottomBar from './BottomBar';
 
@@ -19,7 +19,7 @@ function FilterCam({ width, height, setIndex, main, setMain}) {
     const camAreaRef = useRef();
     const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
     const videoRef = useRef();
-    const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Faded, Flip, StretchV, Swirl];
+    const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Faded, Flip, StretchV, Abalone];
 
     const videoConstraints = {
       width: width,
@@ -67,6 +67,14 @@ function FilterCam({ width, height, setIndex, main, setMain}) {
                       <>
                         <img src="/images/PhotoBooth/sunglasses.png" className={style['sunglass-img1']}></img>  
                         <img src="/images/PhotoBooth/sunglasses.png" className={style['sunglass-img2']}></img>  
+                      </>
+                    }
+                    {
+                      index === 8 &&
+                      <>
+                        <img src="/images/PhotoBooth/abalone.png" className={style['abalone-img1']}></img>
+                        <img src="/images/PhotoBooth/abalone.png" className={style['abalone-img2']}></img>
+                        <img src="/images/PhotoBooth/abalone.png" className={style['abalone-img3']}></img>
                       </>
                     }
                   </div>

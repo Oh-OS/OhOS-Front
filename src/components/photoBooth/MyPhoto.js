@@ -10,20 +10,25 @@ import { PhotoContext } from './PhotoProvider';
 function MyPhoto({ selectedImage, setSelectedImage, showImage, setShowImage, selectedPhoto, setSelectedPhoto }) {
     const { images, setImages } = useContext(PhotoContext);
     const photoListRef = useRef();
-    
 
     useEffect(() => {
         getPhotos();
+        movePhotoList();
     }, [])
 
     useEffect(() => {
-        const photoList = photoListRef.current;
-        if(photoList){
-            photoList.scrollLeft = photoList.scrollWidth;
-        }
+        movePhotoList();
     }, [images])
 
-
+    const movePhotoList = () => {
+        setTimeout(() => {
+            const photoList = photoListRef.current;
+            if(photoList){
+                photoList.scrollLeft = photoList.scrollWidth;
+            }
+        }, 500)
+    }
+    
     const selectPhoto = (id, index) => {
         showImageFuntion(id, setSelectedImage, setShowImage)
         setSelectedPhoto(index);
@@ -47,7 +52,6 @@ function MyPhoto({ selectedImage, setSelectedImage, showImage, setShowImage, sel
         event.stopPropagation(); // 이벤트 버블링 방지
         try{
             const response = await axios.delete(`${process.env.REACT_APP_PHOTOHOST}/photos/${id}`);
-            console.log(response);
             getPhotos();
         }catch(error){
             console.error(error);
@@ -63,7 +67,7 @@ function MyPhoto({ selectedImage, setSelectedImage, showImage, setShowImage, sel
                 </div>
             }
             
-            {images && (
+            {images.length !== 0 && (
                 <div className={style['photo-list']} ref={photoListRef}>
                     {images.map((photo, index) => (
                         <div className={style['photos-box']} key={photo.id} onClick={() => selectPhoto(photo.id, index)}>
