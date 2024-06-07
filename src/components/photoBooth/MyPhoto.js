@@ -63,7 +63,7 @@ function MyPhoto({ selectedImage, setSelectedImage, showImage, setShowImage, sel
                 </div>
             }
             
-            {images && (
+            {images.length !== 0 && (
                 <div className={style['photo-list']} ref={photoListRef}>
                     {images.map((photo, index) => (
                         <div className={style['photos-box']} key={photo.id} onClick={() => selectPhoto(photo.id, index)}>
