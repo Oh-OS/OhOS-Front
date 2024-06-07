@@ -26,11 +26,18 @@ export default function startCountdown(canvas, video, index, setCountdown, setIm
             setCountdown(count);
         }
     }, 1000);
+
+    
 }
 
 const captureImage = (canvas, video, index, setImages) => {
     const ctx = canvas.getContext('2d');
     if (video.video && canvas) {
+        var audio = new Audio('/mp3/PhotoBooth/camera-sound.mp3');
+        audio.load();
+        audio.volume = 1;
+        audio.play();
+
         videoFunction[index](ctx, video, canvas, 1400, 788)
 
         const image = canvas.toDataURL('image/png');
@@ -39,6 +46,7 @@ const captureImage = (canvas, video, index, setImages) => {
 }
 
 const DownloadImage = async (capturedImage, setImages) => {
+    
 
     if (capturedImage) {
         try{
