@@ -16,7 +16,7 @@ const userInfoList = [
         memo: '안녕하세요. 오은영체제 프론트 개발자 양가윤입니다. 좋은 관람 하세요:)'
     },
     {
-        profileImg: '/images/Contact/ProfileImg/haeun-profile-img.jpg',
+        profileImg: '/images/Contact/ProfileImg/seoyoung-profile-img.jpg',
         name: '이서영',
         phoneNumber: '010-6412-9315',
         email: 'w2210@e-mirim.hs.kr',
