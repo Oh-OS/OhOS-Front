@@ -6,21 +6,20 @@ import Webcam from 'react-webcam';
 import XRay from './filters/XRay';
 import StretchH from './filters/StretchH';
 import Zombie from './filters/Zombie';
-import Circle from './filters/Circle';
+import Sunglass from './filters/Sunglass';
 import Basic from './filters/Basic';
-import Comic from './filters/Comic';
+import Faded from './filters/Faded';
 import StretchV from './filters/StretchV';
 import Flip from './filters/Flip'
-import Swirl from './filters/Swirl'
+import Abalone from './filters/Abalone'
 
 import BottomBar from './BottomBar';
 
 function FilterCam({ width, height, setIndex, main, setMain}) {
     const camAreaRef = useRef();
     const canvasRefs = Array.from({ length: 9 }, () => React.createRef());
-    const videoClass = ['invert', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     const videoRef = useRef();
-    const videoFunction = [XRay, StretchH, Zombie, Circle, Basic, Comic, Flip, StretchV, Swirl];
+    const videoFunction = [XRay, StretchH, Zombie, Sunglass, Basic, Faded, Flip, StretchV, Abalone];
 
     const videoConstraints = {
       width: width,
@@ -61,9 +60,25 @@ function FilterCam({ width, height, setIndex, main, setMain}) {
 
             {
               canvasRefs.map((canvasRef, index) => 
-                  <canvas width={width} height={height}
-                  ref={canvasRef} className={style[videoClass[index]]}
-                  key={index} onClick={() => setData(index)}></canvas>
+                  <div className={style['video-box']} style={{height: height, position: 'relative'}}>
+                    <canvas width={width} height={height}
+                      ref={canvasRef} key={index} onClick={() => setData(index)}></canvas>
+                    { index === 3 && 
+                      <>
+                        <img src="/images/PhotoBooth/sunglasses.png" className={style['sunglass-img1']}></img>  
+                        <img src="/images/PhotoBooth/sunglasses.png" className={style['sunglass-img2']}></img>  
+                      </>
+                    }
+                    {
+                      index === 8 &&
+                      <>
+                        <img src="/images/PhotoBooth/abalone.png" className={style['abalone-img1']}></img>
+                        <img src="/images/PhotoBooth/abalone.png" className={style['abalone-img2']}></img>
+                        <img src="/images/PhotoBooth/abalone.png" className={style['abalone-img3']}></img>
+                      </>
+                    }
+                  </div>
+                  
               )
             }
 

@@ -1,4 +1,4 @@
-export default function Flip(ctx, video, canvas, width, height){
+export default function Flip(ctx, video, canvas, width, height, drawImge){
     const videoWidth = video.video.width;
     const videoHeight = video.video.height;
     
@@ -12,4 +12,6 @@ export default function Flip(ctx, video, canvas, width, height){
     ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
     ctx.drawImage(video.video, 0, 0, videoWidth / 2, videoHeight, 0, 0, width / 2, height);
+    
+    setTimeout(drawImge, 33);
 }

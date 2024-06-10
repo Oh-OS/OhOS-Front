@@ -22,22 +22,42 @@
     height: 100%;
 }
 
-.invert{
-    /* filter: invert(100%); */
+.sunglass-img1{
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    left: 100px;
+    width: 100px;
 }
 
-.two{
-    /* filter: saturate(0); */
+.sunglass-img2{
+    position: absolute;
+    z-index: 1;
+    top: 80px;
+    left: 250px;
+    width: 100px;
 }
 
-.three{
-    filter: hue-rotate(90deg);
+.abalone-img1{
+    position: absolute;
+    z-index: 1;
+    top: 110px;
+    left: 50px;
+    width: 100px;
 }
 
-.four{
-    /* filter: brightness(2); */
+.abalone-img2{
+    position: absolute;
+    z-index: 1;
+    top: 90px;
+    left: 180px;
+    width: 100px;
 }
 
-.six{
-    filter: sepia(100%);
+.abalone-img3{
+    position: absolute;
+    z-index: 1;
+    top: 120px;
+    left: 310px;
+    width: 100px;
 }
