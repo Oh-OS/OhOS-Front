@@ -13,8 +13,8 @@ function Photobooth() {
 
     // 전시노트북에 맞춰 사이즈 조절 (16:9)
     const size = {
-        width: 1400,
-        height: 788
+        width: 1600,
+        height: 950
     };
 
     const filterSize = {
