@@ -38,7 +38,7 @@ const captureImage = (canvas, video, index, setImages) => {
         audio.volume = 1;
         audio.play();
 
-        videoFunction[index](ctx, video, canvas, 1400, 788)
+        videoFunction[index](ctx, video, canvas, 1600, 950)
 
         const image = canvas.toDataURL('image/png');
         DownloadImage(image, setImages);
