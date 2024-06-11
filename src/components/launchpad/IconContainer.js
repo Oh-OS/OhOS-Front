@@ -1,4 +1,3 @@
-// IconContainer.js
 import React, { useState } from 'react';
 import styles from '../../styles/launchpad/LaunchpadPage.module.css';
 import SearchBar from './SearchBar';
@@ -27,19 +26,21 @@ function IconContainer() {
       icon.alt.toLowerCase().includes(lowerCaseSearchTerm)
     ));
     setFilteredIcons(filteredIcons);
-  }; 
-
-
-  const navigate = useNavigate();
-  const IconClick = (path) => {
-    navigate(path);
   };
 
+  const navigate = useNavigate();
+  const handleIconClick = (path) => {
+    if (path.startsWith('http')) {
+      window.location.href = path; // 외부 링크로 이동
+    } else {
+      navigate(path); // 내부 경로로 이동
+    }
+  };
 
   return (
     <div className={styles['container']}>
       <SearchBar onSearch={handleSearchChange} />
-      <div className={styles['icon-box']} onClick={() => IconClick('/')}>
+      <div className={styles['icon-box']}>
         {filteredIcons.map((profile) => (
           <LaunchpadIcon
             key={profile.id}
@@ -47,6 +48,7 @@ function IconContainer() {
             alt={profile.alt}
             text={profile.text}
             to={profile.to}
+            onClick={() => handleIconClick(profile.to)}
           />
         ))}
       </div>
