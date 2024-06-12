@@ -45,9 +45,9 @@
     border: none;
     resize: none;
     outline: none;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 select,
