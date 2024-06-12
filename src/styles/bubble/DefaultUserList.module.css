@@ -1,4 +1,6 @@
 .list{
+    height: calc(100vh - 150px);
     display: grid;
     row-gap: 13px;
+    overflow-y: scroll;
 }
