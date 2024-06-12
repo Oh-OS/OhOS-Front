@@ -15,10 +15,10 @@
 }
 
 .title {
+    font-size: 2rem;
     text-align: left;
     margin-top: 70px;
     font-weight: bold;
-    font-size: 2rem;
     display: inline-block;
     margin-right: calc(100vw - 30% + 72px);
 }
@@ -45,9 +45,9 @@
     border: none;
     resize: none;
     outline: none;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 select,
@@ -89,6 +89,7 @@ option {
     width: 70px;
     height: 70px;
     display: flex;
+    cursor: pointer;
     border-radius: 50%;
     align-items: center;
     justify-content: center;

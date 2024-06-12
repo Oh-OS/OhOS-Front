@@ -2,29 +2,9 @@ import { useEffect, useState } from 'react';
 import '../../styles/common/Style.css'
 import translationStyle from '../../styles/translation/translationPage.module.css'
 
-const DebounceTextarea = ({ onChange, value, debounceTimeout, ...rest }) => {
-    const [innerValue, setInnerValue] = useState(value);
-
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            onChange({ target: {value: innerValue} });
-        }, debounceTimeout);
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [innerValue, onChange, debounceTimeout]);
-
-    const handleChange = (e) => {
-        setInnerValue(e.target.value);
-    };
-
-    return <textarea {...rest} value={innerValue} onChange={handleChange} />
-}
-
 function translateText(text, source_lang, target_lang){
-    console.log(source_lang, target_lang)
-    const authKey = `${process.env.REACT_APP_TRANSLATEAPIKEY}`;
+   console.log(source_lang, target_lang);
+   const authKey = `${process.env.REACT_APP_TRANSLATEAPIKEY}`;
    return new Promise((resolve, reject) => {
    fetch("/deepl/v2/translate", {
         method: "POST",
@@ -52,6 +32,7 @@ function Translation(props) {
     const [resultText, setResultText] = useState('');
     const [inputPlaceholder, setInputPlaceholder] = useState('텍스트 입력');
     const [resultPlaceholder, setResultPlaceholder] = useState('Enter text');
+    const [debounceTimeout, setDebounceTimeout] = useState(null);
     const placeholders = {
         'EN': 'Enter text',
         'KO': '텍스트 입력',
@@ -90,16 +71,27 @@ function Translation(props) {
    
     
  useEffect(() => {
-        if(inputText.length >= 1){
-            translateText(inputText, inputTarget, resultTarget)
-            .then(text => {
-                setResultText(text); 
-            })
-            .catch(error => {
-                console.error("Translation error:", error);
-            });
+        if (debounceTimeout) {
+            clearTimeout(debounceTimeout);
         }
-    }, [inputText])
+        setDebounceTimeout(setTimeout(() => {
+            if (inputText.length >= 1) {
+                translateText(inputText, inputTarget, resultTarget)
+                .then(text => {
+                    setResultText(text);
+                })
+                .catch(error => {
+                    console.error("Translation error:", error);
+                });
+            }
+        }, 1000));
+
+        return () => {
+            if (debounceTimeout) {
+                clearTimeout(debounceTimeout);
+            }
+        };
+    }, [inputText, inputTarget, resultTarget])
 
     
     return(
@@ -111,15 +103,15 @@ function Translation(props) {
                         <option value='EN'>영어 (미국)</option>
                         <option value='KO'>한국어</option>
                     </select>
-                    <DebounceTextarea
+                    <textarea
                         className={translationStyle['input-text']}
                         placeholder={inputPlaceholder}
                         value={inputText}
-                        debounceTimeout = {1000} 
                         onChange={(e) =>{
                             setInputText(e.target.value);
                         }}
-                    />
+                    >
+                    </textarea>
                 </div>
                 <div className={translationStyle['change']}>
                     <div className={translationStyle['change-img']}>
