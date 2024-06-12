@@ -1,5 +1,6 @@
 .filtered-contact-list{
     width: calc(100% - 21px * 2);
+    overflow-y: scroll;
 }
 
 .filter-title{

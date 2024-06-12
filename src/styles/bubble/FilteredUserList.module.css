@@ -1,3 +1,8 @@
+.list-box{
+    height: calc(100vh - 150px);
+    overflow-y: scroll;
+}
+
 .title{
     color: var(--gray-800);
     padding-bottom: 8px;
