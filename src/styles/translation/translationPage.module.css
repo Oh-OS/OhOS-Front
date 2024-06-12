@@ -15,10 +15,10 @@
 }
 
 .title {
+    font-size: 2rem;
     text-align: left;
     margin-top: 70px;
     font-weight: bold;
-    font-size: 2rem;
     display: inline-block;
     margin-right: calc(100vw - 30% + 72px);
 }
