@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import '../../styles/common/Style.css'
 import translationStyle from '../../styles/translation/translationPage.module.css'
 
-function translateText(text, source_lang, target_lang){
-   console.log(source_lang, target_lang);
-   const authKey = `${process.env.REACT_APP_TRANSLATEAPIKEY}`;
-   return new Promise((resolve, reject) => {
-   fetch("/deepl/v2/translate", {
+function translateText(text, source_lang, target_lang) {
+    console.log(text, source_lang, target_lang);
+    const authKey = `${process.env.REACT_APP_TRANSLATEAPIKEY}`;
+    return new Promise((resolve, reject) => {
+    fetch("/deepl/v2/translate", {
         method: "POST",
         headers: {
             "Authorization": "DeepL-Auth-Key " + authKey,
@@ -20,12 +20,12 @@ function translateText(text, source_lang, target_lang){
         // console.log("경과" , data.translations[0].text);
         resolve(data.translations[0].text);
     }).catch(error => {
-        reject(error);
+            reject(error);
         });
     });
 } 
 
-function Translation(props) {
+function Translation() {
     const [inputTarget, setInputTarget] = useState('KO');
     const [resultTarget, setResultTarget] = useState('EN');
     const [inputText, setInputText] = useState('');
@@ -70,7 +70,7 @@ function Translation(props) {
     
    
     
- useEffect(() => {
+    useEffect(() => {
         if (debounceTimeout) {
             clearTimeout(debounceTimeout);
         }
@@ -110,8 +110,7 @@ function Translation(props) {
                         onChange={(e) =>{
                             setInputText(e.target.value);
                         }}
-                    >
-                    </textarea>
+                    />
                 </div>
                 <div className={translationStyle['change']}>
                     <div className={translationStyle['change-img']}>
