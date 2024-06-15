@@ -7,7 +7,7 @@ import FavoriteItem from './FavoriteItem';
 function FavoriteList({ data, setData, setLocation, reFetchData }) {
     const deleteHeart = async (id) => {
         try {
-            const request = await axios.delete(`${process.env.REACT_APP_MAPHOST}/bookmarks/${id}`);
+            const request = await axios.delete(`${process.env.REACT_APP_MAPHOST1}/bookmarks/${id}`);
             if (request.status === 204) {
                 console.log("즐겨찾기 삭제 성공");
                 setData(data.filter(item => item.id !== id));
