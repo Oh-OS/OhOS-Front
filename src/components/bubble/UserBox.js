@@ -6,11 +6,17 @@ import { BubbleContext } from './BubbleProvider';
 import userInfoList from'./UserInfoList';
 
 
-function UserBox({ name }) {
+function UserBox({ name, onClick, handleRoomClick, room }) {
     const { getBubbleClassName, setSelectedName, getUserline } = useContext(BubbleContext);
+
+    const handleClick = () => {
+        handleRoomClick(room);
+        setSelectedName(name);
+    };
+        
     return(
         <>
-            <div className={getBubbleClassName(name)} onClick={() => setSelectedName(name)}>
+            <div className={getBubbleClassName(name)} onClick={handleClick}>
                 <img src={userInfoList[name]} className={style['profile-img']}/>
                 <div className={style['chat-info']}>
                     <div className={style['user-info']}>

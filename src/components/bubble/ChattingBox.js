@@ -1,20 +1,28 @@
-import '../../styles/common/Style.css'
-import style from '../../styles/bubble/ChattingBox.module.css'
-
+import React from 'react';
+import style from '../../styles/bubble/ChattingBox.module.css';
 import MyChat from './MyChat';
 import YourChat from './YourChat';
 
-function ChattingBox({ date }) {
-    return(
+function ChattingBox({ message }) {
+    // console.log("메시지",message)
+
+    console.log("잘되나유")
+    const renderChat = () => {
+        if (message.userKey === 8) {
+            return <MyChat text={message.chat} />;
+        } else {
+            return <YourChat text={message.chat} />;
+        }
+    };
+
+    return (
         <div className={style['chatting-box']}>
-            <div className={style['date-box']}>{date}</div>
+            <div className={style['date-box']}>{message.date}</div>
             <div className={style['chatting']}>
-                <MyChat text='안녕!'/>
-                <YourChat text='안녕~!'/>
-                <MyChat text='만나서 반가워'/>
+                {renderChat()}
             </div>
         </div>
-    )
+    );
 }
 
 export default ChattingBox;

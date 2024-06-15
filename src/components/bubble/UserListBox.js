@@ -1,20 +1,27 @@
-import { useState } from 'react'
-import '../../styles/common/Style.css'
-import style from '../../styles/bubble/UserListBox.module.css'
-import InputBox from './InputBox'
+import React, { useState } from 'react';
+import '../../styles/common/Style.css';
+import style from '../../styles/bubble/UserListBox.module.css';
+import InputBox from './InputBox';
+import DefaultUserList from './DefaultUserList';
+import FilteredUserList from './FilteredUserList';
 
-import DefaultUserList from './DefaultUserList'
-import FilteredUserList from './FilteredUserList'
+function UserListBox({ rooms, users, handleRoomClick }) {
+    const [searchValue, setSearchValue] = useState('');
 
+    const handleInputChange = (value) => {
+        setSearchValue(value);
+    };
 
-function UserBox() {
-    const [ searhValue, setSearchValue ] = useState('');
-    return(
+    return (
         <div className={style['box']}>
-            <InputBox value={searhValue} setValue={setSearchValue}/>
-            {searhValue ? <FilteredUserList searhValue={searhValue}/> : <DefaultUserList/>}
+            <InputBox value={searchValue} setValue={handleInputChange} />
+            {searchValue ? (
+                <FilteredUserList searchValue={searchValue} rooms={rooms} handleRoomClick={handleRoomClick} />
+            ) : (
+                <DefaultUserList rooms={rooms} handleRoomClick={handleRoomClick} />
+            )}
         </div>
-    )
+    );
 }
 
-export default UserBox;
+export default UserListBox;
