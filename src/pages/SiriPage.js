@@ -6,13 +6,13 @@ import DesktopPage from './DesktopPage';
 import axios from 'axios';
 
 function SiriPage() {
-    const [logContent, setLogContent] = useState('');
+    const [logContent, setLogContent] = useState('도움이 필요하시면 "시리야"를 불러주세요');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3001/api/logs');
-                setLogContent(response.data);
+                setLogContent(response.data || '도움이 필요하시면 "시리야"를 불러주세요');
             } catch (error) {
                 console.error('로그 가져오기 오류:', error);
             }
@@ -37,3 +37,4 @@ function SiriPage() {
 }
 
 export default SiriPage;
+
