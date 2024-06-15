@@ -46,7 +46,7 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
     const cilckedHeart = async (index) => {
         const selectedItem = searchList[index];
         try {
-            const request = await axios.post(`${process.env.REACT_APP_MAPHOST1}/bookmarks`, {
+            const request = await axios.post(`${process.env.REACT_APP_MAPHOST}/bookmarks`, {
                 locationName: selectedItem.place_name,
                 latitude: selectedItem.y,
                 longitude: selectedItem.x
@@ -79,7 +79,7 @@ function SearchResultComponent({ isOpen, searchList, data, setData, currentLatit
         }
 
         try {
-            const request = await axios.delete(`${process.env.REACT_APP_MAPHOST1}/bookmarks/${itemToDelete.id}`);
+            const request = await axios.delete(`${process.env.REACT_APP_MAPHOST}/bookmarks/${itemToDelete.id}`);
             if (request.status === 204) {
                 console.log("즐겨찾기 삭제 성공");
                 setBookmarkedIndices(prevIndices => prevIndices.filter(idx => idx !== index));
