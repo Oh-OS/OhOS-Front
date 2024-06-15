@@ -18,7 +18,7 @@ function Map() {
     const [data, setData] = useState([]);
     async function fetchData() {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_MAPHOST1}/bookmarks`);
+            const response = await axios.get(`${process.env.REACT_APP_MAPHOST}/bookmarks`);
             if (response.status === 200) {
                 console.log("데이터 불러오기 성공");
                 setData(response.data);
