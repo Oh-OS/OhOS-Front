@@ -5,7 +5,8 @@ import playsound
 import speech_recognition as sr
 from gtts import gTTS
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 
 openai.api_key = ""
 
@@ -73,7 +74,8 @@ def create_prompt(user_input, context=""):
     사용자: {user_input}
     {context}
     """
-driver = webdriver.Chrome() 
+
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 driver.get("http://localhost:3000")
 
 while True:
@@ -99,7 +101,7 @@ while True:
             content = page
             print(f"페이지로 이동: {page}")
             driver.get(page)
-            voice_recognition_started = False 
+            voice_recognition_started = False
             continue
 
         try:
@@ -114,6 +116,12 @@ while True:
                 {'role': 'system', 'content': '당신은 Siri, 가상 비서입니다. 당신은 도움이 되고, 창의적이며, 영리하고 매우 친절합니다.'},
                 {'role': 'user', 'content': prompt},
             ]
+
+        if '굿바이' in prompt:
+            text_to_voice("시리를 종료합니다.")
+            print("시리를 종료합니다.")
+            log_to_file("시리를 종료합니다.")
+            break
 
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
