@@ -14,7 +14,6 @@ function DefaultUserList({ rooms, handleRoomClick }) {
             try {
                 const res = await axios.get(`${process.env.REACT_APP_BUBBLEHOST}/recent-messages`);
                 setLastMessages(res.data); 
-                console.log(res.data)
             } catch (error) {
                 console.error('Error fetching recent messages:', error);
             }
