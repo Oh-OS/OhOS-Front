@@ -46,7 +46,7 @@
 }
 
 .chat-input{
-    width: calc(92% - 20px);
+    width: 94%;
     padding-left: 20px;
     height: 40px;
     border: 2px solid var(--gray-600);
