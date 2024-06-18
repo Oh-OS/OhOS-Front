@@ -49,17 +49,17 @@ function Chat({ name, room, socket }) {
         }
     };
 
-    const handleButtonClick = () => {
-        fileInput.current.click();
-    };
+    // const handleButtonClick = () => {
+    //     fileInput.current.click();
+    // };
 
-    const handleChange = (e) => {
-        const correctForm = /(.*?)\.(jpg|jpeg|gif|bmp|png)$/;
-        if (!e.target.files[0].name.match(correctForm)) {
-            return alert("이미지 파일만 업로드 가능합니다.");
-        }
-        console.log(e.target.files[0]);
-    };
+    // const handleChange = (e) => {
+    //     const correctForm = /(.*?)\.(jpg|jpeg|gif|bmp|png)$/;
+    //     if (!e.target.files[0].name.match(correctForm)) {
+    //         return alert("이미지 파일만 업로드 가능합니다.");
+    //     }
+    //     console.log(e.target.files[0]);
+    // };
 
     return (
         <div className={style['chat-box']}>
@@ -79,9 +79,8 @@ function Chat({ name, room, socket }) {
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                 />
-                <Icon icon="carbon:image" className={style['send-img']} onClick={handleButtonClick} />
+                {/* <Icon icon="carbon:image" className={style['send-img']} onClick={handleButtonClick} /> */}
                 <Icon icon="mingcute:send-line" className={style['send-message']} onClick={handleSendMessage} />
-                <input type="file" ref={fileInput} onChange={handleChange} style={{ display: "none" }} accept='image/*' />
             </div>
         </div>
     );
