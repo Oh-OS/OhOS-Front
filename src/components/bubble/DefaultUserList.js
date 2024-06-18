@@ -21,7 +21,7 @@ function DefaultUserList({ rooms, handleRoomClick }) {
         };
 
         getLastMessages();
-    }, []); // Run once on component mount
+    }, [lastMessages]);
 
     return (
         <div className={style['list']}>
